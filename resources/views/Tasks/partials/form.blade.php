@@ -3,15 +3,6 @@
 <input type="hidden" name="subject_type" value="{{$subjecttype}}">
 
 <div class="form-group">
-    <label class="col-lg-2 control-label">Task for</label>
-    <div class="col-lg-10">
-        <p class="form-control-static">{{$subjecttype}}
-        </p>
-    </div>
-</div>
-<div class="hr-line-dashed"></div>
-
-<div class="form-group">
 
     <label class="col-lg-2 control-label" for="title">Title</label>
     <div class="col-lg-10">
@@ -25,7 +16,8 @@
     <label class="col-lg-2 control-label" for="status">Status</label>
     <div class="col-lg-10">
         <div class="i-checks"><label> {!! Form::radio('status', 'Open', true) !!}  <i></i> Open </label></div>
-        <div class="i-checks"><label> {!! Form::radio('status', 'Closed') !!}  <i></i> Closed </label></div>
+        <div class="i-checks"><label> {!! Form::radio('status', 'Complete') !!}  <i></i> Complete </label></div>
+        <div class="i-checks"><label> {!! Form::radio('status', 'Cancelled') !!}  <i></i> Cancelled </label></div>
     </div>
 
 </div>
@@ -53,14 +45,14 @@
 <div class="form-group" id="StartDate">
     <label id="datelabel" class="col-lg-2 control-label" for="StartDate">Start Date</label>
     <div class="input-group date col-lg-10">
-        <span class="input-group-addon"><i class="fa fa-calendar"></i></span> {!! Form::text('StartDate', null  , ['class'=>'form-control']) !!}
+        <span class="input-group-addon"><i class="fa fa-calendar"></i></span> {!! Form::text('StartDate', isset($task) ? $task->StartDate->format('d F Y') : null  , ['class'=>'form-control']) !!}
     </div>
 </div>
 
 <div class="form-group" id="EndDate">
     <label class="col-lg-2 control-label" for="NextReviewDate">End Date</label>
     <div class="input-group date col-lg-10">
-        <span class="input-group-addon"><i class="fa fa-calendar"></i></span> {!! Form::text('EndDate', null  , ['class'=>'form-control']) !!}
+        <span class="input-group-addon"><i class="fa fa-calendar"></i></span> {!! Form::text('EndDate', isset($task) ? isset($task->EndDate) ? $task->EndDate->format('d F Y'): null : null  , ['class'=>'form-control']) !!}
     </div>
 </div>
 

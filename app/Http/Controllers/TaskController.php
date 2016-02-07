@@ -14,67 +14,64 @@ use tracker\Models\WorkStream;
 
 class TaskController extends Controller
 {
-    public function createWorkstreamTask($programid, $workstreamid)
+
+    public function indexWorkstreamTask($programid, $workstreamid, Request $request)
     {
-        $program = Program::findOrFail($programid);
 
-        $workstream = WorkStream::findOrFail($workstreamid);
+        return $this->indexTask('WorkStream', $workstreamid, $request);
 
-        $title = "Create new Task for the $workstream->name Workstream";
-
-        $breadcrumbs[] = ['Home',  URL::asset('/home'), false];
-        $breadcrumbs[] = ['Programs',  URL::asset('programs'), false];
-        $breadcrumbs[] = [$program->name,   URL::asset('/')."/programs/$programid", false];
-        $breadcrumbs[] = ['Workstreams',  '', false];
-        $breadcrumbs[] = [$workstream->name,  URL::asset('/')."/programs/$programid/workstreams/$workstreamid", false];
-        $breadcrumbs[] = ['Tasks', '', false];
-        $breadcrumbs[] = ['Create',  URL::asset('/')."/programs/$programid/workstreams/$workstreamid/tasks/create", true];
-
-        $redirect = "/programs/$programid/workstreams/$workstreamid";
-
-        //return $breadcrumbs;
-
-        return $this->create($workstreamid, 'Workstream', $title, $breadcrumbs, $redirect);
     }
 
-    public function editWorkstreamTask($programid, $workstreamid, $taskid)
+
+    public function indexTask($subjecttype, $subjectid, Request $request)
     {
 
-        $program = Program::findOrFail($programid);
 
-        $workstream = WorkStream::findOrFail($workstreamid);
+        $title = "Tasks for $subjecttype ".$this->getSubjectName($subjecttype, $subjectid);
 
-        $task = Task::findorFail($taskid);
+        $breadcrumbs = $this->getBreadCrumb($subjecttype, $subjectid);
 
-        //return "Owner id: $risk->owner , Owner Name: $risk->OwnerName";
+        $redirect = $request->server('HTTP_REFERER');
 
-        $title = "Edit $task->title for the $workstream->name Workstream";
+        $tasks = Task::where('subject_type', $subjecttype)->where('subject_id', $subjectid)->get();
 
-        $breadcrumbs[] = ['Home',  URL::asset('/home'), false];
-        $breadcrumbs[] = ['Programs',  URL::asset('programs'), false];
-        $breadcrumbs[] = [$program->name,   URL::asset('/')."/programs/$programid", false];
-        $breadcrumbs[] = ['Workstreams',  '', false];
-        $breadcrumbs[] = [$workstream->name,  URL::asset('/')."/programs/$programid/workstreams/$workstreamid", false];
-        $breadcrumbs[] = ['Tasks', '', false];
-        $breadcrumbs[] = [$task->title, '', false];
-        $breadcrumbs[] = ['Edit',  URL::asset('/')."/programs/$programid/workstreams/$workstreamid/tasks/$taskid/edit", true];
+        return view('Tasks.index', compact('subjectid', 'subjecttype', 'tasks', 'title', 'breadcrumbs'));
 
-        $redirect = "/programs/$programid/workstreams/$workstreamid";
-
-        //return $risk->NextReviewDate;
-
-        return $this->edit($task, $title, $breadcrumbs, $redirect);
     }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create($subjectid, $subjecttype, $title, $breadcrumbs, $redirect )
+    public function createTask($subjecttype, $subjectid, Request $request)
     {
+
+
+        $title = "Create new Task for $subjecttype ".$this->getSubjectName($subjecttype, $subjectid);
+
+        $breadcrumbs = $this->getBreadCrumb($subjecttype, $subjectid);
+        $breadcrumbs[] = ['Create', '', false];
+
+        $redirect = $request->server('HTTP_REFERER');
+        //return $redirect;
         return view('Tasks.create', compact('subjectid', 'subjecttype', 'title', 'breadcrumbs', 'redirect'));
+
     }
+
+    public function editTask($taskid, Request $request)
+    {
+        $task = Task::findOrFail($taskid);
+
+        $subjectid = $task->subject_id;
+        $subjecttype = $task->subject_type;
+
+        $title = "Edit Task $task->title for $task->subject_type ".$this->getSubjectName($subjecttype, $subjectid);
+
+        $breadcrumbs = $this->getBreadCrumb($subjecttype, $subjectid);
+        $breadcrumbs[] = [$task->title, '', false];
+        $breadcrumbs[] = ['Edit', '', false];
+
+        $redirect = $request->server('HTTP_REFERER');
+
+
+        return view('Tasks.edit', compact('task', 'title', 'breadcrumbs', 'redirect', 'subjectid', 'subjecttype'));
+    }
+
 
     /**
      * Store a newly created resource in storage.
@@ -127,18 +124,6 @@ class TaskController extends Controller
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($task, $title, $breadcrumbs, $redirect)
-    {
-        $subjectid = $task->subject_id;
-        $subjecttype = $task->subject_type;
-        return view('Tasks.edit', compact('task', 'title', 'breadcrumbs', 'redirect', 'subjectid', 'subjecttype'));
-    }
 
     /**
      * Update the specified resource in storage.
@@ -186,5 +171,38 @@ class TaskController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    protected function getBreadCrumb($subjecttype, $subjectid)
+    {
+        $breadcrumbs[] = ['Home',  URL::asset('/home'), false];
+
+        switch($subjecttype)
+        {
+            case "WorkStream":
+                $workstream = WorkStream::findOrFail($subjectid);
+                $program = Program::findOrFail($workstream->program_id);
+                $programid = $program->id;
+                $workstreamid = $workstream->id;
+
+                $breadcrumbs[] = ['Programs',  URL::asset('programs'), false];
+                $breadcrumbs[] = [$program->name,   URL::asset('/')."/programs/$programid", false];
+                $breadcrumbs[] = ['Workstreams',  '', false];
+                $breadcrumbs[] = [$workstream->name,  URL::asset('/')."/programs/$programid/workstreams/$workstreamid", false];
+                $breadcrumbs[] = ['Tasks', '', false];
+                return $breadcrumbs;
+                break;
+        }
+    }
+
+    protected function getSubjectName($subjecttype, $subjectid)
+    {
+        switch($subjecttype)
+        {
+            case "WorkStream":
+                $workstream = WorkStream::findOrFail($subjectid);
+                return $workstream->name;
+                break;
+        }
     }
 }

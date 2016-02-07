@@ -44,7 +44,9 @@ Route::patch('risksandissues/{id}', ['middleware'=>'auth', 'uses' => 'RiskAndIss
 Route::post('tasks', ['middleware'=>'auth', 'uses' =>  'TaskController@store'] );
 Route::patch('tasks/{id}', ['middleware'=>'auth', 'uses' => 'TaskController@update'] );
 
-Route::get('programs/{ProgramID}/workstreams/{WorkstreamID}/tasks/create',['middleware'=>'auth', 'uses' => 'TaskController@createWorkstreamTask' ] );
-Route::get('programs/{ProgramID}/workstreams/{WorkstreamID}/tasks/{id}/edit', ['middleware'=>'auth', 'uses' => 'TaskController@editWorkstreamTask'] );
+Route::get('programs/{ProgramID}/workstreams/{WorkstreamID}/tasks',[ 'uses' => 'TaskController@indexWorkstreamTask' ] );
+
+Route::get('tasks/create/{subjecttype}/{subjectid}',['middleware'=>'auth', 'uses' => 'TaskController@createTask' ] );
+Route::get('tasks/{id}/edit', ['middleware'=>'auth', 'uses' => 'TaskController@editTask'] );
 
 Route::get('api/getUsers', 'ApiController@getUsers');

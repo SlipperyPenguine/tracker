@@ -117,7 +117,7 @@
         // Create a DataSet (allows two way data-binding)
         var items = new vis.DataSet([
                 @foreach($workstreams as $workstream)
-                    {id: {{$workstream->id}}, @if($workstream->status>0) className: 'graybackground', @endif content: '<a @if($workstream->status>0) style="color:#4c4c4c" @else style="color:white" @endif href="{{ URL::asset('programs/') }}/{{$program['id']}}/workstreams/{{$workstream['id']}}">{{$workstream->name}}</a>', start: '{{date_format($workstream->StartDate,'Y-m-d')}}', end: '{{date_format($workstream->EndDate,'Y-m-d')}}'},
+                    {id: {{$workstream->id}}, @if($workstream->status>0) className: 'graybackground', @endif content: '<a  style="color:white" href="{{ URL::asset('programs/') }}/{{$program['id']}}/workstreams/{{$workstream['id']}}">{{$workstream->name}}</a>', start: '{{date_format($workstream->StartDate,'Y-m-d')}}', end: '{{date_format($workstream->EndDate,'Y-m-d')}}'},
                 @endforeach
 
                 //Add the background

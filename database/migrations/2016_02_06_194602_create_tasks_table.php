@@ -22,8 +22,8 @@ class CreateTasksTable extends Migration
             $table->string('title');
             $table->text('description');
             $table->boolean('milestone');
-            $table->date('StartDate');
-            $table->date('EndDate')->nullable();
+            $table->dateTime('StartDate');
+            $table->dateTime('EndDate')->nullable();
             $table->timestamps();
         });
     }

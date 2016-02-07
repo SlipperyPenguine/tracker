@@ -185,7 +185,7 @@
 
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
-                    <h5><i class="fa fa-calendar"></i> Tasks and Milestones</h5>
+                    <a class="darktext" href="{{ URL::asset('programs/') }}/{{$program->id}}/workstreams/{{$workstream->id}}/tasks"><h5 ><i class="fa fa-calendar"></i> Tasks and Milestones</h5></a>
                     <div class="ibox-tools">
                         <a class="collapse-link">
                             <i class="fa fa-chevron-up"></i>
@@ -229,9 +229,9 @@
 
                                 <td>{{$task['title']}}</td>
                                 <td>{{$task['status']}}</td>
-                                <td>{{ ($task['StartDate']->diff(\Carbon\Carbon::now())->days < 1) ? 'today' : $task['StartDate']->diffForHumans()}} <br/><small>( {{$task['StartDate']->format('d M y')}} )</small></td>
-                                <td>@if($task->milestone==0) {{$task['EndDate']}} @endif</td>
-                                <td><a href="{{action('TaskController@editWorkstreamTask', [$program->id, $workstream->id, $task->id])}}" class="btn btn-white btn-sm"><i class="fa fa-pencil"></i> Edit </a></td>
+                                <td><i class="fa fa-clock-o"></i> {{ ($task['StartDate']->diff(\Carbon\Carbon::now())->days < 1) ? 'today' : $task['StartDate']->diffForHumans()}} <br/> &nbsp;&nbsp;&nbsp; <small>( {{$task['StartDate']->format('d M y')}} )</small></td>
+                                <td>@if($task->milestone==0)<i class="fa fa-clock-o"></i> {{ ($task['EndDate']->diff(\Carbon\Carbon::now())->days < 1) ? 'today' : $task['EndDate']->diffForHumans()}} <br/>&nbsp;&nbsp;&nbsp;<small>( {{$task['EndDate']->format('d M y')}} )</small> @endif</td>
+                                <td><a href="{{action('TaskController@editTask', [$task->id])}}" class="btn btn-white btn-sm"><i class="fa fa-pencil"></i> Edit </a></td>
 
 
                             </tr>
@@ -242,7 +242,10 @@
                     </table>
                 </div>
                 <div class="ibox-footer">
-                    <a href="{{action('TaskController@createWorkstreamTask', [$program->id, $workstream->id])}}" class="btn btn-primary btn-sm">Add new Task</a>
+                    <div class="pull-right">
+                        <a href="{{action('TaskController@indexWorkstreamTask', [$program->id, $workstream->id])}}" class="btn btn-white"><i class="fa fa-folder"></i> View All </a>
+                    </div>
+                    <a href="{{action('TaskController@createTask', ['WorkStream', $workstream->id])}}" class="btn btn-primary btn-sm">Add new Task</a>
                 </div>
             </div>
         </div>
@@ -449,7 +452,7 @@
         // Create a DataSet (allows two way data-binding)
         var items = new vis.DataSet([
                 @foreach($workstream->Tasks as $task)
-            {id: {{$task->id}}, content: '<a style="color:white" href="{{ URL::asset('programs/') }}/{{$program['id']}}/workstreams/{{$workstream['id']}}/tasks/{{$task['id']}}">{{$task->title}}</a>', start: '{{date_format($task->StartDate,'Y-m-d')}}'},
+            {id: {{$task->id}}, @if($task->status!='Open') className: 'graybackground', @endif content: '<a style="color:white" href="{{ URL::asset('programs/') }}/{{$program['id']}}/workstreams/{{$workstream['id']}}/tasks/{{$task['id']}}">{{$task->title}}</a>', start: '{{date_format($task->StartDate,'Y-m-d')}}' @if($task->milestone==0) , end: '{{date_format($task->EndDate,'Y-m-d')}}'  @endif  },
             @endforeach
 
         ]);
@@ -461,3 +464,4 @@
         var timeline = new vis.Timeline(container, items, options);
     </script>
 @endsection
+

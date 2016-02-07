@@ -7478,3 +7478,10 @@ body.skin-3 {
     display: none;
   }
 }
+
+
+
+/* JB ADDED */
+.darktext {
+  color: #5e5e5e;
+}
