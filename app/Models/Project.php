@@ -10,6 +10,27 @@ class Project extends Model
 
     protected $appends = array('StatusText');
 
+    public static function boot()
+    {
+        parent::boot();
+
+        static::created(function($project){
+            $project->AddStandardRAGs();
+
+        });
+    }
+
+    protected function AddStandardRAGs()
+    {
+        rag::create(array('subject_id' => $this->id, 'subject_type' => 'Project' ,'title' => 'Resource', 'value' => 'G', 'comments' => '' ));
+        rag::create(array('subject_id' => $this->id, 'subject_type' => 'Project' ,'title' => 'Schedule', 'value' => 'G', 'comments' => '' ));
+        rag::create(array('subject_id' => $this->id, 'subject_type' => 'Project' ,'title' => 'Costs', 'value' => 'G', 'comments' => '' ));
+        rag::create(array('subject_id' => $this->id, 'subject_type' => 'Project' ,'title' => 'Quality', 'value' => 'G', 'comments' => '' ));
+        rag::create(array('subject_id' => $this->id, 'subject_type' => 'Project' ,'title' => 'Benefits', 'value' => 'G', 'comments' => '' ));
+        rag::create(array('subject_id' => $this->id, 'subject_type' => 'Project' ,'title' => 'Infrastructure', 'value' => 'G', 'comments' => '' ));
+        rag::create(array('subject_id' => $this->id, 'subject_type' => 'Project' ,'title' => 'Risks & Issues', 'value' => 'G', 'comments' => '' ));
+    }
+
     public function Program() {
 
         return $this->belongsTo('tracker\Models\Program',  'program_id', 'id');
