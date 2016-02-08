@@ -36,6 +36,7 @@ class SeedUsers extends Seeder
         User::create(array('email' => 'charlie.tasker@syngenta.com', 'password' => bcrypt('admin'), 'name' => 'Charlie Tasker', 'superUser' => true, 'avatar'=>'\\img\\avatars\\no_avatar.png' ));
         User::create(array('email' => 'Robert.wurtz@syngenta.com', 'password' => bcrypt('admin'), 'name' => 'Robert Wurtz', 'superUser' => true, 'avatar'=>'\\img\\avatars\\no_avatar.png' ));
         User::create(array('email' => 'Lukas.schmutz@syngenta.com', 'password' => bcrypt('admin'), 'name' => 'Lukas Schmutz', 'superUser' => true, 'avatar'=>'\\img\\avatars\\no_avatar.png' ));
+        User::create(array('email' => 'nasir.akhtar@syngenta.com', 'password' => bcrypt('admin'), 'name' => 'Nasir Akhtar', 'superUser' => true, 'avatar'=>'\\img\\avatars\\no_avatar.png' ));
 
 
     }
