@@ -1,6 +1,6 @@
 @extends('layouts.main')
 
-@section('heading'){{ $workstream->name }} @endsection
+@section('heading'){{ $project->name }} @endsection
 @section('breadcrumbs')
     <li>
         <a href="{{ URL::asset('/home') }}">Home</a>
@@ -14,8 +14,14 @@
     <li>
         Workstreams
     </li>
-    <li class="active">
+    <li>
         <strong><a href="{{ URL::asset('programs/') }}/{{$program->id}}/workstreams/{{$workstream->id}}">{{$workstream->name}}</a></strong>
+    </li>
+    <li>
+        Projects
+    </li>
+    <li class="active">
+        <strong><a href="{{ URL::asset('programs/') }}/{{$program->id}}/workstreams/{{$workstream->id}}/projects/{{$project->id}}">{{$project->name}}</a></strong>
     </li>
 @endsection
 
@@ -30,7 +36,7 @@
                     </div>
                     <div class="col-xs-8 text-right">
                         <span> Active Projects </span>
-                        <h2 class="font-bold">{{$workstream->ActiveProjectCount}}</h2>
+                        <h2 class="font-bold">N/A</h2>
                     </div>
                 </div>
             </div>
@@ -44,7 +50,7 @@
                     </div>
                     <div class="col-xs-8 text-right">
                         <span> Risks</span>
-                        <h2 class="font-bold">{{$workstream->ActiveRiskCount}}</h2>
+                        <h2 class="font-bold">{{$project->ActiveRiskCount}}</h2>
                     </div>
                 </div>
             </div>
@@ -58,7 +64,7 @@
                     </div>
                     <div class="col-xs-8 text-right">
                         <span> Issues </span>
-                        <h2 class="font-bold">{{$workstream->ActiveIssueCount}}</h2>
+                        <h2 class="font-bold">{{$project->ActiveIssueCount}}</h2>
                     </div>
                 </div>
             </div>
@@ -72,7 +78,7 @@
                     </div>
                     <div class="col-xs-8 text-right">
                         <span> Active Tasks </span>
-                        <h2 class="font-bold">{{$workstream->getActiveTasks()->count()}}</h2>
+                        <h2 class="font-bold">{{$project->getActiveTasks()->count()}}</h2>
                     </div>
                 </div>
             </div>
@@ -87,108 +93,35 @@
             <div class="ibox float-e-margins">
 
                 <div class="ibox-content">
-                    <span class="widget style1 navy-bg pull-right">Active</span>
-                    <H3>{{$workstream['name']}}</H3>
-                    <div class="">
-                        <H4>part of {{$program['name']}}, Phase {{$workstream['phase']}}</H4>
-                        <div>{{$workstream['description']}}</div>
-                    </div>
-                </div>
-            </div>
 
-            <div class="ibox float-e-margins">
-                <div class="ibox-title">
-                    <h5><i class="fa fa-tasks"></i> Projects</h5>
-                    <div class="ibox-tools">
-                        <a class="collapse-link">
-                            <i class="fa fa-chevron-up"></i>
-                        </a>
-                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                            <i class="fa fa-wrench"></i>
-                        </a>
-                        <ul class="dropdown-menu dropdown-user">
-                            <li><a href="#">Config option 1</a>
-                            </li>
-                            <li><a href="#">Config option 2</a>
-                            </li>
-                        </ul>
-                        <a class="close-link">
-                            <i class="fa fa-times"></i>
-                        </a>
-                    </div>
-                </div>
-                <div class="ibox-content ">
-                    <div id="timeline"></div>
-                    <br/>
-                    <table class="table table-hover no-margins">
-                        <thead>
+                    <table width="100%">
                         <tr>
-                            <th>Title</th>
-                            <th>PI</th>
-                            <th>RAG</th>
-                            <th>Status</th>
-                            <th></th>
+                            <td>
+                                <H3>{{$project['name']}} @if($project->PI!='') ( {{$project->PI}} )  @endif </H3>
+                                <div class="">
+                                    <H4>part of {{$workstream['name']}}, Phase {{$workstream['phase']}} of {{$program['name']}}</H4>
+                                    <H4><i class="glyphicon glyphicon-road"></i> {{$project->StatusText}}</H4>
+                                    <div>{{$project['description']}}</div>
+                                </div>
+                            </td>
+                            <td valign="centre" class="text-right">
+                                <a href="{{action('ProjectController@edit', [$program->id, $workstream->id, $project->id])}}" class="btn btn-white"><i class="fa fa-pencil"></i> Edit </a>
+                            </td>
                         </tr>
-                        </thead>
-                        <tbody>
-
-                        @foreach($workstream->Projects as $project)
-
-                            <tr>
-
-                                <td class="project-title">
-                                    <a href="{{ URL::asset('programs/') }}/{{$program['id']}}/workstreams/{{$workstream['id']}}/projects/{{$project->id}}">{{$project['name']}}</a>
-                                </td>
-                                <td>{{$project['PI']}}</td>
-
-                                <td class="project-status">
-
-                                    <div class="tooltip-demo">
-
-                                        @foreach($project->RAGs as $rag)
-
-
-
-                                            @if($rag['value']=='R')
-                                                <span class="badge badge-danger" data-toggle="tooltip" data-placement="top" title="{{$rag['title']}}">R</span>
-                                            @elseif($rag['value']=='A')
-                                                <span class="badge badge-warning  " data-toggle="tooltip" data-placement="top" title="{{$rag['title']}}">A</span>
-                                            @else
-                                                <span class="badge badge-primary  " data-toggle="tooltip" data-placement="top" title="{{$rag['title']}}">G</span>
-                                            @endif
-
-                                        @endforeach
-
-                                    </div>
-
-
-                                </td>
-
-                                <td><i class="fa fa-check text-navy"></i> {{$project['StatusText']}} </td>
-
-                                <td class="project-actions">
-                                    <a href="{{ URL::asset('programs/') }}/{{$program['id']}}/workstreams/{{$workstream['id']}}/projects/{{$project->id}}" class="btn btn-white btn-sm"><i class="fa fa-folder"></i> View </a>
-                                    <a href="{{ URL::asset('programs/') }}/{{$program['id']}}/workstreams/{{$workstream['id']}}/projects/{{$project->id}}/edit" class="btn btn-white btn-sm"><i class="fa fa-pencil"></i> Edit </a>
-                                </td>
-
-                            </tr>
-
-                        @endforeach
-
-                        </tbody>
                     </table>
 
 
-                </div>
-                <div class="ibox-footer">
-                    <a href="{{action('ProjectController@create', ['WorkStream', $workstream->id])}}" class="btn btn-primary btn-sm">Add new Project</a>
+
+
+
+
 
                 </div>
             </div>
 
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
-                    <a class="darktext" href="{{ URL::asset('programs/') }}/{{$program->id}}/workstreams/{{$workstream->id}}/tasks"><h5 ><i class="fa fa-calendar"></i> Tasks and Milestones</h5></a>
+                    <a class="darktext" href="{{ URL::asset('programs/') }}/{{$program->id}}/workstreams/{{$workstream->id}}/projects/{{$project->id}}/tasks"><h5 ><i class="fa fa-calendar"></i> Tasks and Milestones</h5></a>
                     <div class="ibox-tools">
                         <a class="collapse-link">
                             <i class="fa fa-chevron-up"></i>
@@ -224,7 +157,7 @@
                         </thead>
                         <tbody>
 
-                        @foreach($workstream->getActiveTasks() as $task)
+                        @foreach($project->getActiveTasks() as $task)
 
                             <tr>
 
@@ -246,9 +179,9 @@
                 </div>
                 <div class="ibox-footer">
                     <div class="pull-right">
-                        <a href="{{action('TaskController@indexWorkstreamTask', [$program->id, $workstream->id])}}" class="btn btn-white"><i class="fa fa-folder"></i> View All </a>
+                        <a href="{{action('TaskController@indexProjectTask', [$program->id, $workstream->id, $project->id])}}" class="btn btn-white"><i class="fa fa-folder"></i> View All </a>
                     </div>
-                    <a href="{{action('TaskController@createTask', ['WorkStream', $workstream->id])}}" class="btn btn-primary btn-sm">Add new Task</a>
+                    <a href="{{action('TaskController@createTask', ['Project', $project->id])}}" class="btn btn-primary btn-sm">Add new Task</a>
                 </div>
             </div>
         </div>
@@ -289,14 +222,14 @@
                         </thead>
                         <tbody>
 
-                        @foreach($workstream->Risks as $risk)
+                        @foreach($project->Risks as $risk)
 
                             <tr>
                                 <td>@if($risk['is_an_issue'])<span class="label label-danger">Issue</span> @else <span class="label label-warning">Risk</span> @endif </td>
                                 <td>{{$risk['title']}}</td>
                                 <td> {!! tracker\Helpers\HtmlFormating::FormatHML($risk->probability, true, $risk->previous_probability) !!}   </td>
                                 <td> {!! tracker\Helpers\HtmlFormating::FormatHML($risk->impact, true, $risk->previous_impact)  !!} </td>
-                                <td><a href="{{action('RiskAndIssueController@editWorkstreamRiskOrIssue', [$program->id, $workstream->id, $risk->id])}}" class="btn btn-white btn-sm"><i class="fa fa-pencil"></i> Edit </a></td>
+                                <td><a href="{{action('RiskAndIssueController@editRisk', [$risk->id])}}" class="btn btn-white btn-sm"><i class="fa fa-pencil"></i> Edit </a></td>
                             </tr>
 
                         @endforeach
@@ -306,7 +239,7 @@
 
                 </div>
                 <div class="ibox-footer">
-                    <a href="{{action('RiskAndIssueController@createWorkstreamRiskOrIssue', [$program->id, $workstream->id])}}" class="btn btn-primary btn-sm">Add new Risk or Issue</a>
+                    <a href="{{action('RiskAndIssueController@createRisk', ['Project', $project->id])}}" class="btn btn-primary btn-sm">Add new Risk or Issue</a>
                 </div>
             </div>
             <div class="ibox float-e-margins">
@@ -343,7 +276,7 @@
                         </thead>
                         <tbody>
 
-                        @foreach($workstream->RAGs as $rag)
+                        @foreach($project->RAGs as $rag)
 
                             <tr>
                                 <td>{{$rag['title']}}</td>
@@ -399,7 +332,7 @@
                         </thead>
                         <tbody>
 
-                        @foreach($workstream->Members as $member)
+                        @foreach($project->Members as $member)
 
                             <tr>
                                 <td><img alt="image" height="30" class="img-circle" src="{{ URL::asset($member->User->avatar) }}" /></td>
@@ -422,63 +355,11 @@
         </div>
     </div>
 
-    <div class="row">
-        <div class="col-lg-12">
-
-            <div class="ibox float-e-margins">
-                <div class="ibox-title">
-                    <a class="darktext" href="#"><h5 ><i class="fa fa-calendar"></i> Example Milestone Timeline</h5></a>
-                    <div class="ibox-tools">
-                        <a class="collapse-link">
-                            <i class="fa fa-chevron-up"></i>
-                        </a>
-                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                            <i class="fa fa-wrench"></i>
-                        </a>
-                        <ul class="dropdown-menu dropdown-user">
-                            <li><a href="#">Config option 1</a>
-                            </li>
-                            <li><a href="#">Config option 2</a>
-                            </li>
-                        </ul>
-                        <a class="close-link">
-                            <i class="fa fa-times"></i>
-                        </a>
-                    </div>
-                </div>
-                <div class="ibox-content ">
-                    <div id="milestonetimeline"></div>
-                </div>
-
-            </div>
-        </div>
-    </div>
-
 
 @endsection
 
 @section('scripts')
 
-    <script type="text/javascript">
-        // DOM element where the Timeline will be attached
-        var container = document.getElementById('timeline');
-
-        // Create a DataSet (allows two way data-binding)
-        var items = new vis.DataSet([
-                @foreach($workstream->Projects as $project)
-            {id: {{$project->id}}, content: '<a style="color:white" href="{{ URL::asset('programs/') }}/{{$program['id']}}/workstreams/{{$workstream['id']}}/projects/{{$project['id']}}">{{$project->name}}</a>', start: '{{date_format($project->StartDate,'Y-m-d')}}', end: '{{date_format($project->EndDate,'Y-m-d')}}'},
-            @endforeach
-
-            //Add the background
-            {id: 'A','className': 'blacktext', content: '{{$workstream->name}}', start: '{{ date_format($workstream->StartDate,'Y-m-d')}}', end: '{{date_format($workstream->EndDate,'Y-m-d')}}', type: 'background'}
-        ]);
-
-        // Configuration for the Timeline
-        var options = {};
-
-        // Create a Timeline
-        var timeline = new vis.Timeline(container, items, options);
-    </script>
 
     <script type="text/javascript">
         // DOM element where the Timeline will be attached
@@ -486,8 +367,11 @@
 
         // Create a DataSet (allows two way data-binding)
         var items = new vis.DataSet([
-                @foreach($workstream->getActiveTasks() as $task)
-            {id: {{$task->id}}, @if($task->status!='Open') className: 'graybackground', @endif content: '<a style="color:white" href="{{ URL::asset('programs/') }}/{{$program['id']}}/workstreams/{{$workstream['id']}}/tasks/{{$task['id']}}">{{$task->title}}</a>', start: '{{date_format($task->StartDate,'Y-m-d')}}' @if($task->milestone==0) , end: '{{date_format($task->EndDate,'Y-m-d')}}'  @endif  },
+            //Add the background
+            {id: 'A','className': 'blacktext', content: '{{$project->name}}', start: '{{ date_format($project->StartDate,'Y-m-d')}}', end: '{{date_format($project->EndDate,'Y-m-d')}}', type: 'background'},
+
+            @foreach($project->getActiveTasks() as $task)
+            {id: {{$task->id}}, @if($task->status!='Open') className: 'graybackground', @endif content: '<a style="color:white" href="{{ URL::asset('programs/') }}/{{$program['id']}}/workstreams/{{$workstream['id']}}/projects/{{$project->id}}/tasks/{{$task['id']}}">{{$task->title}}</a>', start: '{{date_format($task->StartDate,'Y-m-d')}}' @if($task->milestone==0) , end: '{{date_format($task->EndDate,'Y-m-d')}}'  @endif  },
             @endforeach
 
         ]);
@@ -498,39 +382,5 @@
         // Create a Timeline
         var timeline = new vis.Timeline(container, items, options);
     </script>
-
-
-    <script type="text/javascript">
-        // DOM element where the Timeline will be attached
-        var container = document.getElementById('milestonetimeline');
-
-        // Create a DataSet (allows two way data-binding)
-        var items = new vis.DataSet([
-                @foreach($workstream->Projects as $project)
-
-                    @foreach($project->Tasks as $task)
-                        @if($task->milestone==1) {id: {{$task->id}},'className': 'pointblacktext', content: '{{$task->title}}', start: '{{date_format($task->StartDate,'Y-m-d')}}', group: {{$project->id}}    }, @endif
-                     @endforeach
-
-                @endforeach
-
-        ]);
-
-        var groups = new vis.DataSet([
-
-                @foreach($workstream->Projects as $project)
-                   {id: {{$project->id}}, content: '{{$project->name}}' },
-               @endforeach
-        ]);
-        // Configuration for the Timeline
-        var options = {
-            // Set global item type. Type can also be specified for items individually
-            // Available types: 'box' (default), 'point', 'range', 'rangeoverflow'
-            type: 'point'
-        };
-        // Create a Timeline
-        var timeline = new vis.Timeline(container, items, groups, options);
-    </script>
-
 @endsection
 

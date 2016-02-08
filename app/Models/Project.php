@@ -24,7 +24,7 @@ class Project extends Model
 
     public function Members() {
 
-        return $this->hasMany('tracker\Models\ProjectMember', 'project_id', 'id');
+        return $this->hasMany('tracker\Models\Member', 'subject_id', 'id')->where('subject_type', 'Project');
 
     }
 
@@ -37,12 +37,17 @@ class Project extends Model
         return $this->hasMany('tracker\Models\Risk', 'subject_id', 'id')->where('subject_type', 'Project');
     }
 
+    public function Tasks() {
+        return $this->hasMany('tracker\Models\Task', 'subject_id', 'id')->where('subject_type', 'Project');
+    }
+
+
     public function getStatusTextAttribute()
     {
         switch($this->Status)
         {
             case 0:
-                return $this->Status.' Pre Gate 1';
+                return 'Pre Gate 1';
             case 1:
                 return 'Post Gate 1, concept paper approved';
             case 2:
@@ -58,5 +63,25 @@ class Project extends Model
             default:
                 Return 'Unknown';
         }
+    }
+
+    public function getActiveRiskCountAttribute()
+    {
+        return $this->Risks()->where('is_an_issue', 0)->where('status', 'Open')->count();
+    }
+
+    public function getActiveIssueCountAttribute()
+    {
+        return $this->Risks()->where('is_an_issue', 1)->where('status', 'Open')->count();
+    }
+
+    public function getActiveTaskCountAttribute()
+    {
+        return $this->Tasks()->where('status', 'Open')->count();
+    }
+
+    public function getActiveTasks()
+    {
+        return $this->Tasks()->Active()->get();
     }
 }

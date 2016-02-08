@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\URL;
+use tracker\Helpers\Breadcrumbs;
 use tracker\Http\Requests;
 use tracker\Http\Controllers\Controller;
 use tracker\Http\Requests\CreateRiskRequest;
@@ -75,6 +76,42 @@ class RiskAndIssueController extends Controller
         //return $risk->NextReviewDate;
 
         return $this->edit($risk, $title, $breadcrumbs, $redirect);
+    }
+
+    public function createRisk($subjecttype, $subjectid, Request $request)
+    {
+
+
+        $title = "Create new Risk or Issue for $subjecttype ".Breadcrumbs::getSubjectName($subjecttype, $subjectid);
+
+        $breadcrumbs = Breadcrumbs::getBreadCrumb($subjecttype, $subjectid);
+        $breadcrumbs[] = ['Risks', '', false];
+        $breadcrumbs[] = ['Create', '', false];
+
+        $redirect = $request->server('HTTP_REFERER');
+        //return $redirect;
+        return view('RisksAndIssues.create', compact('subjectid', 'subjecttype', 'title', 'breadcrumbs', 'redirect'));
+
+    }
+
+    public function editRisk($riskid, Request $request)
+    {
+        $risk = Risk::findOrFail($riskid);
+
+        $subjectid = $risk->subject_id;
+        $subjecttype = $risk->subject_type;
+
+        $title = "Edit Risk $risk->title for $risk->subject_type ".Breadcrumbs::getSubjectName($subjecttype, $subjectid);
+
+        $breadcrumbs = Breadcrumbs::getBreadCrumb($subjecttype, $subjectid);
+        $breadcrumbs[] = ['Risks', '', false];
+        $breadcrumbs[] = [$risk->title, '', false];
+        $breadcrumbs[] = ['Edit', '', false];
+
+        $redirect = $request->server('HTTP_REFERER');
+
+
+        return view('RisksAndIssues.edit', compact('risk', 'title', 'breadcrumbs', 'redirect', 'subjectid', 'subjecttype'));
     }
 
     /**

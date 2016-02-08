@@ -1303,6 +1303,11 @@ div.vis-color-picker input.vis-range {
     color: black;
 }
 
+.vis-item.pointblacktext {
+    color: black;
+    box-shadow: none;
+}
+
 .vis-item.graybackground {
     color: #4c4c4c;
     background-color: #c5bbbb;

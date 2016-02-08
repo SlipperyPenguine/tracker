@@ -62,4 +62,9 @@ class WorkStream extends Model
     {
         return $this->Tasks()->where('status', 'Open')->count();
     }
+
+    public function getActiveTasks()
+    {
+        return $this->Tasks()->Active()->get();
+    }
 }

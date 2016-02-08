@@ -14,6 +14,7 @@
 
     <link rel="stylesheet"  href="{{ URL::asset('css/animate.css') }}">
     <link rel="stylesheet"  href="{{ URL::asset('css/style.css') }}">
+    <link rel="stylesheet"  href="{{ URL::asset('css/plugins/iCheck/custom.css') }}">
 
 </head>
 
@@ -23,14 +24,12 @@
     <div>
         <div>
 
-            <h1 class="logo-name">IN+</h1>
+            <h1 class="logo-name">OBD</h1>
 
         </div>
-        <h3>Welcome to IN+</h3>
-        <p>Perfectly designed and precisely prepared admin theme with over 50 pages with extra new web app views.
-            <!--Continually expanded and constantly improved Inspinia Admin Them (IN+)-->
-        </p>
-        <p>Login in. To see it in action.</p>
+        <h3>Welcome to the One Biology dashboard</h3>
+
+        <p>Login in is required to add and edit data</p>
         <form class="m-t" role="form" method="post">
             {{csrf_field()}}
             <div class="form-group">
@@ -39,13 +38,22 @@
             <div class="form-group">
                 <input type="password" name="password" class="form-control" placeholder="Password" required="">
             </div>
+
+            <div class="form-group">
+
+
+                    <div class="i-checks"><label class=" control-label" for="remember">Remember Me </label> <label> {!! Form::checkbox('remember', 1, null, ['id' => 'remember']) !!}   <i></i>  </label></div>
+
+            </div>
+
+
             <button type="submit" class="btn btn-primary block full-width m-b">Login</button>
 
             <a href="#"><small>Forgot password?</small></a>
             <p class="text-muted text-center"><small>Do not have an account?</small></p>
             <a class="btn btn-sm btn-white btn-block" href="register.html">Create an account</a>
         </form>
-        <p class="m-t"> <small>Inspinia we app framework base on Bootstrap 3 &copy; 2014</small> </p>
+        <p class="m-t"> <small>Developed by John Booth &copy; 2016</small> </p>
     </div>
 </div>
 
@@ -58,6 +66,19 @@
 <!-- Custom and plugin javascript -->
 <script src="{{ URL::asset('js/inspinia.js') }}"></script>
 <script src="{{ URL::asset('js/plugins/pace/pace.min.js') }}"></script>
+
+<!-- iCheck -->
+<script src="{{ URL::asset('js/plugins/iCheck/icheck.min.js') }}"></script>
+
+<script>
+    $(document).ready(function () {
+        $('.i-checks').iCheck({
+            checkboxClass: 'icheckbox_square-green',
+            radioClass: 'iradio_square-green',
+        });
+
+    });
+</script>
 
 </body>
 

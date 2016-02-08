@@ -6,9 +6,11 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\URL;
+use tracker\Helpers\Breadcrumbs;
 use tracker\Http\Requests;
 use tracker\Http\Controllers\Controller;
 use tracker\Models\Program;
+use tracker\Models\Project;
 use tracker\Models\Task;
 use tracker\Models\WorkStream;
 
@@ -22,14 +24,21 @@ class TaskController extends Controller
 
     }
 
+    public function indexProjectTask($programid, $workstreamid, $projectid, Request $request)
+    {
+
+        return $this->indexTask('Project', $projectid, $request);
+
+    }
 
     public function indexTask($subjecttype, $subjectid, Request $request)
     {
 
 
-        $title = "Tasks for $subjecttype ".$this->getSubjectName($subjecttype, $subjectid);
+        $title = "Tasks for $subjecttype ".Breadcrumbs::getSubjectName($subjecttype, $subjectid);
 
-        $breadcrumbs = $this->getBreadCrumb($subjecttype, $subjectid);
+        $breadcrumbs = Breadcrumbs::getBreadCrumb($subjecttype, $subjectid);
+        $breadcrumbs[] = ['Tasks', '', false];
 
         $redirect = $request->server('HTTP_REFERER');
 
@@ -42,9 +51,10 @@ class TaskController extends Controller
     {
 
 
-        $title = "Create new Task for $subjecttype ".$this->getSubjectName($subjecttype, $subjectid);
+        $title = "Create new Task for $subjecttype ".Breadcrumbs::getSubjectName($subjecttype, $subjectid);
 
-        $breadcrumbs = $this->getBreadCrumb($subjecttype, $subjectid);
+        $breadcrumbs = Breadcrumbs::getBreadCrumb($subjecttype, $subjectid);
+        $breadcrumbs[] = ['Tasks', '', false];
         $breadcrumbs[] = ['Create', '', false];
 
         $redirect = $request->server('HTTP_REFERER');
@@ -60,9 +70,10 @@ class TaskController extends Controller
         $subjectid = $task->subject_id;
         $subjecttype = $task->subject_type;
 
-        $title = "Edit Task $task->title for $task->subject_type ".$this->getSubjectName($subjecttype, $subjectid);
+        $title = "Edit Task $task->title for $task->subject_type ".Breadcrumbs::getSubjectName($subjecttype, $subjectid);
 
-        $breadcrumbs = $this->getBreadCrumb($subjecttype, $subjectid);
+        $breadcrumbs = Breadcrumbs::getBreadCrumb($subjecttype, $subjectid);
+        $breadcrumbs[] = ['Tasks', '', false];
         $breadcrumbs[] = [$task->title, '', false];
         $breadcrumbs[] = ['Edit', '', false];
 
@@ -173,36 +184,6 @@ class TaskController extends Controller
         //
     }
 
-    protected function getBreadCrumb($subjecttype, $subjectid)
-    {
-        $breadcrumbs[] = ['Home',  URL::asset('/home'), false];
 
-        switch($subjecttype)
-        {
-            case "WorkStream":
-                $workstream = WorkStream::findOrFail($subjectid);
-                $program = Program::findOrFail($workstream->program_id);
-                $programid = $program->id;
-                $workstreamid = $workstream->id;
 
-                $breadcrumbs[] = ['Programs',  URL::asset('programs'), false];
-                $breadcrumbs[] = [$program->name,   URL::asset('/')."/programs/$programid", false];
-                $breadcrumbs[] = ['Workstreams',  '', false];
-                $breadcrumbs[] = [$workstream->name,  URL::asset('/')."/programs/$programid/workstreams/$workstreamid", false];
-                $breadcrumbs[] = ['Tasks', '', false];
-                return $breadcrumbs;
-                break;
-        }
-    }
-
-    protected function getSubjectName($subjecttype, $subjectid)
-    {
-        switch($subjecttype)
-        {
-            case "WorkStream":
-                $workstream = WorkStream::findOrFail($subjectid);
-                return $workstream->name;
-                break;
-        }
-    }
 }
