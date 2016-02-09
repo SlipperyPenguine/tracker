@@ -50,7 +50,10 @@ class ProgramController extends Controller
      */
     public function show($id)
     {
-        $program = Program::findOrFail($id);
+
+        $program = Program::where('id', $id)
+            ->with('RAGs', 'Risks', 'Members.User', 'Tasks.ActionOwner')
+            ->first();
 
         //get worksteams for this program
         //todo : Move this to a seperate model to ensure single responsibility.  Should add number of active projects to the workstream list.  Maybe a nice small char
@@ -61,10 +64,9 @@ class ProgramController extends Controller
                         ->with('RAGs', 'Risks', 'Members.User')
                         ->get();
 
-        //$rags = $workstreams[2]->RAGs;
-        //return $rags;
 
-        //return $workstreams;
+
+        //return $program->Tasks;
 
 
         return view('Program.show', compact('program', 'workstreams'));
@@ -78,7 +80,7 @@ class ProgramController extends Controller
      */
     public function edit($id)
     {
-        //
+        return "Coming soon";
     }
 
     /**

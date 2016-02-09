@@ -32,9 +32,8 @@ Route::get('minor', 'PagesController@minor');
 
 Route::get('programs', 'ProgramController@index');
 Route::get('programs/{ProgramID}', 'ProgramController@show');
-
+Route::get('programs/{ProgramID}/edit', 'ProgramController@edit');
 Route::get('programs/{ProgramID}/workstreams/{WorkstreamID}', 'WorkstreamController@show');
-
 Route::get('programs/{ProgramID}/workstreams/{WorkstreamID}/risksandissues/create',['middleware'=>'auth', 'uses' => 'RiskAndIssueController@createWorkstreamRiskOrIssue' ] );
 Route::get('programs/{ProgramID}/workstreams/{WorkstreamID}/risksandissues/{id}/edit', ['middleware'=>'auth', 'uses' => 'RiskAndIssueController@editWorkstreamRiskOrIssue'] );
 
@@ -49,6 +48,7 @@ Route::post('risksandissues', ['middleware'=>'auth', 'uses' =>  'RiskAndIssueCon
 Route::patch('risksandissues/{id}', ['middleware'=>'auth', 'uses' => 'RiskAndIssueController@update'] );
 Route::get('risks/create/{subjecttype}/{subjectid}',['middleware'=>'auth', 'uses' => 'RiskAndIssueController@createRisk' ] );
 Route::get('risks/{id}/edit', ['middleware'=>'auth', 'uses' => 'RiskAndIssueController@editRisk'] );
+Route::get('risks/{id}', ['uses' => 'RiskAndIssueController@show'] );
 
 Route::post('tasks', ['middleware'=>'auth', 'uses' =>  'TaskController@store'] );
 Route::patch('tasks/{id}', ['middleware'=>'auth', 'uses' => 'TaskController@update'] );
@@ -58,6 +58,7 @@ Route::get('programs/{ProgramID}/workstreams/{WorkstreamID}/projects/{ProjectID}
 
 Route::get('tasks/create/{subjecttype}/{subjectid}',['middleware'=>'auth', 'uses' => 'TaskController@createTask' ] );
 Route::get('tasks/{id}/edit', ['middleware'=>'auth', 'uses' => 'TaskController@editTask'] );
+Route::get('tasks/index/{subjecttype}/{subjectid}', ['uses' => 'TaskController@indexTask'] );
 
 
 

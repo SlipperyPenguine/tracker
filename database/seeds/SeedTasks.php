@@ -15,6 +15,9 @@ class SeedTasks extends Seeder
         DB::table('tasks')->delete();
 
 
+        Task::create(array('subject_id' => 1, 'subject_type' => 'Program' ,'status' => 'Open', 'milestone' => '1', 'created_by' => '2', 'action_owner' => '2', 'StartDate'=> date_create('03/18/2016'), 'title' => 'BSC Update',   'description' => 'Sanctioning for phase 2C' ));
+        Task::create(array('subject_id' => 1, 'subject_type' => 'Program' ,'status' => 'Open', 'milestone' => '1', 'created_by' => '2', 'action_owner' => '2', 'StartDate'=> date_create('07/1/2016'), 'title' => 'Phase 2B Rollout',   'description' => 'Phase 2B Go live' ));
+
         Task::create(array('subject_id' => 2, 'subject_type' => 'WorkStream' ,'status' => 'Open', 'milestone' => '1', 'created_by' => '2', 'action_owner' => '2', 'StartDate'=> date_create('03/01/2016'), 'title' => 'System Integration Service ready to use',   'description' => 'The system integration service is required for all integrations across the platform. This needs to be in place by March to enable development and testing' ));
         Task::create(array('subject_id' => 2, 'subject_type' => 'WorkStream' ,'status' => 'Open', 'milestone' => '1', 'created_by' => '2', 'action_owner' => '2', 'StartDate'=> date_create('04/06/2016'), 'title' => 'Change impact assessments complete',   'description' => 'Need to have a clear idea of the change impact to ensure BCMs have focus on readying R&D for the new process and tools' ));
 

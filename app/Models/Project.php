@@ -44,11 +44,8 @@ class Project extends Model
     }
 
     public function Members() {
-
         return $this->hasMany('tracker\Models\Member', 'subject_id', 'id')->where('subject_type', 'Project');
-
     }
-
 
     public function RAGs() {
         return $this->hasMany('tracker\Models\rag', 'subject_id', 'id')->where('subject_type', 'Project');

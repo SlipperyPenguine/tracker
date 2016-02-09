@@ -109,13 +109,6 @@
                             </td>
                         </tr>
                     </table>
-
-
-
-
-
-
-
                 </div>
             </div>
 
@@ -229,7 +222,12 @@
                                 <td>{{$risk['title']}}</td>
                                 <td> {!! tracker\Helpers\HtmlFormating::FormatHML($risk->probability, true, $risk->previous_probability) !!}   </td>
                                 <td> {!! tracker\Helpers\HtmlFormating::FormatHML($risk->impact, true, $risk->previous_impact)  !!} </td>
-                                <td><a href="{{action('RiskAndIssueController@editRisk', [$risk->id])}}" class="btn btn-white btn-sm"><i class="fa fa-pencil"></i> Edit </a></td>
+                                <td class="project-actions">
+                                    <a href="{{ URL::asset('risks/') }}/{{$risk['id']}}" class="btn btn-white btn-sm"><i class="fa fa-folder"></i> View </a>
+                                    <a href="{{action('RiskAndIssueController@editRisk', [$risk->id])}}" class="btn btn-white btn-sm"><i class="fa fa-pencil"></i> Edit </a>
+                                </td>
+
+
                             </tr>
 
                         @endforeach

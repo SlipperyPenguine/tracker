@@ -42,4 +42,27 @@ class HtmlFormating
         return $output;
 
     }
+
+    public static function FormatRiskHistory($before, $after)
+    {
+        $beforearray = null;
+        if(strlen($before)>0)
+            $beforearray = json_decode($before, true);
+
+        $afterarray = json_decode($after, true);
+
+        $output = '';
+
+        foreach ($afterarray as $key => $value)
+        {
+            $beforetext = "[blank]";
+            if(isset($beforearray))
+                $beforetext = $beforearray[$key];
+            if($output!='')
+                $output.='<br/>';
+            $output.= "$key: from $beforetext to $value";
+        }
+
+        return $output;
+    }
 }

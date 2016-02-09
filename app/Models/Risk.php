@@ -28,6 +28,19 @@ class Risk extends Model
         });
     }
 
+    public function Tasks() {
+        return $this->hasMany('tracker\Models\Task', 'subject_id', 'id')->where('subject_type', 'Risk');
+    }
+    public function getActiveTaskCountAttribute()
+    {
+        return $this->Tasks()->where('status', 'Open')->count();
+    }
+
+    public function getActiveTasks()
+    {
+        return $this->Tasks()->Active()->get();
+    }
+
     public function getNextReviewDateAttribute($date)
     {
         return Carbon::parse($date)->format('d F Y');
@@ -41,7 +54,9 @@ class Risk extends Model
 
     public function AuditTrail()
     {
-       return $this->belongsToMany( User::class, 'risk_audit_trails' )->withTimestamps();
+       return $this->belongsToMany( User::class, 'risk_audit_trails' )
+           ->withTimestamps()
+           ->withPivot(['before','after']);
     }
 
     protected function CheckForProbabilityOrImpactChange()

@@ -110,7 +110,6 @@ class RiskAndIssueController extends Controller
 
         $redirect = $request->server('HTTP_REFERER');
 
-
         return view('RisksAndIssues.edit', compact('risk', 'title', 'breadcrumbs', 'redirect', 'subjectid', 'subjecttype'));
     }
 
@@ -167,9 +166,24 @@ class RiskAndIssueController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($id, Request $request)
     {
-        //
+        //$risk = Risk::findOrFail($id);
+        $risk = Risk::where('id', $id)->with('AuditTrail')->first();
+
+        $subjectid = $risk->subject_id;
+        $subjecttype = $risk->subject_type;
+
+        $title = "Risk $risk->title for $risk->subject_type ".Breadcrumbs::getSubjectName($subjecttype, $subjectid);
+
+        $breadcrumbs = Breadcrumbs::getBreadCrumb($subjecttype, $subjectid);
+        $breadcrumbs[] = ['Risks', '', false];
+        $breadcrumbs[] = [$risk->title, '', true];
+
+        $redirect = $request->server('HTTP_REFERER');
+
+        //return $risk;
+        return view('RisksAndIssues.show', compact('risk', 'title', 'breadcrumbs', 'redirect', 'subjectid', 'subjecttype'));
     }
 
     /**

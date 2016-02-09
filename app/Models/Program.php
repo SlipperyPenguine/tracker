@@ -21,9 +21,7 @@ class Program extends Model
     }
 
     public function Members() {
-
         return $this->hasMany('tracker\Models\Member', 'subject_id', 'id')->where('subject_type', 'Program');
-
     }
 
     public function RAGs() {
@@ -33,4 +31,14 @@ class Program extends Model
     public function Risks() {
         return $this->hasMany('tracker\Models\Risk', 'subject_id', 'id')->where('subject_type', 'Program');
     }
+
+    public function Tasks() {
+        return $this->hasMany('tracker\Models\Task', 'subject_id', 'id')->where('subject_type', 'Program');
+    }
+
+    public function getActiveTasks()
+    {
+        return $this->Tasks()->Active()->get();
+    }
+
 }

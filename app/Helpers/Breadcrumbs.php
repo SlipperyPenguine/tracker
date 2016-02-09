@@ -12,6 +12,7 @@ namespace tracker\Helpers;
 use Illuminate\Support\Facades\URL;
 use tracker\Models\Program;
 use tracker\Models\Project;
+use tracker\Models\Risk;
 use tracker\Models\WorkStream;
 
 class Breadcrumbs
@@ -22,6 +23,15 @@ class Breadcrumbs
 
         switch($subjecttype)
         {
+            case "Program":
+                $program = Program::findOrFail($subjectid);
+                $programid = $program->id;
+
+                $breadcrumbs[] = ['Programs',  URL::asset('programs'), false];
+                $breadcrumbs[] = [$program->name,   URL::asset('/')."/programs/$programid", false];
+                return $breadcrumbs;
+                break;
+
             case "WorkStream":
                 $workstream = WorkStream::findOrFail($subjectid);
                 $program = Program::findOrFail($workstream->program_id);
@@ -51,6 +61,15 @@ class Breadcrumbs
                 $breadcrumbs[] = [$project->name,  URL::asset('/')."/programs/$programid/workstreams/$workstreamid/projects/$project->id", false];
                 return $breadcrumbs;
                 break;
+
+            case "Risk":
+
+                $risk = Risk::findOrFail($subjectid);
+
+                $breadcrumbs = Breadcrumbs::getBreadCrumb($risk->subject_type, $risk->subject_id);
+                $breadcrumbs[] = ['Risks',  '', false];
+                $breadcrumbs[] = [$risk->title,  '', false];
+
         }
     }
 
@@ -58,6 +77,10 @@ class Breadcrumbs
     {
         switch($subjecttype)
         {
+            case "Program":
+                $program = Program::findOrFail($subjectid);
+                return $program->name;
+                break;
             case "WorkStream":
                 $workstream = WorkStream::findOrFail($subjectid);
                 return $workstream->name;
@@ -65,6 +88,10 @@ class Breadcrumbs
             case "Project":
                 $project = Project::findOrFail($subjectid);
                 return $project->name;
+                break;
+            case "Risk":
+                $risk = Risk::findOrFail($subjectid);
+                return $risk->title;
                 break;
         }
     }

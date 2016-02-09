@@ -14,6 +14,14 @@ class SeedRags extends Seeder
     {
         DB::table('rags')->delete();
 
+        rag::create(array('subject_id' => 1, 'subject_type' => 'Program' ,'title' => 'Resource', 'value' => 'G', 'comments' => '' ));
+        rag::create(array('subject_id' => 1, 'subject_type' => 'Program' ,'title' => 'Schedule', 'value' => 'G', 'comments' => '' ));
+        rag::create(array('subject_id' => 1, 'subject_type' => 'Program' ,'title' => 'Costs', 'value' => 'G', 'comments' => '' ));
+        rag::create(array('subject_id' => 1, 'subject_type' => 'Program' ,'title' => 'Quality', 'value' => 'G', 'comments' => '' ));
+        rag::create(array('subject_id' => 1, 'subject_type' => 'Program' ,'title' => 'Benefits', 'value' => 'G', 'comments' => '' ));
+        rag::create(array('subject_id' => 1, 'subject_type' => 'Program' ,'title' => 'Infrastructure', 'value' => 'G', 'comments' => '' ));
+        rag::create(array('subject_id' => 1, 'subject_type' => 'Program' ,'title' => 'Risks & Issues', 'value' => 'G', 'comments' => '' ));
+
         rag::create(array('subject_id' => 1, 'subject_type' => 'WorkStream' ,'title' => 'Resource', 'value' => 'G', 'comments' => '' ));
         rag::create(array('subject_id' => 1, 'subject_type' => 'WorkStream' ,'title' => 'Schedule', 'value' => 'G', 'comments' => '' ));
         rag::create(array('subject_id' => 1, 'subject_type' => 'WorkStream' ,'title' => 'Costs', 'value' => 'G', 'comments' => '' ));
