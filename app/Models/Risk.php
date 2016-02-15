@@ -5,9 +5,15 @@ namespace tracker\Models;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
+use tracker\Traits\ActionTrait;
+use tracker\Traits\AuditTrailTrait;
+use tracker\Traits\CommentTrait;
 
 class Risk extends Model
 {
+    protected $subjecttype = 'Risk';
+    use ActionTrait, AuditTrailTrait, CommentTrait;
+
     //protected $dates = ['NextReviewDate'];
    // protected $dateFormat = '';
 
@@ -28,18 +34,6 @@ class Risk extends Model
         });
     }
 
-    public function Tasks() {
-        return $this->hasMany('tracker\Models\Task', 'subject_id', 'id')->where('subject_type', 'Risk');
-    }
-    public function getActiveTaskCountAttribute()
-    {
-        return $this->Tasks()->where('status', 'Open')->count();
-    }
-
-    public function getActiveTasks()
-    {
-        return $this->Tasks()->Active()->get();
-    }
 
     public function getNextReviewDateAttribute($date)
     {
@@ -52,12 +46,7 @@ class Risk extends Model
     }
 
 
-    public function AuditTrail()
-    {
-       return $this->belongsToMany( User::class, 'risk_audit_trails' )
-           ->withTimestamps()
-           ->withPivot(['before','after']);
-    }
+
 
     protected function CheckForProbabilityOrImpactChange()
     {
@@ -79,30 +68,5 @@ class Risk extends Model
         }
     }
 
-    protected function RecordAuditTrail($inserting, $userid = null)
-    {
 
-        $userid = $userid ?: Auth::id();
-
-        $this->AuditTrail()->attach($userid, $this->getChanges($inserting));
-    }
-
-    protected function getChanges($inserting)
-    {
-
-        $after = '';
-
-        if($inserting)
-        {
-            $before = '';
-            $after = json_encode($this);
-        }
-        else
-        {
-            $changed = $this->getDirty();
-            $before = json_encode(array_intersect_key($this->fresh()->toArray(), $changed));
-            $after = json_encode($changed);
-        }
-        return compact('before','after');
-    }
 }

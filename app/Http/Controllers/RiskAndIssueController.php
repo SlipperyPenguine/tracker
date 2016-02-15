@@ -169,21 +169,23 @@ class RiskAndIssueController extends Controller
     public function show($id, Request $request)
     {
         //$risk = Risk::findOrFail($id);
-        $risk = Risk::where('id', $id)->with('AuditTrail')->first();
+        $subject = Risk::where('id', $id)->with('AuditTrail')->first();
 
-        $subjectid = $risk->subject_id;
-        $subjecttype = $risk->subject_type;
+        $risksubjectid = $subject->subject_id;
+        $risksubjecttype = $subject->subject_type;
 
-        $title = "Risk $risk->title for $risk->subject_type ".Breadcrumbs::getSubjectName($subjecttype, $subjectid);
+        $title = "Risk $subject->title for $subject->subject_type ".Breadcrumbs::getSubjectName($risksubjecttype, $risksubjectid);
 
-        $breadcrumbs = Breadcrumbs::getBreadCrumb($subjecttype, $subjectid);
+        $breadcrumbs = Breadcrumbs::getBreadCrumb($risksubjecttype, $risksubjectid);
         $breadcrumbs[] = ['Risks', '', false];
-        $breadcrumbs[] = [$risk->title, '', true];
+        $breadcrumbs[] = [$subject->title, '', true];
 
         $redirect = $request->server('HTTP_REFERER');
 
+        $subjecttype = 'Risk';
+
         //return $risk;
-        return view('RisksAndIssues.show', compact('risk', 'title', 'breadcrumbs', 'redirect', 'subjectid', 'subjecttype'));
+        return view('RisksAndIssues.show', compact('subject', 'title', 'breadcrumbs', 'redirect', 'risksubjectid','risksubjecttype', 'subjecttype'));
     }
 
     /**

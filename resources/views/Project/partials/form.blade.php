@@ -38,14 +38,14 @@
 <div class="form-group" id="StartDate">
     <label id="datelabel" class="col-lg-2 control-label" for="StartDate">Start Date</label>
     <div class="input-group date col-lg-10">
-        <span class="input-group-addon"><i class="fa fa-calendar"></i></span> {!! Form::text('StartDate', isset($project) ? $project->StartDate->format('d F Y') : null  , ['class'=>'form-control']) !!}
+        <span class="input-group-addon"><i class="fa fa-calendar"></i></span> {!! Form::text('StartDate', isset($subject) ? $subject->StartDate->format('d F Y') : null  , ['class'=>'form-control']) !!}
     </div>
 </div>
 
 <div class="form-group" id="EndDate">
     <label class="col-lg-2 control-label" for="NextReviewDate">End Date</label>
     <div class="input-group date col-lg-10">
-        <span class="input-group-addon"><i class="fa fa-calendar"></i></span> {!! Form::text('EndDate', isset($project) ? isset($project->EndDate) ? $project->EndDate->format('d F Y'): null : null  , ['class'=>'form-control']) !!}
+        <span class="input-group-addon"><i class="fa fa-calendar"></i></span> {!! Form::text('EndDate', isset($subject) ? isset($subject->EndDate) ? $subject->EndDate->format('d F Y'): null : null  , ['class'=>'form-control']) !!}
     </div>
 </div>
 

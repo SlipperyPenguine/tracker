@@ -3,9 +3,16 @@
 namespace tracker\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use tracker\Traits\ActionTrait;
+use tracker\Traits\MemberTrait;
+use tracker\Traits\RagTrait;
+use tracker\Traits\RiskTrait;
+use tracker\Traits\TaskTrait;
 
 class WorkStream extends Model
 {
+    protected $subjecttype = 'WorkStream';
+    use TaskTrait, RagTrait, RiskTrait, MemberTrait, ActionTrait;
 
     protected $dates = ['StartDate', 'EndDate'];
     protected $appends = array('ActiveProjectCount', 'ActiveRiskCount', 'ActiveIssueCount');
@@ -22,17 +29,6 @@ class WorkStream extends Model
 
     }
 
-    public function RAGs() {
-        return $this->hasMany('tracker\Models\rag', 'subject_id', 'id')->where('subject_type', 'WorkStream');
-    }
-
-    public function Risks() {
-        return $this->hasMany('tracker\Models\Risk', 'subject_id', 'id')->where('subject_type', 'WorkStream');
-    }
-
-    public function Tasks() {
-        return $this->hasMany('tracker\Models\Task', 'subject_id', 'id')->where('subject_type', 'WorkStream');
-    }
 
     public function Projects() {
         return $this->hasMany('tracker\Models\Project', 'work_stream_id', 'id');
@@ -48,23 +44,9 @@ class WorkStream extends Model
         return $this->Projects()->whereBetween('Status', [1,4])->count();
     }
 
-    public function getActiveRiskCountAttribute()
+    public function getStatusTextAttribute()
     {
-        return $this->Risks()->where('is_an_issue', 0)->where('status', 'Open')->count();
+        return 'Active';
     }
 
-    public function getActiveIssueCountAttribute()
-    {
-        return $this->Risks()->where('is_an_issue', 1)->where('status', 'Open')->count();
-    }
-
-    public function getActiveTaskCountAttribute()
-    {
-        return $this->Tasks()->where('status', 'Open')->count();
-    }
-
-    public function getActiveTasks()
-    {
-        return $this->Tasks()->Active()->get();
-    }
 }

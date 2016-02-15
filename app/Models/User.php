@@ -9,6 +9,7 @@ use Illuminate\Foundation\Auth\Access\Authorizable;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
+use Illuminate\Support\Facades\File;
 
 class User extends Model implements AuthenticatableContract,
                                     AuthorizableContract,
@@ -36,4 +37,24 @@ class User extends Model implements AuthenticatableContract,
      * @var array
      */
     protected $hidden = ['password', 'remember_token'];
+
+    public function getavatarAttribute($value)
+    {
+        $id = $this->id;
+        $path = "\\img\\avatars\\$id.png";
+        $filename = public_path().$path;
+
+        if(File::exists($filename))
+            return $path;
+
+        $path = "\\img\\avatars\\$id.jpg";
+        $filename = public_path().$path;
+
+        if(File::exists($filename))
+            return $path;
+
+         return '\\img\\avatars\\no_avatar.png';
+
+
+    }
 }

@@ -3,14 +3,17 @@
         <ul class="nav metismenu" id="side-menu">
             <li class="nav-header">
                 <div class="dropdown profile-element">
-                    <img alt="image" height="60" class="img-circle" src="{{ URL::asset('img/avatars/JohnBoothProfile.jpg') }}" />
+                    @if(Auth::check())
+                    <img alt="image" height="60" class="img-circle" src="{{ URL::asset(Auth::user()->avatar) }}" />
 
                     <a data-toggle="dropdown" class="dropdown-toggle" href="#">
-                            <span class="clear"> <span class="block m-t-xs"> <strong class="font-bold">John Booth</strong>
-                             </span> <span class="text-muted text-xs block">IS Lead <b class="caret"></b></span> </span> </a>
+                            <span class="clear"> <span class="block m-t-xs"> <strong class="font-bold">{{Auth::user()->name}}</strong>
+                             <b class="caret"></b> </span> </a>
                     <ul class="dropdown-menu animated fadeInRight m-t-xs">
-                        <li><a href="#">Logout</a></li>
+                        <li><a href="{{ URL::asset('users/'.Auth::user()->id) }}">Profile</a></li>
+                        <li><a href="{{ URL::asset('auth/logout') }}">Logout</a></li>
                     </ul>
+                        @endif
                 </div>
                 <div class="logo-element">
                     TRACKER
@@ -30,7 +33,7 @@
                 <li @if(str_contains($controller,'UserController'))class="active" @endif>
                     <a href="{{ URL::asset('dashboard/users') }}"><i class="fa fa-wrench"></i> <span class="nav-label">Configuration</span> <span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level collapse">
-                        <li @if(str_contains($controller,'UserController') && str_contains($action,'index'))class="active" @endif><a href="{{ URL::asset('dashboard/users') }}">Users</a></li>
+                        <li @if(str_contains($controller,'UserController') && str_contains($action,'index'))class="active" @endif><a href="{{ URL::asset('users') }}">Users</a></li>
                     </ul>
                 </li>
             @endif

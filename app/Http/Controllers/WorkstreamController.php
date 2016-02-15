@@ -16,7 +16,7 @@ class WorkstreamController extends Controller
         //$workstream = WorkStream::findOrFail($workstreamid);
         $program = Program::findOrFail($programid);
 
-        $workstream = WorkStream::where('id', $workstreamid)
+        $subject = WorkStream::where('id', $workstreamid)
                                     ->with('RAGs', 'Risks', 'Projects.RAGs', 'Members.User', 'Tasks.ActionOwner')
                                    ->first();
 
@@ -32,8 +32,10 @@ class WorkstreamController extends Controller
 
         //return $workstream;
 
+        $subjecttype = 'WorkStream';
+        $subjectid = $subject->id;
 
-        return view('workstream.show', compact('program', 'workstream'));
+        return view('workstream.show', compact('program', 'subject', 'subjecttype', 'subjectid'));
 
     }
 }

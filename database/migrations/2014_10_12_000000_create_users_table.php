@@ -17,11 +17,20 @@ class CreateUsersTable extends Migration
             $table->string('email')->unique();
             $table->string('password', 60);
             $table->string('name');
-            $table->string('firstName')->nullable;
-            $table->string('surname')->nullable;
-            $table->string('domain')->nullable;
-            $table->string('avatar')->nullable;
             $table->boolean('superUser')->default(false);
+
+            $table->boolean('notifyNewTasks')->default(true);
+            $table->boolean('notifyNewActions')->default(true);
+            $table->boolean('notifyNewRisks')->default(true);
+
+            $table->boolean('notifyChangedTasks')->default(true);
+            $table->boolean('notifyChangedActions')->default(true);
+            $table->boolean('notifyChangedRisks')->default(true);
+
+            $table->boolean('notifyDueTasks')->default(true);
+            $table->boolean('notifyDueActions')->default(true);
+            $table->boolean('notifyDueRisks')->default(true);
+
             $table->rememberToken();
             $table->timestamps();
         });

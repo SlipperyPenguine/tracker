@@ -41,7 +41,6 @@
 
             <div class="form-group">
 
-
                     <div class="i-checks"><label class=" control-label" for="remember">Remember Me </label> <label> {!! Form::checkbox('remember', 1, null, ['id' => 'remember']) !!}   <i></i>  </label></div>
 
             </div>

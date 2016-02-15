@@ -4,9 +4,13 @@ namespace tracker\Models;
 
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
+use tracker\Traits\AuditTrailTrait;
 
 class Task extends Model
 {
+    protected $subjecttype = 'Task';
+    use AuditTrailTrait;
+
     protected $dates = ['StartDate', 'EndDate'];
 
     public function ActionOwner() {
@@ -21,13 +25,16 @@ class Task extends Model
         return $query->where('status', 'open');
     }
 
-/*    public function getStartDateAttribute($date)
+    public static function boot()
     {
-        return Carbon::parse($date)->format('d F Y');
-    }
+        parent::boot();
 
-    public function getEndDateAttribute($date)
-    {
-        return Carbon::parse($date)->format('d F Y');
-    }*/
+        static::updating(function($task){
+            $task->RecordAuditTrail(false);
+     });
+
+        static::created(function($task){
+            $task->RecordAuditTrail(true);
+        });
+    }
 }

@@ -55,18 +55,18 @@ class ProjectController extends Controller
      */
     public function store(Request $request)
     {
-        $project = new Project();
+        $subject = new Project();
 
-        $project->program_id = $request->program_id;
-        $project->work_stream_id = $request->work_stream_id;
-        $project->status = $request->status;
-        $project->PI = $request->PI;
-        $project->name = $request->name;
-        $project->description = $request->description;
-        $project->StartDate = Carbon::parse($request->StartDate)->toDateTimeString();
-        $project->EndDate = Carbon::parse($request->EndDate)->toDateTimeString();
+        $subject->program_id = $request->program_id;
+        $subject->work_stream_id = $request->work_stream_id;
+        $subject->status = $request->status;
+        $subject->PI = $request->PI;
+        $subject->name = $request->name;
+        $subject->description = $request->description;
+        $subject->StartDate = Carbon::parse($request->StartDate)->toDateTimeString();
+        $subject->EndDate = Carbon::parse($request->EndDate)->toDateTimeString();
 
-        $project->save();
+        $subject->save();
 
         //todo Add the default RAGs
 
@@ -81,7 +81,7 @@ class ProjectController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($programid, $workstreamid, $projectid)
+    public function show($programid, $workstreamid, $subjectid, Request$request)
     {
         $program = Program::findOrFail($programid);
 
@@ -89,13 +89,20 @@ class ProjectController extends Controller
             ->with('RAGs', 'Risks', 'Projects.RAGs', 'Members.User', 'Tasks.ActionOwner')
             ->first();
 
-        $project = Project::where('id', $projectid)
-            ->with('RAGs', 'Risks', 'Members.User', 'Tasks.ActionOwner')
+        $subject = Project::where('id', $subjectid)
+            ->with('RAGs', 'Risks', 'Members.User', 'Tasks.ActionOwner', 'Comments')
             ->first();
 
-        //return $project->getActiveTasks();
+        $subjecttype = 'Project';
+        $subjectid = $subject->id;
 
-        return view('Project.show', compact('program', 'workstream', 'project'));
+        //$redirect = $request->url();
+
+        //return $subject;
+
+        //return $subject->getActiveTasks();
+
+        return view('Project.show', compact('program', 'workstream', 'subject', 'subjecttype', 'subjectid', 'redirect'));
     }
 
     /**
@@ -104,23 +111,23 @@ class ProjectController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($program_id, $work_stream_id,$projectid, Request $request)
+    public function edit($program_id, $work_stream_id,$subjectid, Request $request)
     {
-        $project = Project::findOrFail($projectid);
+        $subject = Project::findOrFail($subjectid);
 
         $workstreamname = $this->getWorkstream($work_stream_id)->name;
         $title = "Create new Project for $workstreamname Workstream";
 
-        $title = "Edit Task $project->name for $workstreamname Workstream";
+        $title = "Edit Task $subject->name for $workstreamname Workstream";
 
         $breadcrumbs = Breadcrumbs::getBreadCrumb('WorkStream', $work_stream_id);
         $breadcrumbs[] = ['Projects', '', false];
-        $breadcrumbs[] = [$project->name, '', false];
+        $breadcrumbs[] = [$subject->name, '', false];
         $breadcrumbs[] = ['edit', '', false];
 
         $redirect = $request->server('HTTP_REFERER');
         //return $redirect;
-        return view('Project.edit', compact('program_id', 'work_stream_id', 'title', 'breadcrumbs', 'redirect', 'project'));
+        return view('Project.edit', compact('program_id', 'work_stream_id', 'title', 'breadcrumbs', 'redirect', 'subject'));
 
     }
 
@@ -134,16 +141,16 @@ class ProjectController extends Controller
     public function update($id, Request $request)
     {
         //return $request->all();
-        $project = Project::findorFail($id);
+        $subject = Project::findorFail($id);
 
-        $project->status = $request->status;
-        $project->PI = $request->PI;
-        $project->name = $request->name;
-        $project->description = $request->description;
-        $project->StartDate = Carbon::parse($request->StartDate)->toDateTimeString();
-        $project->EndDate = Carbon::parse($request->EndDate)->toDateTimeString();
+        $subject->status = $request->status;
+        $subject->PI = $request->PI;
+        $subject->name = $request->name;
+        $subject->description = $request->description;
+        $subject->StartDate = Carbon::parse($request->StartDate)->toDateTimeString();
+        $subject->EndDate = Carbon::parse($request->EndDate)->toDateTimeString();
 
-        $project->save();
+        $subject->save();
 
         flash()->success('Success', "Project updated successfully");
 

@@ -18,7 +18,8 @@ class CreateRagsTable extends Migration
             $table->string('subject_type')->index();
             $table->string('title');
             $table->string('value');
-            $table->string('comments');
+            $table->string('previous_value')->nullable();
+            $table->string('comments')->nullable();
             $table->timestamps();
         });
     }

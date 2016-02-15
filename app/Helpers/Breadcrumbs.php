@@ -10,8 +10,10 @@ namespace tracker\Helpers;
 
 
 use Illuminate\Support\Facades\URL;
+use tracker\Models\Action;
 use tracker\Models\Program;
 use tracker\Models\Project;
+use tracker\Models\rag;
 use tracker\Models\Risk;
 use tracker\Models\WorkStream;
 
@@ -68,8 +70,29 @@ class Breadcrumbs
 
                 $breadcrumbs = Breadcrumbs::getBreadCrumb($risk->subject_type, $risk->subject_id);
                 $breadcrumbs[] = ['Risks',  '', false];
-                $breadcrumbs[] = [$risk->title,  '', false];
+                $breadcrumbs[] = [$risk->title,  URL::asset('risks/') ."/$risk->id" , false];
+                return $breadcrumbs;
+                break;
 
+            case "Action":
+
+                $action = Action::findOrFail($subjectid);
+
+                $breadcrumbs = Breadcrumbs::getBreadCrumb($action->subject_type, $action->subject_id);
+                $breadcrumbs[] = ['Actions',  URL::action('ActionController@indexAction', [$action->subject_type, $action->subject_id]), false];
+                $breadcrumbs[] = [$action->title,  '', false];
+                return $breadcrumbs;
+                break;
+
+            case "Rag":
+
+                $rag = rag::findOrFail($subjectid);
+
+                $breadcrumbs = Breadcrumbs::getBreadCrumb($rag->subject_type, $rag->subject_id);
+                $breadcrumbs[] = ['RAGs',  URL::action('RagController@index', [$rag->subject_type, $rag->subject_id]), false];
+                $breadcrumbs[] = [$rag->title,  '', false];
+                return $breadcrumbs;
+                break;
         }
     }
 
@@ -92,6 +115,10 @@ class Breadcrumbs
             case "Risk":
                 $risk = Risk::findOrFail($subjectid);
                 return $risk->title;
+                break;
+            case "Rag":
+                $rag = rag::findOrFail($subjectid);
+                return $rag->title;
                 break;
         }
     }

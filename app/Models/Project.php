@@ -3,9 +3,19 @@
 namespace tracker\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use tracker\Traits\ActionTrait;
+use tracker\Traits\CommentTrait;
+use tracker\Traits\MemberTrait;
+use tracker\Traits\RagTrait;
+use tracker\Traits\RiskTrait;
+use tracker\Traits\TaskTrait;
 
 class Project extends Model
 {
+    protected $subjecttype = 'Project';
+    use TaskTrait, RagTrait, RiskTrait, MemberTrait, CommentTrait, ActionTrait;
+
+
     protected $dates = ['StartDate', 'EndDate'];
 
     protected $appends = array('StatusText');
@@ -20,16 +30,6 @@ class Project extends Model
         });
     }
 
-    protected function AddStandardRAGs()
-    {
-        rag::create(array('subject_id' => $this->id, 'subject_type' => 'Project' ,'title' => 'Resource', 'value' => 'G', 'comments' => '' ));
-        rag::create(array('subject_id' => $this->id, 'subject_type' => 'Project' ,'title' => 'Schedule', 'value' => 'G', 'comments' => '' ));
-        rag::create(array('subject_id' => $this->id, 'subject_type' => 'Project' ,'title' => 'Costs', 'value' => 'G', 'comments' => '' ));
-        rag::create(array('subject_id' => $this->id, 'subject_type' => 'Project' ,'title' => 'Quality', 'value' => 'G', 'comments' => '' ));
-        rag::create(array('subject_id' => $this->id, 'subject_type' => 'Project' ,'title' => 'Benefits', 'value' => 'G', 'comments' => '' ));
-        rag::create(array('subject_id' => $this->id, 'subject_type' => 'Project' ,'title' => 'Infrastructure', 'value' => 'G', 'comments' => '' ));
-        rag::create(array('subject_id' => $this->id, 'subject_type' => 'Project' ,'title' => 'Risks & Issues', 'value' => 'G', 'comments' => '' ));
-    }
 
     public function Program() {
 
@@ -43,63 +43,34 @@ class Project extends Model
 
     }
 
-    public function Members() {
-        return $this->hasMany('tracker\Models\Member', 'subject_id', 'id')->where('subject_type', 'Project');
-    }
-
-    public function RAGs() {
-        return $this->hasMany('tracker\Models\rag', 'subject_id', 'id')->where('subject_type', 'Project');
-    }
-
-    public function Risks() {
-        return $this->hasMany('tracker\Models\Risk', 'subject_id', 'id')->where('subject_type', 'Project');
-    }
-
-    public function Tasks() {
-        return $this->hasMany('tracker\Models\Task', 'subject_id', 'id')->where('subject_type', 'Project');
-    }
-
-
     public function getStatusTextAttribute()
     {
         switch($this->Status)
         {
             case 0:
-                return 'Pre Gate 1';
+                return 'Pre Gate 0';
             case 1:
-                return 'Post Gate 1, concept paper approved';
-            case 2:
-                return 'Post Review 1, concept paper and SDD approved';
+                return 'Pre Gate 1';
             case 3:
-                return 'Post Gate 2, in build';
+                return 'Post Gate 1, concept paper approved';
             case 4:
-                return 'Post Gate 3, Rolling out';
+                return 'Post Review 1, concept paper and SDD approved';
             case 5:
+                return 'Post Gate 2, in build';
+            case 6:
+                return 'Post Gate 3, Rolling out';
+            case 7:
                 return 'Closed';
-            Case 6:
+            Case 8:
                 return 'Cancelled';
             default:
                 Return 'Unknown';
         }
     }
 
-    public function getActiveRiskCountAttribute()
-    {
-        return $this->Risks()->where('is_an_issue', 0)->where('status', 'Open')->count();
-    }
 
-    public function getActiveIssueCountAttribute()
-    {
-        return $this->Risks()->where('is_an_issue', 1)->where('status', 'Open')->count();
-    }
 
-    public function getActiveTaskCountAttribute()
-    {
-        return $this->Tasks()->where('status', 'Open')->count();
-    }
 
-    public function getActiveTasks()
-    {
-        return $this->Tasks()->Active()->get();
-    }
+
+
 }

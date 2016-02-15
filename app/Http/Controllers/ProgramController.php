@@ -51,7 +51,7 @@ class ProgramController extends Controller
     public function show($id)
     {
 
-        $program = Program::where('id', $id)
+        $subject = Program::where('id', $id)
             ->with('RAGs', 'Risks', 'Members.User', 'Tasks.ActionOwner')
             ->first();
 
@@ -68,8 +68,10 @@ class ProgramController extends Controller
 
         //return $program->Tasks;
 
+        $subjecttype = 'Program';
+        $subjectid = $subject->id;
 
-        return view('Program.show', compact('program', 'workstreams'));
+        return view('Program.show', compact('subject', 'workstreams', 'subjecttype','subjectid'));
     }
 
     /**

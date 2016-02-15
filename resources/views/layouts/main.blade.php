@@ -21,9 +21,13 @@
 
     <link rel="stylesheet"  href="{{ URL::asset('css/plugins/vis/vis.css') }}">
 
+    <link rel="stylesheet"  href="{{ URL::asset('css/plugins/dataTables/datatables.min.css') }}">
+
 
     <link rel="stylesheet"  href="{{ URL::asset('css/animate.css') }}">
     <link rel="stylesheet"  href="{{ URL::asset('css/style.css') }}">
+
+    @yield('header')
 
 </head>
 
@@ -85,8 +89,13 @@
 <!-- Vis -->
 <script src="{{ URL::asset('js/plugins/vis/vis.min.js') }}"></script>
 
+<!-- Data Tables -->
+<script src="{{ URL::asset('js/plugins/dataTables/datatables.min.js') }}"></script>
+
 
 @include('partials.flash');
+
+@yield('scripts')
 
 <script>
     $(document).ready(function () {
@@ -99,7 +108,7 @@
     });
 </script>
 
-@yield('scripts')
+
 
 </body>
 

@@ -3,9 +3,17 @@
 namespace tracker\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use tracker\Traits\ActionTrait;
+use tracker\Traits\MemberTrait;
+use tracker\Traits\RagTrait;
+use tracker\Traits\RiskTrait;
+use tracker\Traits\TaskTrait;
 
 class Program extends Model
 {
+    protected $subjecttype = 'Program';
+    use TaskTrait, RagTrait, RiskTrait, MemberTrait, ActionTrait;
+
     protected $dates = ['StartDate', 'EndDate'];
 
     public function WorkStreams() {
@@ -18,27 +26,6 @@ class Program extends Model
 
         return $this->hasMany('tracker\models\Project', 'program_id', 'id');
 
-    }
-
-    public function Members() {
-        return $this->hasMany('tracker\Models\Member', 'subject_id', 'id')->where('subject_type', 'Program');
-    }
-
-    public function RAGs() {
-        return $this->hasMany('tracker\Models\rag', 'subject_id', 'id')->where('subject_type', 'Program');
-    }
-
-    public function Risks() {
-        return $this->hasMany('tracker\Models\Risk', 'subject_id', 'id')->where('subject_type', 'Program');
-    }
-
-    public function Tasks() {
-        return $this->hasMany('tracker\Models\Task', 'subject_id', 'id')->where('subject_type', 'Program');
-    }
-
-    public function getActiveTasks()
-    {
-        return $this->Tasks()->Active()->get();
     }
 
 }

@@ -47,16 +47,30 @@ class SeedMembers extends Seeder
         Member::create(array('subject_id' => 6, 'subject_type' => 'WorkStream' ,'user_id' => 16, 'role' => 'Design Lead' ));
 
         //PROJECTS
-        Member::create(array('subject_id' => 1, 'subject_type' => 'Project' ,'user_id' => 14, 'role' => 'Project Manager' ));
+        Member::create(array('subject_id' => 1, 'subject_type' => 'Project' ,'user_id' => 4, 'role' => 'Project Manager' ));
+        Member::create(array('subject_id' => 1, 'subject_type' => 'Project' ,'user_id' => 21, 'role' => 'Project Manager' ));
         Member::create(array('subject_id' => 1, 'subject_type' => 'Project' ,'user_id' => 16, 'role' => 'Solution Architect' ));
 
-        Member::create(array('subject_id' => 2, 'subject_type' => 'Project' ,'user_id' => 5, 'role' => 'Project Manager' ));
+        Member::create(array('subject_id' => 2, 'subject_type' => 'Project' ,'user_id' => 22, 'role' => 'Project Manager' ));
         Member::create(array('subject_id' => 2, 'subject_type' => 'Project' ,'user_id' => 16, 'role' => 'Solution Architect' ));
 
-        Member::create(array('subject_id' => 3, 'subject_type' => 'Project' ,'user_id' => 5, 'role' => 'Project Manager' ));
-        Member::create(array('subject_id' => 3, 'subject_type' => 'Project' ,'user_id' => 21, 'role' => 'Solution Architect' ));
+        Member::create(array('subject_id' => 3, 'subject_type' => 'Project' ,'user_id' => 14, 'role' => 'Project Manager' ));
 
-        Member::create(array('subject_id' => 4, 'subject_type' => 'Project' ,'user_id' => 14, 'role' => 'Project Manager' ));
-        Member::create(array('subject_id' => 4, 'subject_type' => 'Project' ,'user_id' => 21, 'role' => 'Solution Architect' ));
+        Member::create(array('subject_id' => 4, 'subject_type' => 'Project' ,'user_id' => 5, 'role' => 'Project Manager' ));
+
+        Member::create(array('subject_id' => 5, 'subject_type' => 'Project' ,'user_id' => 21, 'role' => 'Project Manager' ));
+        Member::create(array('subject_id' => 5, 'subject_type' => 'Project' ,'user_id' => 16, 'role' => 'Solution Architect' ));
+
+        Member::create(array('subject_id' => 8, 'subject_type' => 'Project' ,'user_id' => 14, 'role' => 'Project Manager' ));
+
+        Member::create(array('subject_id' => 9, 'subject_type' => 'Project' ,'user_id' => 23, 'role' => 'Project Manager' ));
+
+        Member::create(array('subject_id' => 10, 'subject_type' => 'Project' ,'user_id' => 15, 'role' => 'Project Manager' ));
+        Member::create(array('subject_id' => 11, 'subject_type' => 'Project' ,'user_id' => 24, 'role' => 'Project Manager' ));
+        Member::create(array('subject_id' => 12, 'subject_type' => 'Project' ,'user_id' => 23, 'role' => 'Project Manager' ));
+        Member::create(array('subject_id' => 13, 'subject_type' => 'Project' ,'user_id' => 15, 'role' => 'Project Manager' ));
+        Member::create(array('subject_id' => 14, 'subject_type' => 'Project' ,'user_id' => 23, 'role' => 'Project Manager' ));
+
+
     }
 }

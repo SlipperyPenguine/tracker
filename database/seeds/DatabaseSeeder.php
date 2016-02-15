@@ -22,6 +22,8 @@ class DatabaseSeeder extends Seeder
         $this->call(SeedRisks::class);
         $this->call(SeedMembers::class);
         $this->call(SeedTasks::class);
+        $this->call(SeedComments::class);
+        $this->call(SeedActions::class);
 
         Model::reguard();
     }

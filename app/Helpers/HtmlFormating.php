@@ -7,6 +7,7 @@
  */
 
 namespace tracker\Helpers;
+use Carbon\Carbon;
 
 
 class HtmlFormating
@@ -41,6 +42,37 @@ class HtmlFormating
 
         return $output;
 
+    }
+
+    public static function FormatRAG($current, $includetrend = false, $previousvalue=null)
+    {
+        $output = '';
+        switch($current)
+        {
+            case 'G':
+                $output = '<span class="badge badge-primary">G</span>';
+                break;
+            case 'A':
+                $output = '<span class="badge badge-warning">A</span>';
+                break;
+            case 'R':
+                $output = '<span class="badge badge-danger">R</span>';
+                break;
+        }
+        return $output;
+
+    }
+
+    public static function StandardDateHTML(Carbon $date, $includetime=false)
+    {
+        $output  = $date->diffForHumans();
+        $output .= '<br/>';
+        if($includetime)
+            $output .= '&nbsp;&nbsp;&nbsp; <small>( '.$date->format('d M Y h:s').' )</small>';
+        else
+            $output .= '&nbsp;&nbsp;&nbsp; <small>( '.$date->format('d M Y').' )</small>';
+
+        return $output;
     }
 
     public static function FormatRiskHistory($before, $after)

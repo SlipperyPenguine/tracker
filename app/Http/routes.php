@@ -26,7 +26,9 @@ Route::get('welcome', function ()
 Route::controllers(['auth'=>'Auth\AuthController', 'password'=>'Auth\PasswordController']);
 
 
-Route::get('/', 'PagesController@welcome');
+Route::get('/', 'ProgramController@index');
+Route::get('home', 'ProgramController@index');
+
 Route::get('welcome', 'PagesController@welcome');
 Route::get('minor', 'PagesController@minor');
 
@@ -60,7 +62,42 @@ Route::get('tasks/create/{subjecttype}/{subjectid}',['middleware'=>'auth', 'uses
 Route::get('tasks/{id}/edit', ['middleware'=>'auth', 'uses' => 'TaskController@editTask'] );
 Route::get('tasks/index/{subjecttype}/{subjectid}', ['uses' => 'TaskController@indexTask'] );
 
+Route::post('comments', ['middleware'=>'auth', 'uses' =>  'CommentController@store'] );
+Route::post('AjaxComments', [ 'uses' =>  'CommentController@AjaxStore'] );
 
+//users
+Route::get('users', 'UserController@index');
+Route::get('users/{id}', 'UserController@show');
+Route::get('users/{id}/edit', 'UserController@edit');
+Route::post('users', ['middleware'=>'auth', 'uses' =>  'UserController@store'] );
+Route::patch('users/{id}', ['middleware'=>'auth', 'uses' => 'UserController@update'] );
+
+//Actions
+Route::get('actions/create/{subjecttype}/{subjectid}',['middleware'=>'auth', 'uses' => 'ActionController@createAction' ] );
+Route::get('actions/{id}/edit', ['middleware'=>'auth', 'uses' => 'ActionController@editAction'] );
+Route::get('actions/index/{subjecttype}/{subjectid}', ['uses' => 'ActionController@indexAction'] );
+Route::get('actions/{id}', [ 'uses' => 'ActionController@show'] );
+
+Route::post('actions', ['middleware'=>'auth', 'uses' =>  'ActionController@store'] );
+Route::patch('actions/{id}', ['middleware'=>'auth', 'uses' => 'ActionController@update'] );
+
+//Members
+Route::get('members/create/{subjecttype}/{subjectid}',['middleware'=>'auth', 'uses' => 'MemberController@createMember' ] );
+Route::get('members/{id}/edit', ['middleware'=>'auth', 'uses' => 'MemberController@editMember'] );
+Route::get('members/index/{subjecttype}/{subjectid}', ['uses' => 'MemberController@indexMember'] );
+Route::get('members/{id}', [ 'uses' => 'MemberController@show'] );
+
+Route::post('members', ['middleware'=>'auth', 'uses' =>  'MemberController@store'] );
+Route::patch('members/{id}', ['middleware'=>'auth', 'uses' => 'MemberController@update'] );
+
+//RAGs
+Route::get('rags/create/{subjecttype}/{subjectid}',['middleware'=>'auth', 'uses' => 'RagController@create' ] );
+Route::get('rags/{id}/edit', ['middleware'=>'auth', 'uses' => 'RagController@edit'] );
+Route::get('rags/index/{subjecttype}/{subjectid}', ['uses' => 'RagController@index'] );
+Route::get('rags/{id}', [ 'uses' => 'RagController@show'] );
+
+Route::post('rags', ['middleware'=>'auth', 'uses' =>  'RagController@store'] );
+Route::patch('rags/{id}', ['middleware'=>'auth', 'uses' => 'RagController@update'] );
 
 
 Route::get('api/getUsers', 'ApiController@getUsers');

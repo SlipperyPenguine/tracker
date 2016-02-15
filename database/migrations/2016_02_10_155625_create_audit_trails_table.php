@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateRiskAuditTrailsTable extends Migration
+class CreateAuditTrailsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,10 +12,11 @@ class CreateRiskAuditTrailsTable extends Migration
      */
     public function up()
     {
-        Schema::create('risk_audit_trails', function (Blueprint $table) {
+        Schema::create('audit_trails', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('subject_id')->unsigned()->index();
+            $table->string('subject_type')->index();
             $table->integer('user_id')->indexed()->unsigned();
-            $table->integer('risk_id')->indexed()->unsigned();
             $table->text('before');
             $table->text('after');
 
@@ -30,6 +31,6 @@ class CreateRiskAuditTrailsTable extends Migration
      */
     public function down()
     {
-        Schema::drop('risk_audit_trails');
+        Schema::drop('audit_trails');
     }
 }
