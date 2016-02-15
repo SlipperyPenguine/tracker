@@ -162,14 +162,14 @@ class UserController extends Controller
             $file = $request->newavatarfile;
             //dd($file);
 
-            $path = public_path()."\\img\\avatars";
+            $path = public_path()."/img/avatars";
 
             //return $path;
 
             $filename = $user->id.'.'.$file->getClientOriginalExtension();
 
-            $jpgfullpath = $path.'\\'.$user->id.'.jpg';
-            $pngfullpath = $path.'\\'.$user->id.'.png';
+            $jpgfullpath = $path.'/'.$user->id.'.jpg';
+            $pngfullpath = $path.'/'.$user->id.'.png';
             //return $fullpath;
 
             if(File::exists($jpgfullpath))

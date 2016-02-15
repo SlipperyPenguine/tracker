@@ -41,19 +41,19 @@ class User extends Model implements AuthenticatableContract,
     public function getavatarAttribute($value)
     {
         $id = $this->id;
-        $path = "\\img\\avatars\\$id.png";
+        $path = "/img/avatars/$id.png";
         $filename = public_path().$path;
 
         if(File::exists($filename))
             return $path;
 
-        $path = "\\img\\avatars\\$id.jpg";
+        $path = "/img/avatars/$id.jpg";
         $filename = public_path().$path;
 
         if(File::exists($filename))
             return $path;
 
-         return '\\img\\avatars\\no_avatar.png';
+         return '/img/avatars/no_avatar.png';
 
 
     }
