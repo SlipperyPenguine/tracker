@@ -37,7 +37,7 @@
 
                 <tr>
                     <td class="tooltip-demo">
-                            <span data-toggle="tooltip" data-placement="top" title="{{$action->Actionee->name}} - {{$member['role']}}"><img alt="image" height="30" class="img-circle" src="{{ URL::asset($action->Actionee->avatar) }}" /></span>
+                            <span data-toggle="tooltip" data-placement="top" title="{{$action->Actionee->name}}"><img alt="image" height="30" class="img-circle" src="{{ URL::asset($action->Actionee->avatar) }}" /></span>
                     </td>
                     <td>{{$action['title']}}</td>
                     <td>{{$action['status']}}</td>

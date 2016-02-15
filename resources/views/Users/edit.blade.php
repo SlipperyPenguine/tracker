@@ -26,7 +26,7 @@
         <div class="col-lg-4">
             <div class="ibox float-e-margins">
                 <div class="ibox-content">
-                    <img alt="image" height="500px" class="img-rounded" src="{{ URL::asset($user->avatar) }}"  />
+                    <img alt="image" height="500px" class="img-rounded" src="{{ URL::asset($user->ProfilePicture) }}"  />
                 </div>
             </div>
         </div>

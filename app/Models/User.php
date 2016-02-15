@@ -41,6 +41,24 @@ class User extends Model implements AuthenticatableContract,
     public function getavatarAttribute($value)
     {
         $id = $this->id;
+        $path = '/img/avatars/'.$id.'_thumb.png';
+        $filename = public_path().$path;
+
+        if(File::exists($filename))
+            return $path;
+
+        $path = '/img/avatars/'.$id.'_thumb.jpg';
+        $filename = public_path().$path;
+
+        if(File::exists($filename))
+            return $path;
+
+         return '/img/avatars/no_avatar.png';
+    }
+
+    public function getProfilePictureAttribute($value)
+    {
+        $id = $this->id;
         $path = "/img/avatars/$id.png";
         $filename = public_path().$path;
 
@@ -53,8 +71,6 @@ class User extends Model implements AuthenticatableContract,
         if(File::exists($filename))
             return $path;
 
-         return '/img/avatars/no_avatar.png';
-
-
+        return '/img/avatars/no_avatar.png';
     }
 }

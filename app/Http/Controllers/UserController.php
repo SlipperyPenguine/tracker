@@ -4,6 +4,7 @@ namespace tracker\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
+use Intervention\Image\Facades\Image;
 use Symfony\Component\Console\Input\Input;
 use tracker\Http\Requests;
 use tracker\Http\Controllers\Controller;
@@ -156,31 +157,87 @@ class UserController extends Controller
             $message .= ".  Password has been changed";
         }
 
+        /*        $file = null;
+
+                if(isset($request->newavatarfile)) {
+                    $file = $request->newavatarfile;
+                }
+                elseif(isset($request->newavatarurl) && (strlen($request->newavatarurl)>0))
+                {
+                    $file = file_get_contents($request->newavatarurl);
+                }
+
+                if($file!=null)
+                {
+
+                    $path = public_path()."/img/avatars";
+
+                    //return $path;
+
+                    $filename = $user->id.'.'.$file->getClientOriginalExtension();
+                    $thumbfilename = $user->id.'_thumb.'.$file->getClientOriginalExtension();
+
+                    $jpgfullpath = $path.'/'.$user->id.'.jpg';
+                    $pngfullpath = $path.'/'.$user->id.'.png';
+                    //return $fullpath;
+
+                    if(File::exists($jpgfullpath))
+                        $delete = File::delete($jpgfullpath);
+
+                    if(File::exists($pngfullpath))
+                        $delete = File::delete($pngfullpath);
+
+
+                    $image = Image::make($file->getRealPath());
+
+                    $width = $image->width();
+                    $height = $image->height();
+
+                    if($width>=$height)
+                    {
+
+                        $image->resize(null, 500,function ($constraint) {
+                            $constraint->aspectRatio();
+                        })
+                            ->crop(500,500)
+                            ->save($path.'/'.$filename)
+                            ->resize(50,50)
+                            ->save($path.'/'.$thumbfilename);
+
+                    }
+                    else
+                    {
+                        $image->resize(500, null, function ($constraint) {
+                            $constraint->aspectRatio();
+                        })
+                            ->crop(500,500)
+                            ->save($path.'/'.$filename)
+                            ->resize(50,50)
+                            ->save($path.'/'.$thumbfilename);
+                    }
+
+                    $message .= ".  The profile picture has changed.  You may need to refresh your browser page to see the new picture";
+                }*/
+
+        $image = null;
+
         if(isset($request->newavatarfile))
         {
-            //$file = Input::file('newavatarfile');
-            $file = $request->newavatarfile;
-            //dd($file);
+            $image = Image::make($request->newavatarfile->getRealPath());
+        }
+        elseif(isset($request->newavatarurl) && (strlen($request->newavatarurl)>0))
+        {
+            $image = Image::make(file_get_contents($request->newavatarurl));
+        }
 
-            $path = public_path()."/img/avatars";
 
-            //return $path;
-
-            $filename = $user->id.'.'.$file->getClientOriginalExtension();
-
-            $jpgfullpath = $path.'/'.$user->id.'.jpg';
-            $pngfullpath = $path.'/'.$user->id.'.png';
-            //return $fullpath;
-
-            if(File::exists($jpgfullpath))
-                $delete = File::delete($jpgfullpath);
-
-            if(File::exists($pngfullpath))
-                $delete = File::delete($pngfullpath);
-
-            //return $filename;
-
-            $file->move($path, $filename);
+        if($image!=null)
+        {
+            $path = public_path()."/img/avatars/";
+            $image->fit(500)
+                ->save($path.$user->id.'.png')
+                ->fit(50)
+                ->save($path.$user->id.'_thumb.png');
 
             $message .= ".  The profile picture has changed.  You may need to refresh your browser page to see the new picture";
         }
