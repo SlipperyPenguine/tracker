@@ -46,22 +46,15 @@ Route::get('programs/{ProgramID}/workstreams/{WorkstreamID}/projects/{id}',['use
 Route::post('projects', ['middleware'=>'auth', 'uses' =>  'ProjectController@store'] );
 Route::patch('projects/{id}', ['middleware'=>'auth', 'uses' => 'ProjectController@update'] );
 
+//Risks and Issues
 Route::post('risksandissues', ['middleware'=>'auth', 'uses' =>  'RiskAndIssueController@store'] );
 Route::patch('risksandissues/{id}', ['middleware'=>'auth', 'uses' => 'RiskAndIssueController@update'] );
 Route::get('risks/create/{subjecttype}/{subjectid}',['middleware'=>'auth', 'uses' => 'RiskAndIssueController@createRisk' ] );
 Route::get('risks/{id}/edit', ['middleware'=>'auth', 'uses' => 'RiskAndIssueController@editRisk'] );
+Route::get('risks', ['uses' => 'RiskAndIssueController@indexall'] );
 Route::get('risks/{id}', ['uses' => 'RiskAndIssueController@show'] );
 
-Route::post('tasks', ['middleware'=>'auth', 'uses' =>  'TaskController@store'] );
-Route::patch('tasks/{id}', ['middleware'=>'auth', 'uses' => 'TaskController@update'] );
-
-Route::get('programs/{ProgramID}/workstreams/{WorkstreamID}/tasks',[ 'uses' => 'TaskController@indexWorkstreamTask' ] );
-Route::get('programs/{ProgramID}/workstreams/{WorkstreamID}/projects/{ProjectID}/tasks',[ 'uses' => 'TaskController@indexProjectTask' ] );
-
-Route::get('tasks/create/{subjecttype}/{subjectid}',['middleware'=>'auth', 'uses' => 'TaskController@createTask' ] );
-Route::get('tasks/{id}/edit', ['middleware'=>'auth', 'uses' => 'TaskController@editTask'] );
-Route::get('tasks/index/{subjecttype}/{subjectid}', ['uses' => 'TaskController@indexTask'] );
-
+//comments
 Route::post('comments', ['middleware'=>'auth', 'uses' =>  'CommentController@store'] );
 Route::post('AjaxComments', [ 'uses' =>  'CommentController@AjaxStore'] );
 
@@ -99,5 +92,18 @@ Route::get('rags/{id}', [ 'uses' => 'RagController@show'] );
 Route::post('rags', ['middleware'=>'auth', 'uses' =>  'RagController@store'] );
 Route::patch('rags/{id}', ['middleware'=>'auth', 'uses' => 'RagController@update'] );
 
+//Tasks
+Route::post('tasks', ['middleware'=>'auth', 'uses' =>  'TaskController@store'] );
+Route::patch('tasks/{id}', ['middleware'=>'auth', 'uses' => 'TaskController@update'] );
 
+Route::get('programs/{ProgramID}/workstreams/{WorkstreamID}/tasks',[ 'uses' => 'TaskController@indexWorkstreamTask' ] );
+Route::get('programs/{ProgramID}/workstreams/{WorkstreamID}/projects/{ProjectID}/tasks',[ 'uses' => 'TaskController@indexProjectTask' ] );
+
+Route::get('tasks/create/{subjecttype}/{subjectid}',['middleware'=>'auth', 'uses' => 'TaskController@createTask' ] );
+Route::get('tasks/{id}/edit', ['middleware'=>'auth', 'uses' => 'TaskController@editTask'] );
+Route::get('tasks/index/{subjecttype}/{subjectid}', ['uses' => 'TaskController@indexTask'] );
+Route::get('tasks/{id}', ['uses' => 'TaskController@show'] );
+
+
+//API
 Route::get('api/getUsers', 'ApiController@getUsers');

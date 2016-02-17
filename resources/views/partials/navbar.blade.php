@@ -29,6 +29,10 @@
                 <a href="{{ URL::asset('programs') }}"><i class="fa fa-briefcase"></i> <span class="nav-label">Programs</span></a>
             </li>
 
+            <li @if(str_contains($controller,'RiskAndIssueController') && str_contains($action,'indexall') )class="active" @endif>
+                <a href="{{ URL::asset('risks') }}"><i class="fa fa-briefcase"></i> <span class="nav-label">Risks</span></a>
+            </li>
+
             @if(Auth::isSuperUser())
                 <li @if(str_contains($controller,'UserController'))class="active" @endif>
                     <a href="{{ URL::asset('dashboard/users') }}"><i class="fa fa-wrench"></i> <span class="nav-label">Configuration</span> <span class="fa arrow"></span></a>

@@ -130,9 +130,23 @@ class TaskController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($taskid, Request $request)
     {
-        //
+        $subject = Task::findOrFail($taskid);
+
+        $subjectid = $subject->subject_id;
+        $subjecttype = $subject->subject_type;
+
+        $title = "Task $subject->title for $subject->subject_type ".Breadcrumbs::getSubjectName($subjecttype, $subjectid);
+
+        $breadcrumbs = Breadcrumbs::getBreadCrumb($subjecttype, $subjectid);
+        $breadcrumbs[] = ['Tasks', '', false];
+        $breadcrumbs[] = [$subject->title, '', true];
+
+        $redirect = $request->server('HTTP_REFERER');
+
+
+        return view('Tasks.show', compact('subject', 'title', 'breadcrumbs', 'redirect', 'subjectid', 'subjecttype'));
     }
 
 

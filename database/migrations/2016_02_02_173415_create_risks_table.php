@@ -17,11 +17,14 @@ class CreateRisksTable extends Migration
             $table->increments('id');
             $table->integer('subject_id')->unsigned()->index();
             $table->string('subject_type')->index();
+            $table->string('subject_name');
             $table->string('status',12);
             $table->tinyInteger('probability');
-            $table->tinyInteger('previous_probability');
+            $table->tinyInteger('previous_probability')->nullable();
             $table->tinyInteger('impact');
-            $table->tinyInteger('previous_impact');
+            $table->tinyInteger('previous_impact')->nullable();
+            $table->tinyInteger('target_probability')->nullable();
+            $table->tinyInteger('target_impact')->nullable();
             $table->boolean('is_an_issue');
             $table->dateTime('NextReviewDate')->nullable;
             $table->integer('owner')->unsigned;

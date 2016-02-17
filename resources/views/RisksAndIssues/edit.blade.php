@@ -1,4 +1,8 @@
 @extends('layouts.main')
+@section('header')
+    <link rel="stylesheet"  href="{{ URL::asset('css/plugins/nouslider/jquery.nouislider.css') }}">
+    <link rel="stylesheet"  href="{{ URL::asset('css/plugins/nouslider/nouislider.pips.css') }}">
+@endsection
 
 @section('heading'){{$title}} @endsection
 
@@ -18,11 +22,5 @@
         </div>
     </div>
 
-
-@endsection
-
-@section('readyfunction')
-
-    @include('RisksAndIssues.partials.datefieldsetup')
 
 @endsection

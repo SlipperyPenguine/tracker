@@ -15,7 +15,16 @@ class Risk extends Model
     use ActionTrait, AuditTrailTrait, CommentTrait;
 
     //protected $dates = ['NextReviewDate'];
+
    // protected $dateFormat = '';
+
+    public function RiskOwner() {
+        return $this->hasOne('tracker\Models\User', 'id', 'owner');
+    }
+
+    public function ActionOwner() {
+        return $this->hasOne('tracker\Models\User', 'action_owner', 'id');
+    }
 
     public static function boot()
     {
@@ -45,7 +54,26 @@ class Risk extends Model
         return User::findorFail($this->owner)->name;
     }
 
+    public function getCurrentRiskClassificationScoreAttribute()
+    {
+        return $this->probability * $this->impact;
+    }
 
+    public function getCurrentRiskClassificationAttribute()
+    {
+        $score = $this->CurrentRiskClassificationScore;
+
+        if($score > 12)
+            return 'Prevent';
+
+        if($score > 9)
+            return 'Mitigate';
+
+        if($score > 4)
+            return 'Contingency';
+
+        return 'Accept';
+    }
 
 
     protected function CheckForProbabilityOrImpactChange()

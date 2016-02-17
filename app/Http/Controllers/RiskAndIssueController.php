@@ -26,6 +26,14 @@ class RiskAndIssueController extends Controller
         //
     }
 
+    public function indexall()
+    {
+        $risks = Risk::with('RiskOwner')->get();
+        //return $risks;
+
+        return view('RisksAndIssues.indexall', compact('risks'));
+    }
+
     public function createWorkstreamRiskOrIssue($programid, $workstreamid)
     {
         $program = Program::findOrFail($programid);
@@ -136,11 +144,14 @@ class RiskAndIssueController extends Controller
 
         $risk->subject_id = $request->subject_id;
         $risk->subject_type = $request->subject_type;
+        $risk->subject_name = Breadcrumbs::getSubjectName($request->subject_type, $request->subject_id);
         $risk->title = $request->title;
         $risk->is_an_issue = $request->is_an_issue;
         $risk->status = $request->status;
         $risk->probability = $request->probability;
         $risk->impact = $request->impact;
+        $risk->target_probability = $request->target_probability;
+        $risk->target_impact = $request->target_impact;
         $risk->description = $request->description;
         $risk->NextReviewDate = Carbon::parse( $request->NextReviewDate)->toDateTimeString();
         $risk->owner =  $request->owner;
@@ -218,6 +229,8 @@ class RiskAndIssueController extends Controller
         $risk->status = $request->status;
         $risk->probability = $request->probability;
         $risk->impact = $request->impact;
+        $risk->target_probability = $request->target_probability;
+        $risk->target_impact = $request->target_impact;
         $risk->description = $request->description;
         $risk->NextReviewDate = Carbon::parse( $request->NextReviewDate)->toDateTimeString();
         $risk->owner =  $request->owner;

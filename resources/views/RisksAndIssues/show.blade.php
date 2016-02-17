@@ -19,11 +19,34 @@
                             <td>
                                 <H3>{{$subject['title']}} </H3>
                                 <H4>@if($subject['is_an_issue'])<span class="label label-danger">Issue</span> @else <span class="label label-warning">Risk</span> @endif </H4>
-                                <div class="">
-                                    <H4><i class="glyphicon glyphicon-road"></i> {{$subject->status}}</H4>
-                                    <div>Probability {!! tracker\Helpers\HtmlFormating::FormatHML($subject->probability, true, $subject->previous_probability) !!}   </div>
-                                    <div>Impact {!! tracker\Helpers\HtmlFormating::FormatHML($subject->impact, true, $subject->previous_impact)  !!} </div>
-                                </div>
+
+                                <table>
+                                    <tr>
+                                        <td>Status:</td>
+                                        <td><i class="glyphicon glyphicon-road"></i> {{$subject->status}}</td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>Current Probability: </td>
+                                        <td>{!! tracker\Helpers\HtmlFormating::FormatRiskRating($subject->probability, true, $subject->previous_probability) !!} {!! tracker\Helpers\HtmlFormating::GetProbabilityText($subject->probability) !!}</td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>Target Probability:</td>
+                                        <td>{!! tracker\Helpers\HtmlFormating::FormatRiskRating($subject->target_probability) !!} {!! tracker\Helpers\HtmlFormating::GetProbabilityText($subject->target_probability) !!} </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>Current Impact:</td>
+                                        <td>{!! tracker\Helpers\HtmlFormating::FormatRiskRating($subject->impact, true, $subject->previous_impact)  !!} {!! tracker\Helpers\HtmlFormating::GetImpactText($subject->impact) !!} </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>Target Impact:</td>
+                                        <td>{!! tracker\Helpers\HtmlFormating::FormatRiskRating($subject->target_impact)  !!} {!! tracker\Helpers\HtmlFormating::GetImpactText($subject->target_impact) !!} </td>
+                                    </tr>
+
+                                </table>
                             </td>
                             <td valign="centre" class="text-right">
                                 <a href="{{action('RiskAndIssueController@editRisk', [$subject->id])}}" class="btn btn-white btn-sm"><i class="fa fa-pencil"></i> Edit </a>
@@ -47,6 +70,12 @@
         </div>
 
         <div class="col-lg-6">
+
+            <div class="ibox float-e-margins">
+                <div class="ibox-content">
+                    @include('RisksAndIssues.partials.classificationmatrix')
+                </div>
+            </div>
 
             @include('Comments.partials.list')
 
