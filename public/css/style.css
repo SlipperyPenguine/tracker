@@ -7489,3 +7489,12 @@ body.skin-3 {
 .text-yellow {
   color: #f8e10c;
 }
+
+.itemattributerow {
+  vertical-align: top;
+}
+
+.itemattributerow > td {
+
+  padding-bottom: 10px;
+}

@@ -97,8 +97,9 @@ class TaskController extends Controller
 
         $task->subject_id = $request->subject_id;
         $task->subject_type = $request->subject_type;
+        $task->subject_name = Breadcrumbs::getSubjectName($request->subject_type, $request->subject_id);
         $task->status = $request->status;
-        $task->created_by = $request->created_by;
+        $task->created_by = auth()->user()->id;
         $task->action_owner = $request->action_owner;
         $task->title = $request->title;
         $task->description = $request->description;
@@ -163,7 +164,6 @@ class TaskController extends Controller
         $task = Task::findorFail($id);
 
         $task->status = $request->status;
-        $task->created_by = $request->created_by;
         $task->action_owner = $request->action_owner;
         $task->title = $request->title;
         $task->description = $request->description;

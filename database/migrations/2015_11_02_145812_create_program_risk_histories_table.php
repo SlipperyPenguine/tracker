@@ -12,10 +12,7 @@ class CreateProgramRiskHistoriesTable extends Migration
      */
     public function up()
     {
-        Schema::create('program_risk_histories', function (Blueprint $table) {
-            $table->increments('id');
-            $table->timestamps();
-        });
+
     }
 
     /**
@@ -25,6 +22,6 @@ class CreateProgramRiskHistoriesTable extends Migration
      */
     public function down()
     {
-        Schema::drop('program_risk_histories');
+
     }
 }

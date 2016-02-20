@@ -15,6 +15,7 @@ use tracker\Models\Program;
 use tracker\Models\Project;
 use tracker\Models\rag;
 use tracker\Models\Risk;
+use tracker\Models\Task;
 use tracker\Models\WorkStream;
 
 class Breadcrumbs
@@ -93,6 +94,16 @@ class Breadcrumbs
                 $breadcrumbs[] = [$rag->title,  '', false];
                 return $breadcrumbs;
                 break;
+
+            case "Task":
+
+                $task = Task::findOrFail($subjectid);
+
+                $breadcrumbs = Breadcrumbs::getBreadCrumb($task->subject_type, $task->subject_id);
+                $breadcrumbs[] = ['Tasks',  URL::action('TaskController@indexTask', [$task->subject_type, $task->subject_id]), false];
+                $breadcrumbs[] = [$task->title,  URL::asset('tasks/') ."/$task->id" , false];
+                return $breadcrumbs;
+                break;
         }
     }
 
@@ -119,6 +130,10 @@ class Breadcrumbs
             case "Rag":
                 $rag = rag::findOrFail($subjectid);
                 return $rag->title;
+                break;
+            case "Task":
+                $task = Task::findOrFail($subjectid);
+                return $task->title;
                 break;
         }
     }

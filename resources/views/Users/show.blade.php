@@ -18,7 +18,7 @@
 
     <div class="row">
         <div class="col-lg-4">
-            <img alt="image" class="img-rounded"  height="500px" src="{{ URL::asset($user->ProfilePicture) }}"  />
+            <img alt="image" class="img-rounded img-responsive"  height="500px" src="{{ URL::asset($user->ProfilePicture) }}"  />
 
         </div>
 

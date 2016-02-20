@@ -12,7 +12,7 @@ class SeedTasks extends Seeder
      */
     public function run()
     {
-        DB::table('tasks')->delete();
+/*        DB::table('tasks')->delete();
 
 
         Task::create(array('subject_id' => 1, 'subject_type' => 'Program' ,'status' => 'Open', 'milestone' => '1', 'created_by' => '2', 'action_owner' => '2', 'StartDate'=> date_create('03/18/2016'), 'title' => 'BSC Update',   'description' => 'Sanctioning for phase 2C' ));
@@ -39,7 +39,7 @@ class SeedTasks extends Seeder
         Task::create(array('subject_id' => 4, 'subject_type' => 'Project' ,'status' => 'Open', 'milestone' => '1', 'created_by' => '2', 'action_owner' => '2', 'StartDate'=> date_create('11/01/2015'), 'title' => 'Gate 1',   'description' => 'BCM Gate 1' ));
         Task::create(array('subject_id' => 4, 'subject_type' => 'Project' ,'status' => 'Open', 'milestone' => '1', 'created_by' => '2', 'action_owner' => '2', 'StartDate'=> date_create('03/01/2016'), 'title' => 'Review 1',   'description' => 'BCM Review 1' ));
         Task::create(array('subject_id' => 4, 'subject_type' => 'Project' ,'status' => 'Open', 'milestone' => '1', 'created_by' => '2', 'action_owner' => '2', 'StartDate'=> date_create('04/01/2016'), 'title' => 'Gate 2',   'description' => 'BCM Gate 2' ));
-        Task::create(array('subject_id' => 4, 'subject_type' => 'Project' ,'status' => 'Open', 'milestone' => '1', 'created_by' => '2', 'action_owner' => '2', 'StartDate'=> date_create('07/01/2016'), 'title' => 'Gate 3',   'description' => 'BCM Gate 3 Go Live' ));
+        Task::create(array('subject_id' => 4, 'subject_type' => 'Project' ,'status' => 'Open', 'milestone' => '1', 'created_by' => '2', 'action_owner' => '2', 'StartDate'=> date_create('07/01/2016'), 'title' => 'Gate 3',   'description' => 'BCM Gate 3 Go Live' ));*/
 
     }
 }

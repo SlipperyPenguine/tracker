@@ -57,7 +57,7 @@
         {!! Form::open(['class'=>'form-horizontal', 'url'=>'comments', 'id'=>'commentform']) !!}
 
         <input type="hidden" name="subject_id" value="{{$subject->id}}">
-        <input type="hidden" name="subject_type" value="{{$subjecttype}}">
+        <input type="hidden" name="subject_type" value="{{$subject->subjecttype}}">
 
         <div class="form-group">
 

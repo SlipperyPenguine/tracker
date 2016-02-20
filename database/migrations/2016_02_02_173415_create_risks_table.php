@@ -25,6 +25,7 @@ class CreateRisksTable extends Migration
             $table->tinyInteger('previous_impact')->nullable();
             $table->tinyInteger('target_probability')->nullable();
             $table->tinyInteger('target_impact')->nullable();
+            $table->tinyInteger('CurrentRiskClassificationScore');
             $table->boolean('is_an_issue');
             $table->dateTime('NextReviewDate')->nullable;
             $table->integer('owner')->unsigned;

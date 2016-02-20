@@ -1,6 +1,6 @@
 <div class="ibox float-e-margins">
     <div class="ibox-title">
-        <a class="darktext" href="{{action('ActionController@indexAction', [$subjecttype, $subject->id])}}"><h5 ><i class="fa fa-truck"></i> Actions</h5></a>
+        <a class="darktext" href="{{action('ActionController@indexAction', [$subject->subjecttype, $subject->id])}}"><h5 ><i class="fa fa-bolt"></i> Actions ( {{$subject->Actions()->DashboardActions()->count()}} of {{$subject->Actions()->count()}} )</h5></a>
         <div class="ibox-tools">
             <a class="collapse-link">
                 <i class="fa fa-chevron-up"></i>
@@ -25,6 +25,7 @@
             <tr>
 
                 <th>Actionee</th>
+                <th>ID</th>
                 <th>Title</th>
                 <th>Status</th>
                 <th>Due</th>
@@ -33,15 +34,16 @@
             </thead>
             <tbody>
 
-            @foreach($subject->getActiveActions() as $action)
+            @foreach($subject->Actions()->DashboardActions()->orderBy('DueDate')->get() as $action)
 
                 <tr>
                     <td class="tooltip-demo">
                             <span data-toggle="tooltip" data-placement="top" title="{{$action->Actionee->name}}"><img alt="image" height="30" class="img-circle" src="{{ URL::asset($action->Actionee->avatar) }}" /></span>
                     </td>
+                    <td>{{$action->id}}</td>
                     <td>{{$action['title']}}</td>
                     <td>{{$action['status']}}</td>
-                    <td class="text-nowrap"><i class="fa fa-clock-o"></i> {{ ($action['DueDate']->diff(\Carbon\Carbon::now())->days < 1) ? 'today' : $action['DueDate']->diffForHumans()}} <br/> &nbsp;&nbsp;&nbsp; <small>( {{$action['DueDate']->format('d M y')}} )</small></td>
+                    <td class="text-nowrap">{!! $formater::StandardDateHTML($action->DueDate, false, true, true) !!}</td>
                     <td>
                         <a href="{{ URL::asset('actions/') }}/{{$action['id']}}" class="btn btn-white btn-sm"><i class="fa fa-folder"></i> View </a>
                         <a href="{{action('ActionController@editAction', [$action->id])}}" class="btn btn-white btn-sm"><i class="fa fa-pencil"></i> Edit </a>
@@ -56,8 +58,8 @@
     </div>
     <div class="ibox-footer">
         <div class="pull-right">
-            <a href="{{action('ActionController@indexAction', [$subjecttype, $subject->id])}}" class="btn btn-white"><i class="fa fa-folder"></i> View All </a>
+            <a href="{{action('ActionController@indexAction', [$subject->subjecttype, $subject->id])}}" class="btn btn-white"><i class="fa fa-folder"></i> View All </a>
         </div>
-        <a href="{{action('ActionController@createAction', [$subjecttype, $subject->id])}}" class="btn btn-primary btn-sm">Add new Action</a>
+        <a href="{{action('ActionController@createAction', [$subject->subjecttype, $subject->id])}}" class="btn btn-primary btn-sm">Add new Action</a>
     </div>
 </div>

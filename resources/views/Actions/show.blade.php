@@ -21,6 +21,10 @@
                                 <div class="">
                                     <H4><i class="glyphicon glyphicon-road"></i> {{$subject->status}}</H4>
                                     <table style="margin: 0px">
+                                        <tr>
+                                            <td height="24px" valign="top">ID &nbsp;</td>
+                                            <td height="24px" valign="top"><strong>{{$subject->id}}</strong></td>
+                                        </tr>
                                         @if(strlen($subject->raised)>0)
                                         <tr>
                                             <td height="24px" valign="top">Raised at </td>
@@ -37,7 +41,7 @@
                                         </tr>
                                         <tr>
                                             <td height="24px" valign="top"><i class="fa fa-clock-o"></i> Due </td>
-                                            <td height="24px" valign="top"><strong> {!! $formater::StandardDateHTML($subject->DueDate, false) !!} </strong></td>
+                                            <td height="24px" valign="top"><strong> {!! $formater::StandardDateHTML($subject->DueDate, false, true) !!} </strong></td>
                                         </tr>
                                     </table>
 

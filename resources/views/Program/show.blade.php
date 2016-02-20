@@ -17,7 +17,7 @@
 @section('content')
 
     <div class="row">
-        <div class="col-lg-8">
+        <div class="col-lg-6">
 
             <div class="ibox float-e-margins">
 
@@ -39,7 +39,7 @@
                             <td>
                                 <div>{{$subject['description']}}</div>
                             </td>
-                            <td valign="bottom" class="text-right">
+                            <td valign="bottom" class="text-right text-nowrap">
                                 <i class="fa fa-clock-o"></i> Created {!! $formater::StandardDateHTML($subject->created_at, true) !!} <br>
                                 <i class="fa fa-clock-o"></i> Last Updated {!! $formater::StandardDateHTML($subject->updated_at, true) !!}
                             </td>
@@ -158,14 +158,21 @@
 
         </div>
 
-        <div class="col-lg-4">
-
-            @include('Rags.partials.list')
+        <div class="col-lg-6">
 
             @include('RisksAndIssues.partials.list')
 
+            <div class="row">
 
-            @include('Members.partials.list')
+                <div class="col-md-6">
+                @include('Rags.partials.list')
+                </div>
+
+                <div class="col-md-6">
+                @include('Members.partials.list')
+
+                    </div>
+            </div>
 
             @include('Actions.partials.list')
 

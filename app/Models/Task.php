@@ -4,13 +4,15 @@ namespace tracker\Models;
 
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
+use tracker\Events\TaskCreated;
+use tracker\Events\TaskUpdated;
 use tracker\Traits\ActionTrait;
 use tracker\Traits\AuditTrailTrait;
 use tracker\Traits\CommentTrait;
 
 class Task extends Model
 {
-    protected $subjecttype = 'Task';
+    public $subjecttype = 'Task';
     use AuditTrailTrait, ActionTrait, CommentTrait;
 
     protected $dates = ['StartDate', 'EndDate'];
@@ -37,11 +39,17 @@ class Task extends Model
     {
         parent::boot();
 
-        static::updating(function($task){
+        static::updating(function($task)
+        {
+            event(new TaskUpdated($task));
+
             $task->RecordAuditTrail(false);
      });
 
         static::created(function($task){
+
+            event(new TaskCreated($task));
+
             $task->RecordAuditTrail(true);
         });
     }

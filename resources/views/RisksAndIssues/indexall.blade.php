@@ -31,6 +31,8 @@
                         <table class="table table-striped table-bordered table-hover dataTables-risks" >
                             <thead>
                             <tr>
+                                <th>ID</th>
+                                <th>Status</th>
                                 <th>Subject</th>
                                 <th>Name</th>
                                 <th>Type</th>
@@ -42,12 +44,15 @@
                                 <th>Impact</th>
                                 <th>Target</th>
                                 <th>Review</th>
+                                <th>Open Actions</th>
                                 <th></th>
                             </tr>
                             </thead>
                             <tbody>
                                 @foreach($risks as $risk)
                                     <tr>
+                                        <td>{{$risk->id}}</td>
+                                        <td>{{$risk->status}}</td>
                                         <td>{{$risk->subject_type}}</td>
                                         <td>{{$risk->subject_name}}</td>
                                         <td>@if($risk['is_an_issue'])<span class="label label-danger">Issue</span> @else <span class="label label-warning">Risk</span> @endif</td>
@@ -58,8 +63,8 @@
                                         <td>{!! tracker\Helpers\HtmlFormating::FormatRiskRating($risk->target_probability) !!}</td>
                                         <td>{!! tracker\Helpers\HtmlFormating::FormatRiskRating($risk->impact, true, $risk->previous_impact) !!}</td>
                                         <td>{!! tracker\Helpers\HtmlFormating::FormatRiskRating($risk->target_impact) !!}</td>
-                                        <td><i class="fa fa-clock-o"></i> {{$risk->NextReviewDate}} </td>
-
+                                        <td class="text-nowrap">{!! $formater::StandardDateHTML($risk->NextReviewDate, false, true, true) !!} </td>
+                                        <td>{{$risk->OpenActionCount}}</td>
                                         <td>
                                             <a href="{{ URL::asset('risks/') }}/{{$risk['id']}}" class="btn btn-white btn-sm"><i class="fa fa-folder"></i> View </a>
                                             <a href="{{action('RiskAndIssueController@editRisk', [$risk->id])}}" class="btn btn-white btn-sm"><i class="fa fa-pencil"></i> Edit </a>
@@ -93,7 +98,7 @@
             $('.dataTables-risks').DataTable({
                 "order": [[ 1, 'asc' ]],
 
-                "columnDefs": [ {"targets": [10],"orderable": false} ],
+                "columnDefs": [ {"targets": [14],"orderable": false} ],
                 dom: '<"html5buttons"B>lTfgitp',
                 buttons: [
                     { extend: 'copy'},

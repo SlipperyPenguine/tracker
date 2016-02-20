@@ -37,8 +37,9 @@ class ActionController extends Controller
     public function createAction($subjecttype, $subjectid, Request $request)
     {
 
+        $subjectname = Breadcrumbs::getSubjectName($subjecttype, $subjectid);
 
-        $title = "Create new Action for $subjecttype ".Breadcrumbs::getSubjectName($subjecttype, $subjectid);
+        $title = "Create new Action for $subjecttype $subjectname ";
 
         $breadcrumbs = Breadcrumbs::getBreadCrumb($subjecttype, $subjectid);
         $breadcrumbs[] = ['Actions', '', false];
@@ -46,7 +47,7 @@ class ActionController extends Controller
 
         $redirect = $request->server('HTTP_REFERER');
         //return $redirect;
-        return view('Actions.create', compact('subjectid', 'subjecttype', 'title', 'breadcrumbs', 'redirect'));
+        return view('Actions.create', compact('subjectid', 'subjecttype', 'subjectname', 'title', 'breadcrumbs', 'redirect'));
 
     }
 
@@ -56,8 +57,9 @@ class ActionController extends Controller
 
         $subjectid = $action->subject_id;
         $subjecttype = $action->subject_type;
+        $subjectname = Breadcrumbs::getSubjectName($subjecttype, $subjectid);
 
-        $title = "Edit Action $action->title for $action->subject_type ".Breadcrumbs::getSubjectName($subjecttype, $subjectid);
+        $title = "Edit Action $action->title for $action->subject_type $subjectname";
 
         $breadcrumbs = Breadcrumbs::getBreadCrumb($subjecttype, $subjectid);
         $breadcrumbs[] = ['Actions', URL::action('ActionController@indexAction', [$subjecttype, $subjectid]), false];
@@ -67,7 +69,7 @@ class ActionController extends Controller
         $redirect = $request->server('HTTP_REFERER');
 
 
-        return view('Actions.edit', compact('action', 'title', 'breadcrumbs', 'redirect', 'subjectid', 'subjecttype'));
+        return view('Actions.edit', compact('action', 'title', 'breadcrumbs', 'redirect', 'subjectid', 'subjecttype', 'subjectname'));
     }
 
 
@@ -84,6 +86,7 @@ class ActionController extends Controller
 
         $action->subject_id = $request->subject_id;
         $action->subject_type = $request->subject_type;
+        $action->subject_name = Breadcrumbs::getSubjectName($request->subject_type, $request->subject_id);
         $action->status = $request->status;
         $action->actionee = $request->actionee;
         $action->title = $request->title;

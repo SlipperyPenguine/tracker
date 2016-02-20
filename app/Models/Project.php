@@ -3,6 +3,8 @@
 namespace tracker\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use tracker\Events\ProjectCreated;
+use tracker\Events\ProjectUpdated;
 use tracker\Traits\ActionTrait;
 use tracker\Traits\CommentTrait;
 use tracker\Traits\MemberTrait;
@@ -12,7 +14,7 @@ use tracker\Traits\TaskTrait;
 
 class Project extends Model
 {
-    protected $subjecttype = 'Project';
+    public $subjecttype = 'Project';
     use TaskTrait, RagTrait, RiskTrait, MemberTrait, CommentTrait, ActionTrait;
 
 
@@ -20,13 +22,18 @@ class Project extends Model
 
     protected $appends = array('StatusText');
 
+
     public static function boot()
     {
         parent::boot();
 
+        static::updating(function($project){
+            event(new ProjectUpdated($project));
+        });
+
         static::created(function($project){
             $project->AddStandardRAGs();
-
+            event(new ProjectCreated($project));
         });
     }
 

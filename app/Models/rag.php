@@ -9,7 +9,7 @@ use tracker\Traits\CommentTrait;
 class rag extends Model
 {
     use AuditTrailTrait, CommentTrait;
-    protected $subjecttype = 'Rag';
+    public $subjecttype = 'Rag';
     protected $fillable = ['subject_id', 'subject_type' ,'title' , 'value' , 'comments'];
 
 

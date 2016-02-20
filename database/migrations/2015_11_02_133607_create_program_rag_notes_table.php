@@ -12,13 +12,13 @@ class CreateProgramRagNotesTable extends Migration
      */
     public function up()
     {
-        Schema::create('program_rag_notes', function (Blueprint $table) {
+/*        Schema::create('program_rag_notes', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('program_id')->unsigned;
             $table->string('rag',1)->default('G');
             $table->text('notes');
             $table->timestamps();
-        });
+        });*/
     }
 
     /**
@@ -28,6 +28,6 @@ class CreateProgramRagNotesTable extends Migration
      */
     public function down()
     {
-        Schema::drop('program_rag_notes');
+        //Schema::drop('program_rag_notes');
     }
 }

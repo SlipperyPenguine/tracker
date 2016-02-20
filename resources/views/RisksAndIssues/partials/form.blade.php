@@ -127,7 +127,7 @@
 <div class="form-group" id="reviewdate">
     <label class="col-lg-2 control-label" for="NextReviewDate">Next Review Date</label>
     <div class="input-group date col-lg-10">
-        <span class="input-group-addon"><i class="fa fa-calendar"></i></span> {!! Form::text('NextReviewDate', isset($risk) ? null : \Carbon\Carbon::now()->addDay(14)->format('d F Y')  , ['class'=>'form-control']) !!}
+        <span class="input-group-addon"><i class="fa fa-calendar"></i></span> {!! Form::text('NextReviewDate', isset($risk) ? $risk->NextReviewDate->format('d F Y') : \Carbon\Carbon::now()->addDay(14)->format('d F Y')  , ['class'=>'form-control']) !!}
     </div>
 </div>
 

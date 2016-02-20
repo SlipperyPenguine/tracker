@@ -12,13 +12,7 @@ class CreateProjectRagNotesTable extends Migration
      */
     public function up()
     {
-        Schema::create('project_rag_notes', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('project_id')->unsigned;
-            $table->string('rag',1)->default('G');
-            $table->text('notes');
-            $table->timestamps();
-        });
+
     }
 
     /**
@@ -28,6 +22,6 @@ class CreateProjectRagNotesTable extends Migration
      */
     public function down()
     {
-        Schema::drop('project_rag_notes');
+
     }
 }

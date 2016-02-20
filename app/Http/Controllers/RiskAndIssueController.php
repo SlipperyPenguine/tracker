@@ -6,6 +6,8 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\URL;
+use tracker\Events\RiskCreated;
+use tracker\Events\RiskUpdated;
 use tracker\Helpers\Breadcrumbs;
 use tracker\Http\Requests;
 use tracker\Http\Controllers\Controller;
@@ -21,9 +23,25 @@ class RiskAndIssueController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($subjecttype, $subjectid, Request $request)
     {
-        //
+
+
+        $title = "Risks & Issues for $subjecttype ".Breadcrumbs::getSubjectName($subjecttype, $subjectid);
+
+        $breadcrumbs = Breadcrumbs::getBreadCrumb($subjecttype, $subjectid);
+
+        $breadcrumbs[] = ['Risks', URL::action('RiskAndIssueController@index', [$subjecttype, $subjectid]), true];
+
+        //return $breadcrumbs;
+
+        //return $subjecttype.'  '.$subjectid;
+
+        $redirect = $request->server('HTTP_REFERER');
+
+        $risks = Risk::where('subject_type', $subjecttype)->where('subject_id', $subjectid)->get();
+
+        return view('RisksAndIssues.index', compact('subjectid', 'subjecttype', 'risks', 'title', 'breadcrumbs'));
     }
 
     public function indexall()
@@ -153,7 +171,7 @@ class RiskAndIssueController extends Controller
         $risk->target_probability = $request->target_probability;
         $risk->target_impact = $request->target_impact;
         $risk->description = $request->description;
-        $risk->NextReviewDate = Carbon::parse( $request->NextReviewDate)->toDateTimeString();
+        $risk->NextReviewDate = Carbon::parse($request->NextReviewDate)->toDateTimeString();
         $risk->owner =  $request->owner;
         $risk->response_strategy =  $request->response_strategy;
         $risk->response_notes =  $request->response_notes;
@@ -232,10 +250,11 @@ class RiskAndIssueController extends Controller
         $risk->target_probability = $request->target_probability;
         $risk->target_impact = $request->target_impact;
         $risk->description = $request->description;
-        $risk->NextReviewDate = Carbon::parse( $request->NextReviewDate)->toDateTimeString();
+        $risk->NextReviewDate = Carbon::parse($request->NextReviewDate)->toDateTimeString();
         $risk->owner =  $request->owner;
         $risk->response_strategy =  $request->response_strategy;
         $risk->response_notes =  $request->response_notes;
+
 
         $risk->save();
 

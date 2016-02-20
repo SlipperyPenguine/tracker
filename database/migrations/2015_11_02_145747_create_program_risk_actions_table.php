@@ -12,11 +12,11 @@ class CreateProgramRiskActionsTable extends Migration
      */
     public function up()
     {
-        Schema::create('program_risk_actions', function (Blueprint $table) {
+/*        Schema::create('program_risk_actions', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('program_id')->unsigned;
             $table->timestamps();
-        });
+        });*/
     }
 
     /**
@@ -26,6 +26,6 @@ class CreateProgramRiskActionsTable extends Migration
      */
     public function down()
     {
-        Schema::drop('program_risk_actions');
+        //Schema::drop('program_risk_actions');
     }
 }

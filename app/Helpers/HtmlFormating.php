@@ -101,15 +101,47 @@ class HtmlFormating
 
     }
 
-    public static function StandardDateHTML(Carbon $date, $includetime=false)
+    public static function StandardDateHTML(Carbon $date, $includetime=false, $comparetonow=false, $includeicon=false)
     {
-        $output  = $date->diffForHumans();
+        $output = '';
+
+        $close = clone $date;
+
+        $close = $close->addDays(-5);
+
+        if($comparetonow)
+        {
+            $now = Carbon::today();
+            if($date <= $now)
+            {
+                $output .= '<span class="text-danger">';
+            }
+            elseif($close <= $now)
+            {
+                $output .= '<span class="text-warning">';
+            }
+            else
+            {
+                $output .= '<span>';
+            }
+        }
+        else{
+            $output .= '<span>';
+        }
+
+        if($includeicon)
+        {
+            $output .= '<i class="fa fa-clock-o"></i> ';
+        }
+
+        $output  .= $date->diffForHumans();
         $output .= '<br/>';
         if($includetime)
             $output .= '&nbsp;&nbsp;&nbsp; <small>( '.$date->format('d M Y h:s').' )</small>';
         else
             $output .= '&nbsp;&nbsp;&nbsp; <small>( '.$date->format('d M Y').' )</small>';
 
+        $output .= '</span>';
         return $output;
     }
 

@@ -12,13 +12,7 @@ class CreateWorkStreamRagNotesTable extends Migration
      */
     public function up()
     {
-        Schema::create('work_stream_rag_notes', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('work_stream_id')->unsigned;
-            $table->string('rag',1)->default('G');
-            $table->text('notes');
-            $table->timestamps();
-        });
+
     }
 
     /**
@@ -28,6 +22,6 @@ class CreateWorkStreamRagNotesTable extends Migration
      */
     public function down()
     {
-        Schema::drop('work_stream_rag_notes');
+
     }
 }

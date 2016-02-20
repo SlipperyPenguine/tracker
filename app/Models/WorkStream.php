@@ -3,6 +3,8 @@
 namespace tracker\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use tracker\Events\WorkStreamCreated;
+use tracker\Events\WorkStreamUpdated;
 use tracker\Traits\ActionTrait;
 use tracker\Traits\MemberTrait;
 use tracker\Traits\RagTrait;
@@ -11,7 +13,7 @@ use tracker\Traits\TaskTrait;
 
 class WorkStream extends Model
 {
-    protected $subjecttype = 'WorkStream';
+    public $subjecttype = 'WorkStream';
     use TaskTrait, RagTrait, RiskTrait, MemberTrait, ActionTrait;
 
     protected $dates = ['StartDate', 'EndDate'];
@@ -47,6 +49,19 @@ class WorkStream extends Model
     public function getStatusTextAttribute()
     {
         return 'Active';
+    }
+
+    public static function boot()
+    {
+        parent::boot();
+
+        static::updating(function($workstream){
+            event(new WorkStreamUpdated($workstream));
+        });
+
+        static::created(function($workstream){
+            event(new WorkStreamCreated($workstream));
+        });
     }
 
 }

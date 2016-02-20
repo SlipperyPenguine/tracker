@@ -3,6 +3,8 @@
 namespace tracker\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use tracker\Events\ProgramCreated;
+use tracker\Events\ProgramUpdated;
 use tracker\Traits\ActionTrait;
 use tracker\Traits\MemberTrait;
 use tracker\Traits\RagTrait;
@@ -11,7 +13,7 @@ use tracker\Traits\TaskTrait;
 
 class Program extends Model
 {
-    protected $subjecttype = 'Program';
+    public $subjecttype = 'Program';
     use TaskTrait, RagTrait, RiskTrait, MemberTrait, ActionTrait;
 
     protected $dates = ['StartDate', 'EndDate'];
@@ -28,4 +30,16 @@ class Program extends Model
 
     }
 
+    public static function boot()
+    {
+        parent::boot();
+
+        static::updating(function($program){
+            event(new ProgramUpdated($program));
+        });
+
+        static::created(function($program){
+            event(new ProgramCreated($program));
+        });
+    }
 }

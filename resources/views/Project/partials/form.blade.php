@@ -43,7 +43,7 @@
 </div>
 
 <div class="form-group" id="EndDate">
-    <label class="col-lg-2 control-label" for="NextReviewDate">End Date</label>
+    <label class="col-lg-2 control-label" for="EndDate">End Date</label>
     <div class="input-group date col-lg-10">
         <span class="input-group-addon"><i class="fa fa-calendar"></i></span> {!! Form::text('EndDate', isset($subject) ? isset($subject->EndDate) ? $subject->EndDate->format('d F Y'): null : null  , ['class'=>'form-control']) !!}
     </div>

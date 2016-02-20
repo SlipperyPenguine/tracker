@@ -30,7 +30,7 @@
             </li>
 
             <li @if(str_contains($controller,'RiskAndIssueController') && str_contains($action,'indexall') )class="active" @endif>
-                <a href="{{ URL::asset('risks') }}"><i class="fa fa-briefcase"></i> <span class="nav-label">Risks</span></a>
+                <a href="{{ URL::asset('risks') }}"><i class="fa fa-warning"></i> <span class="nav-label">Risks</span></a>
             </li>
 
             @if(Auth::isSuperUser())

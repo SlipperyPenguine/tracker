@@ -12,10 +12,7 @@ class CreateWorkStreamRiskActionsTable extends Migration
      */
     public function up()
     {
-        Schema::create('work_stream_risk_actions', function (Blueprint $table) {
-            $table->increments('id');
-            $table->timestamps();
-        });
+
     }
 
     /**
@@ -25,6 +22,6 @@ class CreateWorkStreamRiskActionsTable extends Migration
      */
     public function down()
     {
-        Schema::drop('work_stream_risk_actions');
+
     }
 }

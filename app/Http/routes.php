@@ -53,6 +53,7 @@ Route::get('risks/create/{subjecttype}/{subjectid}',['middleware'=>'auth', 'uses
 Route::get('risks/{id}/edit', ['middleware'=>'auth', 'uses' => 'RiskAndIssueController@editRisk'] );
 Route::get('risks', ['uses' => 'RiskAndIssueController@indexall'] );
 Route::get('risks/{id}', ['uses' => 'RiskAndIssueController@show'] );
+Route::get('risks/index/{subjecttype}/{subjectid}', ['uses' => 'RiskAndIssueController@index'] );
 
 //comments
 Route::post('comments', ['middleware'=>'auth', 'uses' =>  'CommentController@store'] );

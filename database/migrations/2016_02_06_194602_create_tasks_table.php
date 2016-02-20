@@ -16,6 +16,7 @@ class CreateTasksTable extends Migration
             $table->increments('id');
             $table->integer('subject_id')->unsigned()->index();
             $table->string('subject_type')->index();
+            $table->string('subject_name');
             $table->string('status',12);
             $table->integer('created_by')->unsigned;
             $table->integer('action_owner')->nullable();

@@ -8,7 +8,7 @@
 
     <div class="ibox float-e-margins">
         <div class="ibox-title">
-            <h5 ><i class="fa fa-truck"></i> Actions</h5>
+            <h5 ><i class="fa fa-bolt"></i> Actions</h5>
         </div>
         <div class="ibox-content ">
             <br/>
@@ -17,6 +17,7 @@
                 <tr>
 
                     <th>Actionee</th>
+                    <th>ID</th>
                     <th>Title</th>
                     <th>Status</th>
                     <th>Due</th>
@@ -33,9 +34,10 @@
 
                         <td class="text-nowrap"><img alt="image" height="30" class="img-circle" src="{{ URL::asset($action->Actionee->avatar) }}" /> {{$action->Actionee->name}}</td>
 
+                        <td>{{$action->id}}</td>
                         <td>{{$action['title']}}</td>
                         <td>{{$action['status']}}</td>
-                        <td class="text-nowrap"><i class="fa fa-clock-o"></i> {{ ($action['DueDate']->diff(\Carbon\Carbon::now())->days < 1) ? 'today' : $action['DueDate']->diffForHumans()}} <br/> &nbsp;&nbsp;&nbsp; <small>( {{$action['DueDate']->format('d M y')}} )</small></td>
+                        <td class="text-nowrap"> {!! tracker\Helpers\HtmlFormating::StandardDateHTML($action->DueDate, false, true, true) !!} </td>
                         <td>{{$action['description']}}</td>
                         <td>{{$action['raised']}}</td>
 

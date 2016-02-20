@@ -29,19 +29,10 @@
         <div class="ibox-title">
             <h5>All Programs</h5>
             <div class="ibox-tools">
-                <a href="" class="btn btn-primary btn-xs">Create new program</a>
             </div>
         </div>
         <div class="ibox-content">
-            <div class="row m-b-sm m-t-sm">
-                <div class="col-md-1">
-                    <button type="button" id="loading-example-btn" class="btn btn-white btn-sm" ><i class="fa fa-refresh"></i> Refresh</button>
-                </div>
-                <div class="col-md-11">
-                    <div class="input-group"><input type="text" placeholder="Search" class="input-sm form-control"> <span class="input-group-btn">
-                                        <button type="button" class="btn btn-sm btn-primary"> Go!</button> </span></div>
-                </div>
-            </div>
+
 
             <div class="project-list">
 
@@ -67,11 +58,6 @@
                                     @else
                                         <span class="label label-primary">Green</span>
                                     @endif
-                                </td>
-
-                                <td class="project-people">
-                                    <a href=""><img alt="image" class="img-circle" src="img/a3.jpg"></a>
-                                    <a href=""><img alt="image" class="img-circle" src="img/a1.jpg"></a>
                                 </td>
                                 <td class="project-actions">
                                     <a href="{{ URL::asset('programs/') }}/{{$program['id']}}" class="btn btn-white btn-sm"><i class="fa fa-folder"></i> View </a>
