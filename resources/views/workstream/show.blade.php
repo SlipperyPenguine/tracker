@@ -206,6 +206,8 @@
                 </div>
             </div>
 
+            @include('Dependencies.partials.list')
+
             @include('Tasks.partials.list')
         </div>
 

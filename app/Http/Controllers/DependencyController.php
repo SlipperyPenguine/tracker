@@ -80,7 +80,7 @@ class DependencyController extends Controller
         $dependency->status = $request->status;
         $dependency->title = $request->title;
         $dependency->description = $request->description;
-        $dependency->NextReviewDate = Carbon::parse($request->DueDate)->toDateTimeString();
+        $dependency->NextReviewDate = Carbon::parse($request->NextReviewDate)->toDateTimeString();
 
         $dependency->created_by = Auth::id();
 
@@ -176,7 +176,7 @@ class DependencyController extends Controller
         $dependency->status = $request->status;
         $dependency->title = $request->title;
         $dependency->description = $request->description;
-        $dependency->NextReviewDate = Carbon::parse($request->DueDate)->toDateTimeString();
+        $dependency->NextReviewDate = Carbon::parse($request->NextReviewDate)->toDateTimeString();
 
         $dependency->save();
 

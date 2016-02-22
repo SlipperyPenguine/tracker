@@ -8,6 +8,7 @@ use tracker\Events\ProjectUpdated;
 use tracker\Traits\ActionTrait;
 use tracker\Traits\ChangeRequestTrait;
 use tracker\Traits\CommentTrait;
+use tracker\Traits\DependencyTrait;
 use tracker\Traits\MemberTrait;
 use tracker\Traits\RagTrait;
 use tracker\Traits\RiskTrait;
@@ -16,7 +17,7 @@ use tracker\Traits\TaskTrait;
 class Project extends Model
 {
     public $subjecttype = 'Project';
-    use TaskTrait, RagTrait, RiskTrait, MemberTrait, CommentTrait, ActionTrait, ChangeRequestTrait;
+    use TaskTrait, RagTrait, RiskTrait, MemberTrait, CommentTrait, ActionTrait, ChangeRequestTrait, DependencyTrait;
 
 
     protected $dates = ['StartDate', 'EndDate'];

@@ -153,6 +153,8 @@
                 </div>
             </div>
 
+            @include('Dependencies.partials.list')
+
             @include('Tasks.partials.list')
 
 
@@ -175,8 +177,6 @@
             </div>
 
             @include('Actions.partials.list')
-
-            @include('Dependencies.partials.list')
 
         </div>
     </div>
