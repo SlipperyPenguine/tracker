@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use tracker\Events\ProgramCreated;
 use tracker\Events\ProgramUpdated;
 use tracker\Traits\ActionTrait;
+use tracker\Traits\DependencyTrait;
 use tracker\Traits\MemberTrait;
 use tracker\Traits\RagTrait;
 use tracker\Traits\RiskTrait;
@@ -14,7 +15,7 @@ use tracker\Traits\TaskTrait;
 class Program extends Model
 {
     public $subjecttype = 'Program';
-    use TaskTrait, RagTrait, RiskTrait, MemberTrait, ActionTrait;
+    use TaskTrait, RagTrait, RiskTrait, MemberTrait, ActionTrait, DependencyTrait;
 
     protected $dates = ['StartDate', 'EndDate'];
 

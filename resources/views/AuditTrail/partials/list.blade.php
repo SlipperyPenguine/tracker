@@ -26,6 +26,7 @@
             <thead>
             <tr>
                 <th>When</th>
+                <th>Who</th>
                 <th>Changes</th>
             </tr>
             </thead>
@@ -36,7 +37,8 @@
                 <tr>
 
                     <td> <i class="fa fa-clock-o"></i> {{$change->pivot->created_at->diffForHumans()}}<br/> &nbsp;&nbsp;&nbsp; <small>( {{$change->pivot->created_at->format('d M y')}} )</small> </td>
-                    <td> {!!   tracker\Helpers\HtmlFormating::FormatRiskHistory( $change->pivot->before, $change->pivot->after )  !!} </td>
+                    <td>{{$change->name}}</td>
+                    <td style="padding-top: 0"> {!!   tracker\Helpers\HtmlFormating::FormatAuditTrail( $change->pivot->before, $change->pivot->after )  !!} </td>
 
                 </tr>
 

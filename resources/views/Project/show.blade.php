@@ -135,7 +135,11 @@
 
             @include('Members.partials.list')
 
+            @include('ChangeRequests.partials.list')
+
             @include('Actions.partials.list')
+
+
 
 
         </div>

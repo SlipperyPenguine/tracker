@@ -11,6 +11,8 @@ namespace tracker\Helpers;
 
 use Illuminate\Support\Facades\URL;
 use tracker\Models\Action;
+use tracker\Models\ChangeRequest;
+use tracker\Models\Dependency;
 use tracker\Models\Program;
 use tracker\Models\Project;
 use tracker\Models\rag;
@@ -104,6 +106,26 @@ class Breadcrumbs
                 $breadcrumbs[] = [$task->title,  URL::asset('tasks/') ."/$task->id" , false];
                 return $breadcrumbs;
                 break;
+
+            case "Dependency":
+
+                $dependency = Dependency::findOrFail($subjectid);
+
+                $breadcrumbs = Breadcrumbs::getBreadCrumb($dependency->subject_type, $dependency->subject_id);
+                $breadcrumbs[] = ['Dependencies',  URL::action('DependencyController@index', [$dependency->subject_type, $dependency->subject_id]), false];
+                $breadcrumbs[] = [$dependency->title,  URL::asset('dependencies/') ."/$dependency->id" , false];
+                return $breadcrumbs;
+                break;
+
+            case "ChangeRequest":
+
+                $changerequest = ChangeRequest::findOrFail($subjectid);
+
+                $breadcrumbs = Breadcrumbs::getBreadCrumb($changerequest->subject_type, $changerequest->subject_id);
+                $breadcrumbs[] = ['Change Requests',  URL::action('ChangeRequestController@index', [$changerequest->subject_type, $changerequest->subject_id]), false];
+                $breadcrumbs[] = [$changerequest->title,  URL::asset('changerequests/') ."/$changerequest->id" , false];
+                return $breadcrumbs;
+                break;
         }
     }
 
@@ -134,6 +156,14 @@ class Breadcrumbs
             case "Task":
                 $task = Task::findOrFail($subjectid);
                 return $task->title;
+                break;
+            case "Dependency":
+                $dependency = Dependency::findOrFail($subjectid);
+                return $dependency->title;
+                break;
+            case "ChangeRequest":
+                $changerequest = ChangeRequest::findOrFail($subjectid);
+                return $changerequest->title;
                 break;
         }
     }

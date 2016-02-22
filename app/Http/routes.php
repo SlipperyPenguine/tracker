@@ -57,6 +57,7 @@ Route::get('risks/index/{subjecttype}/{subjectid}', ['uses' => 'RiskAndIssueCont
 
 //comments
 Route::post('comments', ['middleware'=>'auth', 'uses' =>  'CommentController@store'] );
+Route::delete('comments/{id}', ['middleware'=>'auth', 'uses' =>  'CommentController@destroy'] );
 Route::post('AjaxComments', [ 'uses' =>  'CommentController@AjaxStore'] );
 
 //users
@@ -105,6 +106,24 @@ Route::get('tasks/{id}/edit', ['middleware'=>'auth', 'uses' => 'TaskController@e
 Route::get('tasks/index/{subjecttype}/{subjectid}', ['uses' => 'TaskController@indexTask'] );
 Route::get('tasks/{id}', ['uses' => 'TaskController@show'] );
 
+//Dependencies
+Route::get('dependencies/create/{subjecttype}/{subjectid}',['middleware'=>'auth', 'uses' => 'DependencyController@create' ] );
+Route::get('dependencies/{id}/edit', ['middleware'=>'auth', 'uses' => 'DependencyController@edit'] );
+Route::get('dependencies/index/{subjecttype}/{subjectid}', ['uses' => 'DependencyController@index'] );
+Route::get('dependencies/{id}', [ 'uses' => 'DependencyController@show'] );
+
+Route::post('dependencies', ['middleware'=>'auth', 'uses' =>  'DependencyController@store'] );
+Route::patch('dependencies/{id}', ['middleware'=>'auth', 'uses' => 'DependencyController@update'] );
+
+//Change Requests
+Route::get('changerequests/create/{subjecttype}/{subjectid}',['middleware'=>'auth', 'uses' => 'ChangeRequestController@create' ] );
+Route::get('changerequests/{id}/edit', ['middleware'=>'auth', 'uses' => 'ChangeRequestController@edit'] );
+Route::get('changerequests/index/{subjecttype}/{subjectid}', ['uses' => 'ChangeRequestController@index'] );
+Route::get('changerequests/{id}', [ 'uses' => 'ChangeRequestController@show'] );
+
+Route::post('changerequests', ['middleware'=>'auth', 'uses' =>  'ChangeRequestController@store'] );
+Route::patch('changerequests/{id}', ['middleware'=>'auth', 'uses' => 'ChangeRequestController@update'] );
 
 //API
 Route::get('api/getUsers', 'ApiController@getUsers');
+Route::get('api/getDependentLookup', 'ApiController@getDependentLookup');

@@ -19,7 +19,7 @@ trait CommentTrait
     {
         return $this->belongsToMany( User::class, 'comments', 'subject_id', 'user_id' )
             ->withTimestamps()
-            ->withPivot(['comment'])
+            ->withPivot(['comment', 'id'])
             ->where('subject_type', $this->subjecttype);
     }
 

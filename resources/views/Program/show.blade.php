@@ -176,6 +176,8 @@
 
             @include('Actions.partials.list')
 
+            @include('Dependencies.partials.list')
+
         </div>
     </div>
 

@@ -73,4 +73,9 @@ class User extends Model implements AuthenticatableContract,
 
         return '/img/avatars/no_avatar.png';
     }
+
+    public function isAdmin()
+    {
+        return $this->superUser;
+    }
 }

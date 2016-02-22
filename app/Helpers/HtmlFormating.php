@@ -145,7 +145,7 @@ class HtmlFormating
         return $output;
     }
 
-    public static function FormatRiskHistory($before, $after)
+    public static function FormatAuditTrail($before, $after)
     {
         $beforearray = null;
         if(strlen($before)>0)
@@ -154,16 +154,34 @@ class HtmlFormating
         $afterarray = json_decode($after, true);
 
         $output = '';
+        $output .= '<table class="table table-hover no-margins no-padding">';
 
         foreach ($afterarray as $key => $value)
         {
+
             $beforetext = "[blank]";
             if(isset($beforearray))
                 $beforetext = $beforearray[$key];
-            if($output!='')
-                $output.='<br/>';
-            $output.= "$key: from $beforetext to $value";
+
+            $output.= '<tr>';
+
+            $output.= '<td>';
+            $output.= $key;
+            $output.= '</td>';
+
+            $output.= '<td>';
+            $output.= $beforetext;
+            $output.= '</td>';
+
+            $output.= '<td>';
+            $output.= $value;
+            $output.= '</td>';
+
+            $output.= '</tr>';
+
         }
+
+        $output .= '</table>';
 
         return $output;
     }

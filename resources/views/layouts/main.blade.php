@@ -5,6 +5,7 @@
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="token" content="{{csrf_token()}}">
 
     <title>One Biology Program Tracker</title>
 
@@ -16,6 +17,7 @@
     <link rel="stylesheet"  href="{{ URL::asset('css/plugins/datapicker/datepicker3.css') }}">
 
     <link rel="stylesheet"  href="{{ URL::asset('css/plugins/toastr/toastr.min.css') }}">
+    <link rel="stylesheet"  href="{{ URL::asset('css/plugins/sweetalert/sweetalert.css') }}">
 
     <link rel="stylesheet"  href="{{ URL::asset('css/plugins/select2/select2.min.css') }}">
 
@@ -82,6 +84,9 @@
 
 <!-- Toastr script -->
 <script src="{{ URL::asset('js/plugins/toastr/toastr.min.js') }}"></script>
+
+<!-- Sweetalerts script -->
+<script src="{{ URL::asset('js/plugins/sweetalert/sweetalert.min.js') }}"></script>
 
 <!-- Select2 -->
 <script src="{{ URL::asset('js/plugins/select2/select2.full.min.js') }}"></script>

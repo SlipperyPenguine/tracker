@@ -6,7 +6,9 @@ use Illuminate\Http\Request;
 use tracker\Http\Requests;
 use tracker\Http\Controllers\Controller;
 use tracker\Models\Action;
+use tracker\Models\ChangeRequest;
 use tracker\Models\Comment;
+use tracker\Models\Dependency;
 use tracker\Models\Program;
 use tracker\Models\Project;
 use tracker\Models\rag;
@@ -61,7 +63,7 @@ class CommentController extends Controller
         $subject->RecordNewComment($request->comment);
 
         //get all the comments
-        $comments = $subject->Comments->all();
+        $comments = $subject->Comments;
 
         return view('Comments.partials.ajaxresponse', compact('comments'));
 
@@ -109,9 +111,25 @@ class CommentController extends Controller
      */
     public function destroy($id)
     {
-        //
+        //return "delete the record with id:".$id;
+
+        $comment = Comment::findOrFail($id);
+
+        $comment->delete();
+
+        flash()->success('Success', "Comment deleted successfully");
+
+        return redirect()->back();
+
+
     }
 
+    /**
+     * @param $subjecttype
+     * @param $subjectid
+     *
+     * @return null
+     */
     protected function getSubject($subjecttype, $subjectid)
     {
         $subject = null;
@@ -137,6 +155,12 @@ class CommentController extends Controller
                 break;
             case 'Rag':
                 $subject = rag::findorFail($subjectid);
+                break;
+            case 'Dependency':
+                $subject = Dependency::findorFail($subjectid);
+                break;
+            case 'ChangeRequest':
+                $subject = ChangeRequest::findorFail($subjectid);
                 break;
         }
         return $subject;
