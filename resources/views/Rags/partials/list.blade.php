@@ -26,7 +26,6 @@
             <tr>
                 <th></th>
                 <th>Status</th>
-                <th>Comments</th>
                 <th></th>
             </tr>
             </thead>
@@ -39,7 +38,6 @@
                     <td>
                         {!! $formater::FormatRAG($rag->value) !!}
                     </td>
-                    <td>{{$rag['comments']}}</td>
                     <td>
                         <a href="{{ URL::asset('rags/') }}/{{$rag['id']}}" class="btn btn-white btn-sm"><i class="fa fa-folder"></i> View </a>
                         <a href="{{action('RagController@edit', [$rag->id])}}" class="btn btn-white btn-sm"><i class="fa fa-pencil"></i> Edit </a>

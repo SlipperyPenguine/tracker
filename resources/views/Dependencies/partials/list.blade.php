@@ -29,7 +29,6 @@
                 <th>Dependence</th>
                 <th>Status</th>
                 <th>Next Review</th>
-                <th>Description</th>
                 <th></th>
             </thead>
             <tbody>
@@ -42,7 +41,6 @@
                     <td>{{$dependency->dependent_on_name}}</td>
                     <td>{{$dependency['status']}}</td>
                     <td class="text-nowrap"> {!! tracker\Helpers\HtmlFormating::StandardDateHTML($dependency->NextReviewDate, false, true, true) !!} </td>
-                    <td>{{$dependency['description']}}</td>
 
                     <td><a href="{{ URL::asset('dependencies/') }}/{{$dependency['id']}}" class="btn btn-white btn-sm"><i class="fa fa-folder"></i> View </a>
                         <a href="{{action('DependencyController@edit', [$dependency->id])}}" class="btn btn-white btn-sm"><i class="fa fa-pencil"></i> Edit </a></td>

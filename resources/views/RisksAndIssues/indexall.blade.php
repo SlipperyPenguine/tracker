@@ -56,7 +56,7 @@
                                         <td>{{$risk->subject_type}}</td>
                                         <td>{{$risk->subject_name}}</td>
                                         <td>@if($risk['is_an_issue'])<span class="label label-danger">Issue</span> @else <span class="label label-warning">Risk</span> @endif</td>
-                                        <td>{{$risk->RiskOwner->name}}</td>
+                                        <td><img alt="image" height="30" class="img-circle" src="{{ URL::asset($risk->RiskOwner->avatar) }}" /> {{$risk->RiskOwner->name}}</td>
                                         <td>{!! tracker\Helpers\HtmlFormating::FormatRiskClassification($risk->CurrentRiskClassificationScore,$risk->CurrentRiskClassification ) !!}</td>
                                         <td>{{$risk->title}}</td>
                                         <td>{!! tracker\Helpers\HtmlFormating::FormatRiskRating($risk->probability, true, $risk->previous_probability) !!}</td>
