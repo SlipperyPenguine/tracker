@@ -11,32 +11,33 @@ namespace tracker\Http;
 
 class flash
 {
-    private function create($title, $message, $level)
+    private function create($title, $message, $color, $icon)
     {
         session()->flash('flash_message',[
             'title' => $title,
             'message' => $message,
-            'level' => $level
+            'color' => $color,
+            'icon' => $icon
         ] );
     }
 
     public function message($title, $message)
     {
-        return $this->create($title, $message, 'info');
+        return $this->create($title, $message, '#296191', 'fa fa-bell fa-2x swing animated');
     }
 
     public function success($title, $message)
     {
-        return $this->create($title, $message, 'success');
+        return $this->create($title, $message, '#71843f', 'fa fa-check fa-2x fadeInRight animated');
     }
 
     public function warning($title, $message)
     {
-        return $this->create($title, $message, 'warning');
+        return $this->create($title, $message, '#c79121', 'fa fa-warning fa-2x swing animated');
     }
 
     public function error($title, $message)
     {
-        return $this->create($title, $message, 'error');
+        return $this->create($title, $message, '#a65858', 'fa fa-cross fa-2x fadeInRight animated' );
     }
 }

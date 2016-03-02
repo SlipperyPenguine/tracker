@@ -1,4 +1,4 @@
-$('#StartDate .input-group.date').datepicker({
+$('#StartDate').datepicker({
 todayBtn: "linked",
 format: "dd MM yyyy",
 keyboardNavigation: false,
@@ -7,7 +7,7 @@ calendarWeeks: true,
 autoclose: true
 });
 
-$('#EndDate .input-group.date').datepicker({
+$('#EndDate').datepicker({
 todayBtn: "linked",
 format: "dd MM yyyy",
 keyboardNavigation: false,

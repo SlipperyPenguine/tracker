@@ -2,92 +2,151 @@
 <input type="hidden" name="subject_id" value="{{$subjectid}}">
 <input type="hidden" name="subject_type" value="{{$subjecttype}}">
 
-<div class="form-group">
+<fieldset>
 
-    <label class="col-lg-2 control-label" for="title">Title</label>
-    <div class="col-lg-10">
-        {!! Form::text('title', null, ['placeholder'=>"Title for the Task", 'class'=>"form-control required"] ) !!}
+    <section>
+        <label class="input"> <i class="icon-prepend fa fa-star"></i>
+            {!! Form::text('title', null, ['placeholder'=>"title"] ) !!}
+            <b class="tooltip tooltip-bottom-right">Enter the Title for the Task</b> </label>
+    </section>
+
+    <label>Status</label>
+    <div class="inline-group">
+        <section>
+            <label class="radio ">{!! Form::radio('status', 'Open', true) !!}<i></i>Open</label>
+            <label class="radio ">{!! Form::radio('status', 'Complete', false) !!}<i></i>Complete</label>
+            <label class="radio ">{!! Form::radio('status', 'Cancelled', false) !!}<i></i>Cancelled</label>
+
+        </section>
     </div>
 
-</div>
+</fieldset>
 
-<div class="form-group">
 
-    <label class="col-lg-2 control-label" for="status">Status</label>
-    <div class="col-lg-10">
-        <div class="i-checks"><label> {!! Form::radio('status', 'Open', true) !!}  <i></i> Open </label></div>
-        <div class="i-checks"><label> {!! Form::radio('status', 'Complete') !!}  <i></i> Complete </label></div>
-        <div class="i-checks"><label> {!! Form::radio('status', 'Cancelled') !!}  <i></i> Cancelled </label></div>
-    </div>
-
-</div>
-
-<div class="form-group">
-
-    <label class="col-lg-2 control-label" for="action_owner">Action Owner</label>
-    <div class="col-lg-10">
+<fieldset>
+    <label>Owner</label>
+    <section>
         {!! Form::select('action_owner', isset($task) ? [  $task->action_owner => $task->ActionOwner->name] : [], isset($task) ? $task->action_owner :  null ,['class'=>"form-control", 'id'=>"action_owner"] ) !!}
-    </div>
+    </section>
 
-</div>
-
-<div class="form-group">
-
-    <label class="col-lg-2 control-label" for="milestone">Milestone</label>
-    <div class="col-lg-10">
-        <div class="i-checks"><label> {!! Form::checkbox('milestone', 1, null, ['id' => 'milestone']) !!}   <i></i>  </label></div>
-    </div>
-
-</div>
+</fieldset>
 
 
+<fieldset>
 
-<div class="form-group" id="StartDate">
-    <label id="datelabel" class="col-lg-2 control-label" for="StartDate">Start Date</label>
-    <div class="input-group date col-lg-10">
-        <span class="input-group-addon"><i class="fa fa-calendar"></i></span> {!! Form::text('StartDate', isset($task) ? $task->StartDate->format('d F Y') : null  , ['class'=>'form-control']) !!}
-    </div>
-</div>
+    <section>
+        <label class="checkbox">
+            {!! Form::checkbox('milestone', 1, null, ['id' => 'milestone']) !!}
+            <i></i>Milestone</label>
+    </section>
 
-<div class="form-group" id="EndDate">
-    <label class="col-lg-2 control-label" for="EndDate">End Date</label>
-    <div class="input-group date col-lg-10">
-        <span class="input-group-addon"><i class="fa fa-calendar"></i></span> {!! Form::text('EndDate', isset($task) ? isset($task->EndDate) ? $task->EndDate->format('d F Y'): null : null  , ['class'=>'form-control']) !!}
-    </div>
-</div>
+    <section>
+
+        <label class="input"> <i class="icon-prepend fa fa-calendar"></i>
+            {!! Form::text('StartDate', isset($task) ? $task->StartDate->format('d F Y') : null, ['id'=>'StartDate', 'placeholder'=>"Start Date"] ) !!}
+            <b class="tooltip tooltip-bottom-right">Date the task starts</b> </label>
+
+    </section>
+
+    <section>
+
+        <label class="input"> <i class="icon-prepend fa fa-calendar"></i>
+            {!! Form::text('EndDate', isset($task) ? isset($task->EndDate) ? $task->EndDate->format('d F Y') : null : null, ['id'=>'EndDate', 'placeholder'=>"End Date"] ) !!}
+            <b class="tooltip tooltip-bottom-right">Date the task ends</b> </label>
+
+    </section>
+
+</fieldset>
 
 
-<div class="form-group">
 
-    <label class="col-lg-2 control-label" for="description">Description</label>
-    <div class="col-lg-10">
-        {!! Form::textarea('description', null, ['rows'=>'4','placeholder'=>"Enter a description of the risk or issue here", 'class'=>"form-control required"] ) !!}
-    </div>
+<fieldset>
+    <section>
+        <label class="textarea">
+            {!! Form::textarea('description', null, ['rows'=>'5','placeholder'=>"Description"] ) !!}
+            <b class="tooltip tooltip-top-left">Describe the task here</b>
+        </label>
+    </section>
 
-</div>
+</fieldset>
 
-<input type="submit" value="Submit" class="btn btn-block btn-primary ">
-
+<footer>
+    <button type="submit" class="btn btn-block btn-primary">
+        Submit Form
+    </button>
+</footer>
 @section('readyfunction')
 
     @include('Tasks.partials.datefieldsetup')
 
     @include('Tasks.partials.dropdownsetup')
 
-    $('#milestone').on('ifChecked', function(event){
-        $('#EndDate').fadeOut('400');
-        $('#datelabel').text("Date");
-    });
 
-    $('#milestone').on('ifUnchecked', function(event){
+
+    $('#milestone').click(function() {
+    if ($(this).is(':checked'))
+    {
+        $('#EndDate').fadeOut('400');
+        $('#StartDate').attr("placeholder","Milestone Date");
+    }
+    else
+    {
         $('#EndDate').fadeIn('400');
-        $('#datelabel').text("Start Date");
+        $('#StartDate').attr("placeholder","Start Date");
+    }
     });
 
     @if(isset($task) && $task->milestone==1)
         $('#EndDate').fadeOut('400');
         $('#datelabel').text("Date");
     @endif
+
+    var $MyForm = $('#TaskForm').validate({
+    // Rules for form validation
+    rules : {
+    title : {
+    required : true
+    },
+    action_owner : {
+    required : true
+    },
+    StartDate : {
+    required : true
+    },
+    EndDate: {
+    required: function(element) {
+        return !$("#milestone").is(':checked');
+    }
+    },
+    description : {
+    required : true
+    }
+    },
+
+    // Messages for form validation
+    messages : {
+    title : {
+    required : 'Please enter a title for the Task'
+    },
+    action_owner : {
+    required : 'Please enter the owner of the task'
+    },
+    StartDate : {
+    required : 'Please select a date when the task will start'
+    },
+    EndDate : {
+    required : 'Please select a date when the task will end'
+    },
+    description : {
+    required : 'Please enter a description'
+    }
+    },
+
+    // Do not change code below
+    errorPlacement : function(error, element) {
+    error.insertAfter(element.parent());
+    }
+    });
 
 @endsection
 

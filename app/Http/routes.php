@@ -71,6 +71,7 @@ Route::patch('users/{id}', ['middleware'=>'auth', 'uses' => 'UserController@upda
 Route::get('actions/create/{subjecttype}/{subjectid}',['middleware'=>'auth', 'uses' => 'ActionController@createAction' ] );
 Route::get('actions/{id}/edit', ['middleware'=>'auth', 'uses' => 'ActionController@editAction'] );
 Route::get('actions/index/{subjecttype}/{subjectid}', ['uses' => 'ActionController@indexAction'] );
+Route::get('actions', ['uses' => 'ActionController@indexall'] );
 Route::get('actions/{id}', [ 'uses' => 'ActionController@show'] );
 
 Route::post('actions', ['middleware'=>'auth', 'uses' =>  'ActionController@store'] );

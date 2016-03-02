@@ -3,70 +3,113 @@
 <input type="hidden" name="subject_type" value="{{$subjecttype}}">
 <input type="hidden" name="subject_name" value="{{$subjectname}}">
 
-<div class="form-group">
+<fieldset>
+    <section>
+        <label class="input"> <i class="icon-prepend fa fa-star"></i>
+            {!! Form::text('title', null, ['placeholder'=>"Action Title"] ) !!}
+            <b class="tooltip tooltip-bottom-right">Enter a title for the action here</b> </label>
+    </section>
 
-    <label class="col-lg-2 control-label" for="title">Title</label>
-    <div class="col-lg-10">
-        {!! Form::text('title', null, ['placeholder'=>"Title for the Action", 'class'=>"form-control required"] ) !!}
-    </div>
+</fieldset>
 
-</div>
+<fieldset>
+    <section>
+        <label class="label">Status</label>
 
-<div class="form-group">
+        <label class="radio ">{!! Form::radio('status', 'Open', true) !!}<i></i>Open</label>
+        <label class="radio ">{!! Form::radio('status', 'Complete', false) !!}<i></i>Complete</label>
+        <label class="radio ">{!! Form::radio('status', 'Cancelled', false) !!}<i></i>Cancelled</label>
+    </section>
 
-    <label class="col-lg-2 control-label" for="status">Status</label>
-    <div class="col-lg-10">
-        <div class="i-checks"><label> {!! Form::radio('status', 'Open', true) !!}  <i></i> Open </label></div>
-        <div class="i-checks"><label> {!! Form::radio('status', 'Complete') !!}  <i></i> Complete </label></div>
-        <div class="i-checks"><label> {!! Form::radio('status', 'Cancelled') !!}  <i></i> Cancelled </label></div>
-    </div>
+</fieldset>
 
-</div>
+<fieldset>
 
-<div class="form-group">
+<section>
 
-    <label class="col-lg-2 control-label" for="actionee">Actionee</label>
-    <div class="col-lg-10">
+        <label>Actionee</label>
+
         {!! Form::select('actionee', isset($action) ? [  $action->actionee => $action->Actionee->name] : [], isset($action) ? $action->actionee :  null ,['class'=>"form-control", 'id'=>"actionee"] ) !!}
-    </div>
-
-</div>
 
 
-<div class="form-group" id="DueDate">
-    <label id="datelabel" class="col-lg-2 control-label" for="DueDate">Due Date</label>
-    <div class="input-group date col-lg-10">
-        <span class="input-group-addon"><i class="fa fa-calendar"></i></span> {!! Form::text('DueDate', isset($action) ? $action->DueDate->format('d F Y') : null  , ['class'=>'form-control']) !!}
-    </div>
-</div>
+</section>
+
+    <section>
+
+        <label class="input"> <i class="icon-prepend fa fa-calendar"></i>
+            {!! Form::text('DueDate', isset($action) ? $action->DueDate->format('d F Y') : null, ['id'=>'DueDate', 'placeholder'=>"Due Date"] ) !!}
+            <b class="tooltip tooltip-bottom-right">Due</b> </label>
+
+    </section>
+</fieldset>
 
 
+<fieldset>
+    <section>
+        <label class="textarea">
+            {!! Form::textarea('description', null, ['rows'=>'5','placeholder'=>"Description"] ) !!}
+            <b class="tooltip tooltip-top-left">Describe the project here</b>
+        </label>
+    </section>
 
-<div class="form-group">
+    <section>
+        <label class="input"> <i class="icon-prepend fa fa-star"></i>
+            {!! Form::text('raised', null, ['placeholder'=>"Action Originate from"] ) !!}
+            <b class="tooltip tooltip-bottom-right">Enter where the action was orignially raised</b> </label>
+    </section>
+</fieldset>
 
-    <label class="col-lg-2 control-label" for="description">Description</label>
-    <div class="col-lg-10">
-        {!! Form::textarea('description', null, ['rows'=>'4','placeholder'=>"Enter a description of the risk or issue here", 'class'=>"form-control required"] ) !!}
-    </div>
 
-</div>
-
-<div class="form-group">
-
-    <label class="col-lg-2 control-label" for="raised">Raised</label>
-    <div class="col-lg-10">
-        {!! Form::text('raised', null, ['placeholder'=>"Where this action origniate, e.g. Program Board Meeting", 'class'=>"form-control required"] ) !!}
-    </div>
-
-</div>
-
-<input type="submit" value="Submit" class="btn btn-block btn-primary ">
+<footer>
+    <button type="submit" class="btn btn-block btn-primary">
+        Submit Form
+    </button>
+</footer>
 
 @section('readyfunction')
 
     @include('Actions.partials.datefieldsetup')
 
     @include('Actions.partials.dropdownsetup')
+
+    var $MyForm = $('#actionsform').validate({
+    // Rules for form validation
+    rules : {
+    title : {
+    required : true
+    },
+    actionee : {
+    required : true
+    },
+    DueDate : {
+    required : true
+    },
+    description : {
+    required : true
+    }
+    },
+
+    // Messages for form validation
+    messages : {
+    title : {
+    required : 'Please enter a title for the change request'
+    },
+    actionee : {
+    required : 'Please enter the assigned person for the action'
+    },
+    DueDate : {
+    required : 'Pleae select a Due date'
+    },
+    description : {
+    required : 'Please enter a description'
+    }
+    },
+
+    // Do not change code below
+    errorPlacement : function(error, element) {
+    error.insertAfter(element.parent());
+    }
+    });
 
 
 @endsection

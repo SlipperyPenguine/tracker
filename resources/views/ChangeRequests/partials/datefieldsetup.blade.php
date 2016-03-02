@@ -1,4 +1,4 @@
-$('#submission_date .input-group.date').datepicker({
+$('#submission_date').datepicker({
 todayBtn: "linked",
 format: "dd MM yyyy",
 keyboardNavigation: false,
@@ -7,7 +7,7 @@ calendarWeeks: true,
 autoclose: true
 });
 
-$('#required_by .input-group.date').datepicker({
+$('#required_by').datepicker({
 todayBtn: "linked",
 format: "dd MM yyyy",
 keyboardNavigation: false,
@@ -16,7 +16,7 @@ calendarWeeks: true,
 autoclose: true
 });
 
-$('#implementation_date .input-group.date').datepicker({
+$('#implementation_date').datepicker({
 todayBtn: "linked",
 format: "dd MM yyyy",
 keyboardNavigation: false,

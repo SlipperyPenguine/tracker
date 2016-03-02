@@ -20,7 +20,7 @@
 
 @section('content')
 
-    {!! Form::model($user, ['class'=>'form-horizontal', 'id' => 'EditUserForm', 'method' => 'PATCH', 'files'=>true, 'action'=>['UserController@update', $user->id]]) !!}
+
 
     <div class="row">
         <div class="col-lg-4">
@@ -32,129 +32,165 @@
         </div>
 
         <div class="col-lg-8">
-            <div class="ibox float-e-margins">
-                <div class="ibox-content">
 
-                    <div class="form-group">
-                        <label class="col-lg-3 control-label" for="name">Name</label>
-                        <div class="col-lg-9">
-                            {!! Form::text('name', null, [ 'class'=>"form-control" ] ) !!}
+            <!-- widget grid -->
+            <section id="widget-grid" class="">
+
+                <div class="jarviswidget jarviswidget-color-darken" id="wid-id-notifications" data-widget-editbutton="false" data-widget-deletebutton="false">
+
+                    <header>
+                        <span class="widget-icon"> <i class="fa fa-user"></i> </span>
+                        <h2>Edit user</h2>
+
+                    </header>
+
+                    <!-- widget div-->
+                    <div>
+
+                        <!-- widget content -->
+                        <div class="widget-body">
+
+                            {!! Form::model($user, ['class'=>'smart-form', 'id' => 'EditUserForm', 'method' => 'PATCH', 'files'=>true, 'action'=>['UserController@update', $user->id]]) !!}
+
+                            <fieldset>
+                                <section>
+                                    <label class="input"> <i class="icon-prepend fa fa-user"></i>
+                                        {!! Form::text('name', null, ['placeholder'=>"User Name"] ) !!}
+                                        <b class="tooltip tooltip-bottom-right">Users name</b> </label>
+
+                                    </section>
+
+                                <section>
+
+                                    <label class="input"> <i class="icon-prepend fa fa-envelope-o"></i>
+                                        {!! Form::email('email', null, ['placeholder'=>"Email"] ) !!}
+                                        <b class="tooltip tooltip-bottom-right">Users e-mail address</b> </label>
+
+                                </section>
+
+                                <section>
+
+                                    <label class="input"> <i class="icon-prepend fa fa-lock"></i>
+                                        <input id="password" class=" form-control" placeholder="Password" name="password" type="password" value="">
+                                        <b class="tooltip tooltip-bottom-right">Password</b> </label>
+                                    <span class="help-block m-b-none">Leave blank to not change</span>
+
+                                </section>
+
+                                <section>
+
+                                    <label class="input"> <i class="icon-prepend fa fa-lock"></i>
+                                        <input id="password_confirmation" class=" form-control" placeholder="Confirm Password" name="password_confirmation" type="password" value="">
+                                        <b class="tooltip tooltip-bottom-right">Password</b> </label>
+
+                                </section>
+
+                                <section>
+                                    <label class="checkbox">
+                                        {!! Form::checkbox('superUser', 1, null, ['id' => 'superUser']) !!}
+                                        <i></i>Administrator</label>
+                                </section>
+
+
+                            </fieldset>
+
+                            <fieldset>
+                                <h3><i class="fa fa-bullhorn"></i> Notifications</h3>
+                                <br/>
+
+                                <div class="row">
+                                    <div class="col col-4">
+
+                                        <section>
+                                        <label class="checkbox">
+                                            {!! Form::checkbox('notifyNewTasks', 1, null, ['id' => 'notifyNewTasks']) !!}
+                                            <i></i>Notify New Tasks</label>
+                                        </section>
+
+                                        <section>
+                                            <label class="checkbox">
+                                                {!! Form::checkbox('notifyChangedTasks', 1, null, ['id' => 'notifyChangedTasks']) !!}
+                                                <i></i>Notify Changed Tasks</label>
+                                        </section>
+
+                                        <section>
+                                            <label class="checkbox">
+                                                {!! Form::checkbox('notifyDueTasks', 1, null, ['id' => 'notifyDueTasks']) !!}
+                                                <i></i>Notify Due Tasks</label>
+                                        </section>
+                                    </div>
+
+                                    <div class="col col-4">
+
+                                        <section>
+                                            <label class="checkbox">
+                                                {!! Form::checkbox('notifyNewActions', 1, null, ['id' => 'notifyNewActions']) !!}
+                                                <i></i>Notify New Actions</label>
+                                        </section>
+
+                                        <section>
+                                            <label class="checkbox">
+                                                {!! Form::checkbox('notifyChangedActions', 1, null, ['id' => 'notifyChangedActions']) !!}
+                                                <i></i>Notify Changed Actions</label>
+                                        </section>
+
+                                        <section>
+                                            <label class="checkbox">
+                                                {!! Form::checkbox('notifyDueActions', 1, null, ['id' => 'notifyDueActions']) !!}
+                                                <i></i>Notify Due Actions</label>
+                                        </section>
+                                    </div>
+
+                                    <div class="col col-4">
+
+                                        <section>
+                                            <label class="checkbox">
+                                                {!! Form::checkbox('notifyNewRisks', 1, null, ['id' => 'notifyNewRisks']) !!}
+                                                <i></i>Notify New Risks</label>
+                                        </section>
+
+                                        <section>
+                                            <label class="checkbox">
+                                                {!! Form::checkbox('notifyChangedRisks', 1, null, ['id' => 'notifyChangedRisks']) !!}
+                                                <i></i>Notify Changed Risks</label>
+                                        </section>
+
+                                        <section>
+                                            <label class="checkbox">
+                                                {!! Form::checkbox('notifyDueRisks', 1, null, ['id' => 'notifyDueRisks']) !!}
+                                                <i></i>Notify Due Risks</label>
+                                        </section>
+                                    </div>
+
+                                </div>
+                            </fieldset>
+
+                            <fieldset>
+                                <section>
+                                    <input name="newavatarfile" type="file" class="filestyle" data-buttonText="Select New Profile Picture" data-buttonName="btn btn-primary btn-sm" data-buttonBefore="true">
+                                </section>
+
+                                <section>
+                                    <label class="input"> <i class="icon-prepend fa fa-external-link"></i>
+                                        {!! Form::text('newavatarurl', null, ['placeholder'=>"URL of avatar"] ) !!}
+                                        <b class="tooltip tooltip-bottom-right">URL to a new profile picture</b> </label>
+                                </section>
+                            </fieldset>
+
+                            <footer>
+                                <button type="submit" class="btn btn-block btn-primary">
+                                    Submit Form
+                                </button>
+                            </footer>
+
                         </div>
 
                     </div>
-
-                    <div class="form-group">
-
-                        <label class="col-lg-3 control-label" for="email">Email</label>
-                        <div class="col-lg-9">
-                            {!! Form::email('email', null, ['class'=>"form-control", 'type'=>'email'] ) !!}
-                        </div>
-
-                    </div>
-
-                    <hr/>
-
-                    <div class="form-group">
-
-                        <label class="col-lg-3 control-label" for="password">Password</label>
-                        <div class="col-lg-9">
-                            <input id="password" class=" form-control" placeholder="Password" name="password" type="password" value="" minlength="6"> <span class="help-block m-b-none">Leave blank to not change</span>
-
-                        </div>
-
-                    </div>
-
-                    <div class="form-group">
-
-                        <label class="col-lg-3 control-label" for="passwordconfirm">Confirm Password</label>
-                        <div class="col-lg-9">
-                            <input id="password_confirmation" class=" form-control" placeholder="Confirm Password" name="password_confirmation" type="password" value="" minlength="6">
-                        </div>
-
-                    </div>
-
-                    <div class="form-group">
-                        <label class="col-lg-3 control-label" for="superUser">Administrator</label>
-                        <div class="col-lg-1">
-                            <div class="i-checks"><label> {!! Form::checkbox('superUser', 1, null, ['id' => 'superUser']) !!}   <i></i>  </label></div>
-                        </div>
-
-                    </div>
-
-                    <hr/>
-
-                    <div class="form-group">
-
-                        <label class="col-lg-3 control-label" for="notifyNewTasks">Notfiy New Tasks</label>
-                        <div class="col-lg-1">
-                            <div class="i-checks"><label> {!! Form::checkbox('notifyNewTasks', 1, null, ['id' => 'notifyNewTasks']) !!}   <i></i>  </label></div>
-                        </div>
-
-                        <label class="col-lg-3 control-label" for="notifyChangedTasks">Notfiy Updated Tasks</label>
-                        <div class="col-lg-1">
-                            <div class="i-checks"><label> {!! Form::checkbox('notifyChangedTasks', 1, null, ['id' => 'notifyChangedTasks']) !!}   <i></i>  </label></div>
-                        </div>
-
-                        <label class="col-lg-3 control-label" for="notifyDueTasks">Notfiy Due Tasks</label>
-                        <div class="col-lg-1">
-                            <div class="i-checks"><label> {!! Form::checkbox('notifyDueTasks', 1, null, ['id' => 'notifyDueTasks']) !!}   <i></i>  </label></div>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-
-                        <label class="col-lg-3 control-label" for="notifyNewActions">Notfiy New Actions</label>
-                        <div class="col-lg-1">
-                            <div class="i-checks"><label> {!! Form::checkbox('notifyNewActions', 1, null, ['id' => 'notifyNewActions']) !!}   <i></i>  </label></div>
-                        </div>
-
-                        <label class="col-lg-3 control-label" for="notifyChangedActions">Notfiy Updated Actions</label>
-                        <div class="col-lg-1">
-                            <div class="i-checks"><label> {!! Form::checkbox('notifyChangedActions', 1, null, ['id' => 'notifyChangedActions']) !!}   <i></i>  </label></div>
-                        </div>
-
-                        <label class="col-lg-3 control-label" for="notifyDueActions">Notfiy Due Actions</label>
-                        <div class="col-lg-1">
-                            <div class="i-checks"><label> {!! Form::checkbox('notifyDueActions', 1, null, ['id' => 'notifyDueActions']) !!}   <i></i>  </label></div>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-
-                        <label class="col-lg-3 control-label" for="notifyNewRisks">Notfiy New Risks</label>
-                        <div class="col-lg-1">
-                            <div class="i-checks"><label> {!! Form::checkbox('notifyNewRisks', 1, null, ['id' => 'notifyNewRisks']) !!}   <i></i>  </label></div>
-                        </div>
-
-                        <label class="col-lg-3 control-label" for="notifyChangedRisks">Notfiy Updated Risks</label>
-                        <div class="col-lg-1">
-                            <div class="i-checks"><label> {!! Form::checkbox('notifyChangedRisks', 1, null, ['id' => 'notifyChangedRisks']) !!}   <i></i>  </label></div>
-                        </div>
-
-                        <label class="col-lg-3 control-label" for="notifyDueRisks">Notfiy Due Risks</label>
-                        <div class="col-lg-1">
-                            <div class="i-checks"><label> {!! Form::checkbox('notifyDueRisks', 1, null, ['id' => 'notifyDueRisks']) !!}   <i></i>  </label></div>
-                        </div>
-                    </div>
-
-                    <hr/>
-
-                    <div class="form-group">
-                        <input name="newavatarfile" type="file" class="filestyle" data-buttonText="Select New Profile Picture" data-buttonName="btn btn-primary btn-outline" data-buttonBefore="true">
-
-                        <div class="form-group">
-                            <label class="col-lg-3 control-label" for="newavatarurl">URL of new picture</label>
-                            <div class="col-lg-9">
-                                {!! Form::text('newavatarurl', null, [ 'class'=>"form-control", 'placeholder'=>'Paste URL for new picture'] ) !!}
-                            </div>
-                        </div>
-                    </div>
-
-                    <input type="submit" value="Submit" class="btn btn-block btn-primary ">
 
                 </div>
+            </section>
 
-            </div>
+
 
         </div>
 

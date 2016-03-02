@@ -6,17 +6,43 @@
 
 @section('content')
 
-    <div class="ibox float-e-margins">
-        <div class="ibox-content">
+        <!-- widget grid -->
+<section id="widget-grid" class="">
 
-            {!! Form::model($task, ['class'=>'form-horizontal', 'method' => 'PATCH', 'action'=>['TaskController@update', $task->id]]) !!}
+    <div class="row">
+        <article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 
-                @include('Tasks.partials.form')
+            <div class="jarviswidget jarviswidget-color-darken" id="wid-id-tasks" data-widget-editbutton="false" data-widget-deletebutton="false">
 
-            {!! Form::close() !!}
+                <header>
+                    <span class="widget-icon"> <i class="fa fa-calendar"></i> </span>
+                    <h2>{{$title}}</h2>
 
-        </div>
+                </header>
+
+                <!-- widget div-->
+                <div>
+
+                    <!-- widget content -->
+                    <div class="widget-body">
+
+                        {!! Form::model($task, ['id'=>'TaskForm', 'class'=>'smart-form', 'method' => 'PATCH', 'action'=>['TaskController@update', $task->id]]) !!}
+
+                        @include('Tasks.partials.form')
+
+                        {!! Form::close() !!}
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </article>
+
     </div>
+
+</section>
 
 
 @endsection

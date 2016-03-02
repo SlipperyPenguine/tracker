@@ -6,50 +6,77 @@
 
 @section('content')
 
-    <div class="ibox float-e-margins">
-        <div class="ibox-title">
-            <h5 ><i class="fa fa-adjust"></i> Change Requests</h5>
-        </div>
-        <div class="ibox-content ">
-            <br/>
-            <table class="table table-hover no-margins">
-                <thead>
-                <tr>
+        <!-- widget grid -->
+<section id="widget-grid" class="">
 
-                    <th>Ref</th>
-                    <th>Title</th>
-                    <th>Status</th>
-                    <th>Description</th>
-                    <th></th>
-                </tr>
-                </thead>
-                <tbody>
+    <div class="row">
+        <article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 
-                @foreach($changerequests as $changerequest)
+            <div class="jarviswidget jarviswidget-color-darken" id="wid-id-changerequests" data-widget-editbutton="false" data-widget-deletebutton="false">
 
-                    <tr>
+                <header>
+                    <span class="widget-icon"> <i class="fa fa-adjust"></i> </span>
+                    <h2>ChangeRequests</h2>
 
-                        <td>{{$changerequest->external_id}}</td>
-                        <td>{{$changerequest->title}}</td>
-                        <td>{{$changerequest['status']}}</td>
-                        <td>{{$changerequest['description']}}</td>
+                </header>
 
-                        <td><a href="{{ URL::asset('changerequests/') }}/{{$changerequest['id']}}" class="btn btn-white btn-sm"><i class="fa fa-folder"></i> View </a>
-                            <a href="{{action('ChangeRequestController@edit', [$changerequest->id])}}" class="btn btn-white btn-sm"><i class="fa fa-pencil"></i> Edit </a></td>
+                <!-- widget div-->
+                <div>
 
+                    <!-- widget content -->
+                    <div class="widget-body">
 
-                    </tr>
+                        <table id="dt_changerequests" class="table table-striped table-bordered table-hover" width="100%">
+                            <thead>
+                            <tr>
+                                <th  data-class="expand">Ref</th>
+                                <th>Title</th>
+                                <th>Status</th>
+                                <th data-hide="always">Description</th>
+                                <th class="text-nowrap"></th>
 
-                @endforeach
+                            </tr>
+                            </thead>
+                            <tbody>
 
-                </tbody>
-            </table>
-        </div>
-        <div class="ibox-footer">
-            <a href="{{action('ChangeRequestController@create', [$subjecttype, $subjectid])}}" class="btn btn-primary btn-sm">Add new Change Request</a>
-        </div>
+                            @foreach($changerequests as $changerequest)
+
+                                <tr>
+                                    <td>{{$changerequest->external_id}}</td>
+                                    <td>{{$changerequest->title}}</td>
+                                    <td>{{$changerequest['status']}}</td>
+                                    <td>{{$changerequest['description']}}</td>
+
+                                    <td><a href="{{ URL::asset('changerequests/') }}/{{$changerequest['id']}}" class="btn btn-default btn-sm"><i class="fa fa-folder"></i> View </a>
+                                        <a href="{{action('ChangeRequestController@edit', [$changerequest->id])}}" class="btn btn-default btn-sm"><i class="fa fa-pencil"></i> Edit </a></td>
+
+                                </tr>
+
+                            @endforeach
+
+                            </tbody>
+                        </table>
+
+                        <div class="widget-footer">
+                            <div class="pull-left">
+                                <a href="{{action('ChangeRequestController@create', [$subjecttype, $subjectid])}}" class="btn btn-primary btn-sm">Add new Change Request</a>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </article>
     </div>
+</section>
+@endsection
 
+@section('readyfunction')
 
+    @include('ChangeRequests.partials.listreadtyfunction')
 
 @endsection
+
+
+

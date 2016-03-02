@@ -37,6 +37,7 @@
         request.done(function (response, textStatus, jqXHR){
             $("div#contents").html(response);
             $("#comment").val('');
+            @include('Comments.partials.listreadtfunction')
         });
 
         // callback handler that will be called on failure

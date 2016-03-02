@@ -1,4 +1,4 @@
-$('#DueDate .input-group.date').datepicker({
+$('#DueDate').datepicker({
 todayBtn: "linked",
 format: "dd MM yyyy",
 keyboardNavigation: false,

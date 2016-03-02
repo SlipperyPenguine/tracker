@@ -6,59 +6,146 @@
 
 @section('content')
 
-    <div class="ibox float-e-margins">
-        <div class="ibox-title">
-            <h5 ><i class="fa fa-warning"></i> Risks and Issues</h5>
-        </div>
-        <div class="ibox-content ">
-            <br/>
-            <table class="table table-hover no-margins">
-                <thead>
-                <tr>
-                    <th></th>
-                    <th>ID</th>
-                    <th>Title</th>
-                    <th>Imp</th>
-                    <th>Sev</th>
-                    <th>Review</th>
-                    <th></th>
-                </tr>
-                </thead>
-                <tbody>
+        <!-- widget grid -->
+<section id="widget-grid" class="">
 
-                @foreach($risks as $risk)
 
+    <div class="row">
+
+        <article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+
+            <div class="jarviswidget jarviswidget-color-darken" id="wid-id-risks" data-widget-editbutton="false" data-widget-deletebutton="false">
+
+        <header>
+            <span class="widget-icon"> <i class="fa fa-warning"></i> </span>
+            <h2>Risks & Issues</h2>
+
+        </header>
+
+        <!-- widget div-->
+        <div>
+
+            <!-- widget content -->
+            <div class="widget-body">
+
+                <table id="dt_risks" class="table table-striped table-bordered table-hover" width="100%">
+                    <thead>
                     <tr>
-                        <td>@if($risk['is_an_issue'])<span class="label label-danger">Issue</span> @else <span class="label label-warning">Risk</span> @endif </td>
-                        <td>{{$risk->id}}</td>
-                        <td>{{$risk['title']}}</td>
-                        <td class="text-nowrap"> {!! tracker\Helpers\HtmlFormating::FormatRiskRating($risk->probability, true, $risk->previous_probability) !!}   </td>
-                        <td class="text-nowrap"> {!! tracker\Helpers\HtmlFormating::FormatRiskRating($risk->impact, true, $risk->previous_impact)  !!} </td>
-                        <td class="text-nowrap"> {!! tracker\Helpers\HtmlFormating::StandardDateHTML($risk->NextReviewDate, false, true, true ) !!} </td>
-                        <td class="project-actions">
-                            <a href="{{ URL::asset('risks/') }}/{{$risk['id']}}" class="btn btn-white btn-sm"><i class="fa fa-folder"></i> View </a>
-                            <a href="{{action('RiskAndIssueController@editRisk', [$risk->id])}}" class="btn btn-white btn-sm"><i class="fa fa-pencil"></i> Edit </a>
-                        </td>
-
-
+                        <th class="text-nowrap" data-class="expand">Status</th>
+                        <th>ID</th>
+                        <th>Title</th>
+                        <th data-hide="phone,tablet">Imp</th>
+                        <th data-hide="phone,tablet">Sev</th>
+                        <th data-hide="phone,tablet">Review</th>
+                        <th></th>
+                        <th data-hide="always">Description</th>
                     </tr>
+                    </thead>
+                    <tbody>
+
+                    @foreach($risks as $risk)
+
+                        <tr>
+                            <td>@if($risk['is_an_issue'])<span class="label label-danger">Issue</span> @else <span class="label label-warning">Risk</span> @endif </td>
+                            <td>{{$risk->id}}</td>
+                            <td>{{$risk['title']}}</td>
+                            <td class="text-nowrap"> {!! tracker\Helpers\HtmlFormating::FormatRiskRating($risk->probability, true, $risk->previous_probability) !!}   </td>
+                            <td class="text-nowrap"> {!! tracker\Helpers\HtmlFormating::FormatRiskRating($risk->impact, true, $risk->previous_impact)  !!} </td>
+                            <td class="text-nowrap">{{$risk->NextReviewDate->format('d M Y')}}</td>
+                            <td class="text-nowrap">
+                                <a href="{{ URL::asset('risks/') }}/{{$risk['id']}}" class="btn btn-default btn-sm"><i class="fa fa-folder"></i> View </a>
+                                <a href="{{action('RiskAndIssueController@editRisk', [$risk->id])}}" class="btn btn-default btn-sm"><i class="fa fa-pencil"></i> Edit </a>
+                            </td>
+                            <td>{{$risk->description}}</td>
 
 
-                @endforeach
+                        </tr>
 
-                </tbody>
-            </table>
-        </div>
-        <div class="ibox-footer">
-            <a href="{{action('RiskAndIssueController@createRisk', [$subjecttype, $subjectid])}}" class="btn btn-primary btn-sm">Add new Risk or Issue</a>
+                    @endforeach
+
+                    </tbody>
+                </table>
+
+                <div class="widget-footer">
+                    <div class="pull-left">
+                        <a href="{{action('RiskAndIssueController@createRisk', [$subjecttype, $subjectid])}}" class="btn btn-primary btn-sm">Add new Risk or Issue</a>
+
+                    </div>
+
+                </div>
+
+            </div>
         </div>
     </div>
 
+        </article>
 
+    </div>
+
+</section>
 
 @endsection
 
 @section('readyfunction')
 
+    var responsiveHelper = undefined;
+
+    var breakpointDefinition = {
+    tablet : 1024,
+    phone : 480
+    };
+
+
+    $('#dt_risks').dataTable({
+
+    // Tabletools options:
+    //   https://datatables.net/extensions/tabletools/button_options
+
+    "createdRow": function ( row, data, index )
+    {
+    if (beforenow( data[5] )) {
+    $('td', row).eq(4).addClass('text-danger').css('font-weight', 'bold');
+    }
+    else if (next5days( data[5] )) {
+    $('td', row).eq(4).addClass('text-warning').css('font-weight', 'bold');
+    }
+    },
+    "pageLength": 20,
+    "order": [[ 5, "asc" ]],
+    "columnDefs": [
+    {"targets": [6],"orderable": false},
+    ],
+    "sDom": "<'dt-toolbar'<'col-xs-12 col-sm-6'f><'col-sm-6 col-xs-6 hidden-xs'T>r>"+
+    "t"+
+    "<'dt-toolbar-footer'<'col-sm-6 col-xs-12 hidden-xs'i><'col-sm-6 col-xs-12'p>>",
+    "oTableTools": {
+    "aButtons": [
+    "copy",
+    "csv",
+    "xls",
+    {
+    "sExtends": "pdf",
+    "sTitle": "Tracker_PDF",
+    "sPdfMessage": "Tracker PDF Export",
+    "sPdfSize": "letter"
+    },
+    {
+    "sExtends": "print",
+    "sMessage": "Generated by Tracker <i>(press Esc to close)</i>"
+    }
+    ],
+    "sSwfPath": "{{ URL::asset('js/plugin/datatables/swf/copy_csv_xls_pdf.swf') }}"
+    },
+    "autoWidth" : true,
+    "preDrawCallback" : function() {
+    // Initialize the responsive datatables helper once.
+    if (!responsiveHelper) {
+    responsiveHelper = new ResponsiveDatatablesHelper($('#dt_risks'), breakpointDefinition);
+    }
+    },
+    "rowCallback" : function(nRow) {
+    responsiveHelper.createExpandIcon(nRow);
+    },
+    });
 
 @endsection

@@ -16,22 +16,25 @@
 
 @section('content')
 
-    <div class="row">
-        <div class="col-lg-4">
-            <img alt="image" class="img-rounded img-responsive"  height="500px" src="{{ URL::asset($user->ProfilePicture) }}"  />
+    <section id="widget-grid" class="">
 
-        </div>
+        <div class="row">
 
-        <div class="col-lg-8">
+            <article class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
 
-            <div class="ibox float-e-margins">
+                <div class="well">
+                    <img alt="image" class="img-rounded img-responsive"  height="500px" src="{{ URL::asset($user->ProfilePicture) }}"  />
+                </div>
+            </article>
 
-                <div class="ibox-content">
+            <article class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
+
+                <div class="well">
 
                     <table width="100%">
                         <tr>
                             <td>
-                                <H3>{{$user['name']}} </H3>
+                                <H1 class="text-danger slideInRight fast animated"><strong>{{$user['name']}} </strong> </H1>
                                 <div class="">
                                     <H4>{{$user->email}}</H4>
                                 </div>
@@ -51,50 +54,57 @@
                             </td>
                         </tr>
                     </table>
-                </div>
-            </div>
 
-            <div class="ibox float-e-margins">
-                <div class="ibox-title">
-                    <h5 ><i class="fa fa-bullhorn"></i> Notifications</h5>
+
                 </div>
 
-                <div class="ibox-content">
+                <div class="jarviswidget jarviswidget-color-darken" id="wid-id-notifications" data-widget-editbutton="false" data-widget-deletebutton="false">
 
-                    <table width="100%">
-                        <tr>
-                            <td>Notify of new Tasks: &nbsp; &nbsp;  </td>
-                            <td>@if($user->notifyNewTasks)<span class="text-navy">Yes</span> @else <span class="text-danger">No</span> @endif</td>
-                            <td>Notify of updated Tasks: &nbsp; &nbsp;  </td>
-                            <td>@if($user->notifyChangedTasks)<span class="text-navy">Yes</span> @else <span class="text-danger">No</span> @endif</td>
-                            <td>Notify Due Tasks: &nbsp; &nbsp;  </td>
-                            <td>@if($user->notifyDueTasks)<span class="text-navy">Yes</span> @else <span class="text-danger">No</span> @endif</td>
-                        </tr>
-                        <tr>
-                            <td>Notify of new Actions: &nbsp; &nbsp;  </td>
-                            <td>@if($user->notifyNewActions)<span class="text-navy">Yes</span> @else <span class="text-danger">No</span> @endif</td>
-                            <td>Notify of updated Actions: &nbsp; &nbsp;  </td>
-                            <td>@if($user->notifyChangedActions)<span class="text-navy">Yes</span> @else <span class="text-danger">No</span> @endif</td>
-                            <td>Notify Due Actions: &nbsp; &nbsp;  </td>
-                            <td>@if($user->notifyDueActions)<span class="text-navy">Yes</span> @else <span class="text-danger">No</span> @endif</td>
-                        </tr>
-                        <tr>
-                            <td>Notify of new Risks: &nbsp; &nbsp;  </td>
-                            <td>@if($user->notifyNewRisks)<span class="text-navy">Yes</span> @else <span class="text-danger">No</span> @endif</td>
-                            <td>Notify of updated Risks: &nbsp; &nbsp;  </td>
-                            <td>@if($user->notifyChangedRisks)<span class="text-navy">Yes</span> @else <span class="text-danger">No</span> @endif</td>
-                            <td>Notify Due Risks: &nbsp; &nbsp;  </td>
-                            <td>@if($user->notifyDueRisks)<span class="text-navy">Yes</span> @else <span class="text-danger">No</span> @endif</td>
-                        </tr>
-                    </table>
+                    <header>
+                        <span class="widget-icon"> <i class="fa fa-bullhorn"></i> </span>
+                        <h2>Notifications</h2>
+
+                    </header>
+
+                    <!-- widget div-->
+                    <div>
+
+                        <!-- widget content -->
+                        <div class="widget-body">
+                            <table width="100%">
+                                <tr>
+                                    <td>Notify of new Tasks: &nbsp; &nbsp;  </td>
+                                    <td>@if($user->notifyNewTasks)<span class="text-navy">Yes</span> @else <span class="text-danger">No</span> @endif</td>
+                                    <td>Notify of updated Tasks: &nbsp; &nbsp;  </td>
+                                    <td>@if($user->notifyChangedTasks)<span class="text-navy">Yes</span> @else <span class="text-danger">No</span> @endif</td>
+                                    <td>Notify Due Tasks: &nbsp; &nbsp;  </td>
+                                    <td>@if($user->notifyDueTasks)<span class="text-navy">Yes</span> @else <span class="text-danger">No</span> @endif</td>
+                                </tr>
+                                <tr>
+                                    <td>Notify of new Actions: &nbsp; &nbsp;  </td>
+                                    <td>@if($user->notifyNewActions)<span class="text-navy">Yes</span> @else <span class="text-danger">No</span> @endif</td>
+                                    <td>Notify of updated Actions: &nbsp; &nbsp;  </td>
+                                    <td>@if($user->notifyChangedActions)<span class="text-navy">Yes</span> @else <span class="text-danger">No</span> @endif</td>
+                                    <td>Notify Due Actions: &nbsp; &nbsp;  </td>
+                                    <td>@if($user->notifyDueActions)<span class="text-navy">Yes</span> @else <span class="text-danger">No</span> @endif</td>
+                                </tr>
+                                <tr>
+                                    <td>Notify of new Risks: &nbsp; &nbsp;  </td>
+                                    <td>@if($user->notifyNewRisks)<span class="text-navy">Yes</span> @else <span class="text-danger">No</span> @endif</td>
+                                    <td>Notify of updated Risks: &nbsp; &nbsp;  </td>
+                                    <td>@if($user->notifyChangedRisks)<span class="text-navy">Yes</span> @else <span class="text-danger">No</span> @endif</td>
+                                    <td>Notify Due Risks: &nbsp; &nbsp;  </td>
+                                    <td>@if($user->notifyDueRisks)<span class="text-navy">Yes</span> @else <span class="text-danger">No</span> @endif</td>
+                                </tr>
+                            </table>
+                        </div>
+
+                    </div>
                 </div>
-            </div>
 
+            </article>
         </div>
-
-
-    </div>
-
+    </section>
 
 @endsection
 

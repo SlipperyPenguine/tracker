@@ -2,68 +2,128 @@
 <input type="hidden" name="program_id" value="{{$program_id}}">
 <input type="hidden" name="work_stream_id" value="{{$work_stream_id}}">
 
-<div class="form-group">
+<fieldset>
+    <section>
+        <label class="input"> <i class="icon-prepend fa fa-star"></i>
+            {!! Form::text('name', null, ['placeholder'=>"Project Name"] ) !!}
+            <b class="tooltip tooltip-bottom-right">Project Name goes here</b> </label>
+    </section>
 
-    <label class="col-lg-2 control-label" for="title">Project Name</label>
-    <div class="col-lg-10">
-        {!! Form::text('name', null, ['placeholder'=>"Enter project name here", 'class'=>"form-control required"] ) !!}
-    </div>
+    <section>
+        <label class="input"> <i class="icon-prepend fa fa-star"></i>
+            {!! Form::text('PI', null, ['placeholder'=>"PI"] ) !!}
+            <b class="tooltip tooltip-bottom-right">Smartchoice PI Here</b> </label>
+    </section>
 
-</div>
+</fieldset>
 
-<div class="form-group">
+<fieldset>
+    <section>
+        <label class="label">Status</label>
+        <div class="row">
+            <div class="col col-4">
+                <label class="radio ">{!! Form::radio('status', 0, true) !!}<i></i>Pre Gate 1</label>
+                <label class="radio ">{!! Form::radio('status', 1, false) !!}<i></i>Post Gate 1, concept paper approved</label>
+                <label class="radio ">{!! Form::radio('status', 2, false) !!}<i></i>Post Review 1, concept paper and SDD approved</label>
+            </div>
+            <div class="col col-4">
+                <label class="radio ">{!! Form::radio('status', 3, false) !!}<i></i>Post Gate 2, in build</label>
+                <label class="radio ">{!! Form::radio('status', 4, false) !!}<i></i>Post Gate 3, Rolling out</label>
+            </div>
+            <div class="col col-4">
+                <label class="radio ">{!! Form::radio('status', 5, false) !!}<i></i>Closed</label>
+                <label class="radio ">{!! Form::radio('status', 6, false) !!}<i></i>Cancelled</label>
+            </div>
+        </div>
+    </section>
+</fieldset>
 
-    <label class="col-lg-2 control-label" for="status">Status</label>
-    <div class="col-lg-10">
-        <div class="i-checks"><label> {!! Form::radio('status', 0, true) !!}  <i></i> Pre Gate 1' </label></div>
-        <div class="i-checks"><label> {!! Form::radio('status', 1, false) !!}  <i></i> Post Gate 1, concept paper approved </label></div>
-        <div class="i-checks"><label> {!! Form::radio('status', 2, false) !!}  <i></i> Post Review 1, concept paper and SDD approved </label></div>
-        <div class="i-checks"><label> {!! Form::radio('status', 3, false) !!}  <i></i> Post Gate 2, in build </label></div>
-        <div class="i-checks"><label> {!! Form::radio('status', 4, false) !!}  <i></i> Post Gate 3, Rolling out </label></div>
-        <div class="i-checks"><label> {!! Form::radio('status', 5, false) !!}  <i></i> Closed </label></div>
-        <div class="i-checks"><label> {!! Form::radio('status', 6, false) !!}  <i></i> Cancelled </label></div>
-    </div>
+<fieldset>
+    <section>
+        <div class="row">
 
-</div>
+                <div class="col col-6">
+                    <label class="input"> <i class="icon-prepend fa fa-calendar"></i>
+                        {!! Form::text('StartDate', isset($subject) ? $subject->StartDate->format('d F Y') : null, ['id'=>'StartDate'] ) !!}
+                        <b class="tooltip tooltip-bottom-right">Project Start Date</b> </label>
+                </div>
 
-<div class="form-group">
+            <div class="col col-6">
+                <label class="input"> <i class="icon-prepend fa fa-calendar"></i>
+                    {!! Form::text('EndDate', isset($subject) ? $subject->EndDate->format('d F Y') : null, ['id'=>'EndDate'] ) !!}
+                    <b class="tooltip tooltip-bottom-right">Project End Date</b> </label>
+            </div>
+        </div>
+    </section>
 
-    <label class="col-lg-2 control-label" for="title">PI</label>
-    <div class="col-lg-10">
-        {!! Form::text('PI', null, ['placeholder'=>"Enter the SmartChoice PI here", 'class'=>"form-control required"] ) !!}
-    </div>
-
-</div>
-
-<div class="form-group" id="StartDate">
-    <label id="datelabel" class="col-lg-2 control-label" for="StartDate">Start Date</label>
-    <div class="input-group date col-lg-10">
-        <span class="input-group-addon"><i class="fa fa-calendar"></i></span> {!! Form::text('StartDate', isset($subject) ? $subject->StartDate->format('d F Y') : null  , ['class'=>'form-control']) !!}
-    </div>
-</div>
-
-<div class="form-group" id="EndDate">
-    <label class="col-lg-2 control-label" for="EndDate">End Date</label>
-    <div class="input-group date col-lg-10">
-        <span class="input-group-addon"><i class="fa fa-calendar"></i></span> {!! Form::text('EndDate', isset($subject) ? isset($subject->EndDate) ? $subject->EndDate->format('d F Y'): null : null  , ['class'=>'form-control']) !!}
-    </div>
-</div>
+</fieldset>
 
 
-<div class="form-group">
+<fieldset>
+    <section>
+        <label class="textarea">
+            {!! Form::textarea('description', null, ['rows'=>'5','placeholder'=>"Description"] ) !!}
+            <b class="tooltip tooltip-top-left">Describe the project here</b>
+        </label>
+    </section>
+</fieldset>
 
-    <label class="col-lg-2 control-label" for="description">Description</label>
-    <div class="col-lg-10">
-        {!! Form::textarea('description', null, ['rows'=>'4','placeholder'=>"Enter a description of the risk or issue here", 'class'=>"form-control required"] ) !!}
-    </div>
-
-</div>
-
-<input type="submit" value="Submit" class="btn btn-block btn-primary ">
+<footer>
+    <button type="submit" class="btn btn-block btn-primary">
+        Submit Form
+    </button>
+</footer>
 
 @section('readyfunction')
 
     @include('Project.partials.datefieldsetup')
+
+
+    var $MyForm = $('#projectform').validate({
+    // Rules for form validation
+    rules : {
+    name : {
+        required : true
+        },
+    PI : {
+    required : true
+    },
+    StartDate : {
+    required : true
+    },
+    EndDate : {
+    required : true
+    },
+    description : {
+    required : true
+    }
+    },
+
+    // Messages for form validation
+    messages : {
+    name : {
+    required : 'Please enter a project name'
+    },
+    PI : {
+    required : 'Please enter a SmartChoice PI'
+    },
+    StartDate : {
+    required : 'Please enter a start date'
+    },
+    EndDate : {
+    required : 'Pleae enter an end date'
+    },
+    description : {
+    required : 'Please enter a description'
+    }
+    },
+
+    // Do not change code below
+    errorPlacement : function(error, element) {
+    error.insertAfter(element.parent());
+    }
+    });
+
 
 
 

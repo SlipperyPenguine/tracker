@@ -7,7 +7,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>INSPINIA | Login</title>
+    <title>Program Tracker Login</title>
 
     <link rel="stylesheet"  href="{{ URL::asset('css/bootstrap.min.css') }}">
     <link rel="stylesheet"  href="{{ URL::asset('font-awesome/css/font-awesome.css') }}">
@@ -27,7 +27,7 @@
             <h1 class="logo-name">OBD</h1>
 
         </div>
-        <h3>Welcome to the One Biology dashboard</h3>
+        <h3>Welcome to the One Biology Program Tracker</h3>
 
         <p>Login in is required to add and edit data</p>
         <form class="m-t" role="form" method="post">

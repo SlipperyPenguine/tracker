@@ -13,6 +13,14 @@ use tracker\Models\Action;
 
 class ActionController extends Controller
 {
+    public function indexall()
+    {
+        $actions = Action::with('Actionee')->get();
+        //return $actions;
+
+        return view('Actions.indexall', compact('actions'));
+    }
+
     public function indexAction($subjecttype, $subjectid, Request $request)
     {
 

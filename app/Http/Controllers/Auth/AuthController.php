@@ -2,6 +2,8 @@
 
 namespace tracker\Http\Controllers\Auth;
 
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use tracker\User;
 use Validator;
 use tracker\Http\Controllers\Controller;
@@ -34,7 +36,7 @@ class AuthController extends Controller
     {
         $this->middleware('guest', ['except' => 'getLogout']);
     }
-
+    
     /**
      * Get a validator for an incoming registration request.
      *

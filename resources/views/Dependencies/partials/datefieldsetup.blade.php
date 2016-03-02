@@ -1,4 +1,4 @@
-$('#NextReviewDate .input-group.date').datepicker({
+$('#NextReviewDate').datepicker({
 todayBtn: "linked",
 format: "dd MM yyyy",
 keyboardNavigation: false,

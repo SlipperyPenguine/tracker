@@ -2,36 +2,83 @@
 <input type="hidden" name="subject_id" value="{{$subjectid}}">
 <input type="hidden" name="subject_type" value="{{$subjecttype}}">
 
-<div class="form-group">
+<fieldset>
 
-    <label class="col-lg-2 control-label" for="user_id">Person</label>
-    <div class="col-lg-10">
         @if(isset($member))
             <p class="form-control-static"><img alt="image" height="30" class="img-circle" src="{{ URL::asset($member->User->avatar) }}" /> {{$member->User->name}}</p>
-            @else
-                {!! Form::select('user_id', [], null ,['class'=>"form-control", 'id'=>"user_id"] ) !!}
-            @endif
-    </div>
-
-</div>
-
-<div class="form-group">
-
-    <label class="col-lg-2 control-label" for="role">Role</label>
-    <div class="col-lg-10">
-        {!! Form::text('role', null, ['placeholder'=>"Role the person is performing", 'class'=>"form-control required"] ) !!}
-    </div>
-
-</div>
+        @else
+            <label>Internal Dependency</label>
+            <section>
+                {!! Form::select('user_id',  [],   null ,['class'=>"form-control", 'id'=>"user_id"] ) !!}
+            </section>
+        @endif
 
 
-<input type="submit" value="Submit" class="btn btn-block btn-primary ">
+</fieldset>
+
+<fieldset>
+    <section>
+        <label class="input"> <i class="icon-prepend fa fa-star"></i>
+            {!! Form::text('role', null, ['placeholder'=>"Role"] ) !!}
+            <b class="tooltip tooltip-bottom-right">Enter the Role the person is performing</b> </label>
+    </section>
+
+</fieldset>
+
+<footer>
+    <button type="submit" class="btn btn-block btn-primary">
+        Submit Form
+    </button>
+</footer>
 
 @section('readyfunction')
 
 
     @include('Members.partials.dropdownsetup')
 
+    var $MyForm = $('#MemberFormCreate').validate({
+    // Rules for form validation
+    rules : {
+    user_id : {
+    required : true
+    },
+    role : {
+    required : true
+    } },
+
+    // Messages for form validation
+    messages : {
+    user_id : {
+    required : 'Please select the person'
+    },
+    role : {
+    required : 'Please describe the role this person is performing'
+    } },
+
+    // Do not change code below
+    errorPlacement : function(error, element) {
+    error.insertAfter(element.parent());
+    }
+    });
+
+    var $MyFormEdit = $('#MemberFormEdit').validate({
+    // Rules for form validation
+    rules : {
+    role : {
+    required : true
+    } },
+
+    // Messages for form validation
+    messages : {
+    role : {
+    required : 'Please describe the role this person is performing'
+    } },
+
+    // Do not change code below
+    errorPlacement : function(error, element) {
+    error.insertAfter(element.parent());
+    }
+    });
 
 @endsection
 

@@ -6,54 +6,145 @@
 
 @section('content')
 
-    <div class="ibox float-e-margins">
-        <div class="ibox-title">
-            <h5 ><i class="fa fa-bolt"></i> Dependencies</h5>
-        </div>
-        <div class="ibox-content ">
-            <br/>
-            <table class="table table-hover no-margins">
-                <thead>
-                <tr>
-
-                    <th>Title</th>
-                    <th>Type</th>
-                    <th>Dependence</th>
-                    <th>Status</th>
-                    <th>Next Review</th>
-                    <th>Description</th>
-                    <th></th>
-                </tr>
-                </thead>
-                <tbody>
-
-                @foreach($dependencies as $dependency)
-
-                    <tr>
-
-                        <td>{{$dependency->title}}</td>
-                        <td>@if($dependency->unlinked) External @else {{$dependency->dependent_on_type}} @endif</td>
-                        <td>{{$dependency->dependent_on_name}}</td>
-                        <td>{{$dependency['status']}}</td>
-                        <td class="text-nowrap"> {!! tracker\Helpers\HtmlFormating::StandardDateHTML($dependency->NextReviewDate, false, true, true) !!} </td>
-                        <td>{{$dependency['description']}}</td>
-
-                        <td><a href="{{ URL::asset('dependencies/') }}/{{$dependency['id']}}" class="btn btn-white btn-sm"><i class="fa fa-folder"></i> View </a>
-                            <a href="{{action('DependencyController@edit', [$dependency->id])}}" class="btn btn-white btn-sm"><i class="fa fa-pencil"></i> Edit </a></td>
+        <!-- widget grid -->
+<section id="widget-grid" class="">
 
 
-                    </tr>
+    <div class="row">
 
-                @endforeach
+        <article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 
-                </tbody>
-            </table>
-        </div>
-        <div class="ibox-footer">
-            <a href="{{action('DependencyController@create', [$subjecttype, $subjectid])}}" class="btn btn-primary btn-sm">Add new Dependency</a>
-        </div>
+            <div class="jarviswidget jarviswidget-color-darken" id="wid-id-dependencies" data-widget-editbutton="false" data-widget-deletebutton="false">
+
+                <header>
+                    <span class="widget-icon"> <i class="fa fa-bolt"></i> </span>
+                    <h2>Dependencies</h2>
+
+                </header>
+
+                <!-- widget div-->
+                <div>
+
+                    <!-- widget content -->
+                    <div class="widget-body">
+
+                        <table id="dt_dependencies" class="table table-striped table-bordered table-hover" width="100%">
+                            <thead>
+                            <tr>
+
+                                <th  class="text-nowrap" data-class="expand">Title</th>
+                                <th>Type</th>
+                                <th>Dependence</th>
+                                <th data-hide="phone,tablet">Status</th>
+                                <th data-hide="phone,tablet">Next Review</th>
+                                <th data-hide="phone,tablet">Description</th>
+                                <th></th>
+
+                            </tr>
+                            </thead>
+                            <tbody>
+
+                            @foreach($dependencies as $dependency)
+
+                                <tr>
+                                    <td>{{$dependency->title}}</td>
+                                    <td>@if($dependency->unlinked) External @else {{$dependency->dependent_on_type}} @endif</td>
+                                    <td>{{$dependency->dependent_on_name}}</td>
+                                    <td>{{$dependency['status']}}</td>
+                                    <td class="text-nowrap">{{$dependency->NextReviewDate->format('d M Y')}}</td>
+                                    <td>{{$dependency->description}}</td>
+
+                                    <td class="text-nowrap"><a href="{{ URL::asset('dependencies/') }}/{{$dependency['id']}}" class="btn btn-default btn-sm"><i class="fa fa-folder"></i> View </a>
+                                        <a href="{{action('DependencyController@edit', [$dependency->id])}}" class="btn btn-default btn-sm"><i class="fa fa-pencil"></i> Edit </a></td>
+
+
+                                </tr>
+
+                            @endforeach
+
+                            </tbody>
+                        </table>
+
+                        <div class="widget-footer">
+                            <div class="pull-left">
+                                <a href="{{action('DependencyController@create', [$subjecttype, $subjectid])}}" class="btn btn-primary btn-sm">Add new Dependency</a>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+
+        </article>
+
     </div>
 
+</section>
+
+@endsection
+
+@section('readyfunction')
+
+    var responsiveHelper = undefined;
+
+    var breakpointDefinition = {
+    tablet : 1024,
+    phone : 480
+    };
 
 
+    $('#dt_dependencies').dataTable({
+
+    // Tabletools options:
+    //   https://datatables.net/extensions/tabletools/button_options
+
+    "createdRow": function ( row, data, index )
+    {
+    if (beforenow( data[4] )) {
+    $('td', row).eq(4).addClass('text-danger').css('font-weight', 'bold');
+    }
+    else if (next5days( data[4] )) {
+    $('td', row).eq(4).addClass('text-warning').css('font-weight', 'bold');
+    }
+    },
+    "pageLength": 20,
+    "order": [[ 4, "asc" ]],
+    "columnDefs": [
+    {"targets": [6],"orderable": false},
+    ],
+    "sDom": "<'dt-toolbar'<'col-xs-12 col-sm-6'f><'col-sm-6 col-xs-6 hidden-xs'T>r>"+
+    "t"+
+    "<'dt-toolbar-footer'<'col-sm-6 col-xs-12 hidden-xs'i><'col-sm-6 col-xs-12'p>>",
+    "oTableTools": {
+    "aButtons": [
+    "copy",
+    "csv",
+    "xls",
+    {
+    "sExtends": "pdf",
+    "sTitle": "Tracker_PDF",
+    "sPdfMessage": "Tracker PDF Export",
+    "sPdfSize": "letter"
+    },
+    {
+    "sExtends": "print",
+    "sMessage": "Generated by Tracker <i>(press Esc to close)</i>"
+    }
+    ],
+    "sSwfPath": "{{ URL::asset('js/plugin/datatables/swf/copy_csv_xls_pdf.swf') }}"
+    },
+    "autoWidth" : true,
+    "preDrawCallback" : function() {
+    // Initialize the responsive datatables helper once.
+    if (!responsiveHelper) {
+    responsiveHelper = new ResponsiveDatatablesHelper($('#dt_dependencies'), breakpointDefinition);
+    }
+    },
+    "rowCallback" : function(nRow) {
+    responsiveHelper.createExpandIcon(nRow);
+    },
+    });
 @endsection

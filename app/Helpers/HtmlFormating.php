@@ -50,19 +50,19 @@ class HtmlFormating
         switch($current)
         {
             case 1:
-                $output = '<span class="badge badge-primary">1</span>';
+                $output = '<span class="badge bg-color-greenLight">1</span>';
                 break;
             case 2:
-                $output = '<span class="badge badge-primary">2</span>';
+                $output = '<span class="badge bg-color-greenLight">2</span>';
                 break;
             case 3:
-                $output = '<span class="badge badge-warning">3</span>';
+                $output = '<span class="badge bg-color-orange">3</span>';
                 break;
             case 4:
-                $output = '<span class="badge badge-danger">4</span>';
+                $output = '<span class="badge bg-color-redLight">4</span>';
                 break;
             case 5:
-                $output = '<span class="badge badge-danger">5</span>';
+                $output = '<span class="badge bg-color-redLight">5</span>';
                 break;
         }
 
@@ -88,13 +88,13 @@ class HtmlFormating
         switch($current)
         {
             case 'G':
-                $output = '<span class="badge badge-primary">G</span>';
+                $output = '<span class="badge bg-color-greenLight">G</span>';
                 break;
             case 'A':
-                $output = '<span class="badge badge-warning">A</span>';
+                $output = '<span class="badge bg-color-orange">A</span>';
                 break;
             case 'R':
-                $output = '<span class="badge badge-danger">R</span>';
+                $output = '<span class="badge bg-color-redLight">R</span>';
                 break;
         }
         return $output;
@@ -140,6 +140,48 @@ class HtmlFormating
             $output .= '&nbsp;&nbsp;&nbsp; <small>( '.$date->format('d M Y h:s').' )</small>';
         else
             $output .= '&nbsp;&nbsp;&nbsp; <small>( '.$date->format('d M Y').' )</small>';
+
+        $output .= '</span>';
+        return $output;
+    }
+
+    public static function SimpleDateHTML(Carbon $date, $includetime=false, $comparetonow=false, $includeicon=false)
+    {
+        $output = '';
+
+        $close = clone $date;
+
+        $close = $close->addDays(-5);
+
+        if($comparetonow)
+        {
+            $now = Carbon::today();
+            if($date <= $now)
+            {
+                $output .= '<span class="text-danger">';
+            }
+            elseif($close <= $now)
+            {
+                $output .= '<span class="text-warning">';
+            }
+            else
+            {
+                $output .= '<span>';
+            }
+        }
+        else{
+            $output .= '<span>';
+        }
+
+        if($includeicon)
+        {
+            $output .= '<i class="fa fa-clock-o"></i> ';
+        }
+
+        if($includetime)
+            $output .= $date->format('d M Y h:s');
+        else
+            $output .= $date->format('d M Y');
 
         $output .= '</span>';
         return $output;

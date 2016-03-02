@@ -2,37 +2,55 @@
 <input type="hidden" name="subject_id" value="{{$subjectid}}">
 <input type="hidden" name="subject_type" value="{{$subjecttype}}">
 
-<div class="form-group">
+<fieldset>
+    <section>
+        <label class="input"> <i class="icon-prepend fa fa-star"></i>
+            {!! Form::text('title', null, ['placeholder'=>"title"] ) !!}
+            <b class="tooltip tooltip-bottom-right">Enter the Title for the RAG</b> </label>
+    </section>
 
-    <label class="col-lg-2 control-label" for="title">Title</label>
-    <div class="col-lg-10">
-        {!! Form::text('title', null, ['placeholder'=>"Title for the RAG", 'class'=>"form-control required"] ) !!}
-    </div>
-
-</div>
-
-<div class="form-group">
-
-    <label class="col-lg-2 control-label" for="value">Status</label>
-    <div class="col-lg-10">
-        <div class="i-checks"><label> {!! Form::radio('value', 'R', true) !!}  <i></i> Red </label></div>
-        <div class="i-checks"><label> {!! Form::radio('value', 'A') !!}  <i></i> Amber </label></div>
-        <div class="i-checks"><label> {!! Form::radio('value', 'G') !!}  <i></i> Green </label></div>
-    </div>
-
-</div>
+</fieldset>
 
 
-<div class="form-group">
+<fieldset>
 
-    <label class="col-lg-2 control-label" for="comments">Comments</label>
-    <div class="col-lg-10">
-        {!! Form::textarea('comments', null, ['rows'=>'4','placeholder'=>"Enter any comments you would like to record about this RAG", 'class'=>"form-control"] ) !!}
-    </div>
+    <label class="label">Status</label>
+    <section>
+    <label class="radio ">{!! Form::radio('value', 'R', true) !!}<i></i>Red</label>
+    <label class="radio ">{!! Form::radio('value', 'A', false) !!}<i></i>Amber</label>
+    <label class="radio ">{!! Form::radio('value', 'G', false) !!}<i></i>Green</label>
+    </section>
+</fieldset>
 
-</div>
+<footer>
+    <button type="submit" class="btn btn-block btn-primary">
+        Submit Form
+    </button>
+</footer>
+
+@section('readyfunction')
 
 
-<input type="submit" value="Submit" class="btn btn-block btn-primary ">
+    @include('Members.partials.dropdownsetup')
+
+    var $MyForm = $('#RAGForm').validate({
+    // Rules for form validation
+    rules : {
+    title : {
+    required : true
+    } },
+
+    // Messages for form validation
+    messages : {
+    title : {
+    required : 'Please enter a title'
+    } },
+
+    // Do not change code below
+    errorPlacement : function(error, element) {
+    error.insertAfter(element.parent());
+    }
+    });
 
 
+@endsection

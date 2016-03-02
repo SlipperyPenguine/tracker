@@ -1,22 +1,47 @@
 @extends('layouts.main')
 
-@section('heading'){{$title}} @endsection
-
 @include('partials.breadcrumb')
 
 @section('content')
 
-    <div class="ibox float-e-margins">
-        <div class="ibox-content">
+        <!-- widget grid -->
+<section id="widget-grid" class="">
 
-            {!! Form::model($member, ['class'=>'form-horizontal', 'method' => 'PATCH', 'action'=>['MemberController@update', $member->id]]) !!}
+    <div class="row">
+        <article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 
-                @include('Members.partials.form')
+            <div class="jarviswidget jarviswidget-color-darken" id="wid-id-actions" data-widget-editbutton="false" data-widget-deletebutton="false">
 
-            {!! Form::close() !!}
+                <header>
+                    <span class="widget-icon"> <i class="fa fa-users"></i> </span>
+                    <h2>{{$title}}</h2>
 
-        </div>
+                </header>
+
+                <!-- widget div-->
+                <div>
+
+                    <!-- widget content -->
+                    <div class="widget-body">
+
+                        {!! Form::model($member, ['id'=>'MemberFormEdit', 'class'=>'smart-form', 'method' => 'PATCH', 'action'=>['MemberController@update', $member->id]]) !!}
+
+                        @include('Members.partials.form')
+
+                        {!! Form::close() !!}
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </article>
+
     </div>
+
+</section>
+
 
 
 @endsection
