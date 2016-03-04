@@ -8,7 +8,13 @@ use Intervention\Image\Facades\Image;
 use Symfony\Component\Console\Input\Input;
 use tracker\Http\Requests;
 use tracker\Http\Controllers\Controller;
+use tracker\Models\Action;
+use tracker\Models\Program;
+use tracker\Models\Project;
+use tracker\Models\Risk;
+use tracker\Models\Task;
 use tracker\Models\User;
+use tracker\Models\WorkStream;
 
 class UserController extends Controller
 {
@@ -22,6 +28,54 @@ class UserController extends Controller
         $users = User::all();
 
         return view('Users.index', compact('users'));
+
+    }
+
+    public function  mydashboard()
+    {
+        $userid = auth()->user()->id;
+
+        return $this->dashboard($userid);
+    }
+
+    public function dashboard($userid)
+    {
+
+
+        $user = User::findOrFail($userid);
+
+        //get programs, workstreams and projects that the user is a member of
+        $programs = Program::whereHas('Members', function($q) use ($userid)
+        {
+            $q->where('user_id', $userid);
+
+        })->get();
+
+        $workstreams = WorkStream::whereHas('Members', function($q) use ($userid)
+        {
+            $q->where('user_id', $userid);
+
+        })->get();
+
+        $projects = Project::whereHas('Members', function($q) use ($userid)
+        {
+            $q->where('user_id', $userid);
+
+        })->get();
+
+        //get tasks for the user
+        $tasks = Task::where('action_owner', $userid)->get();
+
+        //Get the users actions
+        $actions = Action::where('actionee', $userid)->get();
+
+        //Get risks and issues assigned to the user
+        $risks = Risk::where('owner', $userid)->orWhere('action_owner', $userid)->get();
+
+        //return $risks;
+
+        return view('Users.dashboard', compact('user','programs','workstreams','projects','tasks','risks','actions'));
+
 
     }
 

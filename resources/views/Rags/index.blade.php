@@ -48,8 +48,8 @@
                                         {!! $formater::FormatRAG($rag->value) !!}
                                     </td>
                                     <td>
-                                        <a href="{{ URL::asset('rags/') }}/{{$rag['id']}}" class="btn btn-default btn-sm"><i class="fa fa-folder"></i> View </a>
-                                        <a href="{{action('RagController@edit', [$rag->id])}}" class="btn btn-default btn-sm"><i class="fa fa-pencil"></i> Edit </a>
+                                        <a href="{{ URL::asset('rags/') }}/{{$rag['id']}}" class="btn btn-default btn-sm" rel="tooltip" data-placement="top" data-original-title="View"><i class="fa fa-folder"></i></a>
+                                        <a href="{{action('RagController@edit', [$rag->id])}}" class="btn btn-default btn-sm" rel="tooltip" data-placement="top" data-original-title="Edit"><i class="fa fa-pencil"></i></a>
                                     </td>
                                 </tr>
 

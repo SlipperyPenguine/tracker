@@ -8,14 +8,21 @@ use tracker\Http\Controllers\Controller;
 
 class PagesController extends Controller
 {
-    public function welcome()
+    public function home()
     {
-        return view('welcome');
+        if(auth()->check())
+        {
+            $controller = new UserController();
+
+            return $controller->dashboard(auth()->user()->id);
+        }
+        else
+        {
+            $controller = new ProgramController();
+
+            return $controller->index();
+        }
     }
 
-    public function minor()
-    {
-        return view('minor');
 
-    }
 }

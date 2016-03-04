@@ -33,8 +33,8 @@
                         <td>{{$changerequest['status']}}</td>
                         <td>{{$changerequest['description']}}</td>
 
-                        <td><a href="{{ URL::asset('changerequests/') }}/{{$changerequest['id']}}" class="btn btn-default btn-sm"><i class="fa fa-folder"></i> View </a>
-                            <a href="{{action('ChangeRequestController@edit', [$changerequest->id])}}" class="btn btn-default btn-sm"><i class="fa fa-pencil"></i> Edit </a></td>
+                        <td><a href="{{ URL::asset('changerequests/') }}/{{$changerequest['id']}}" class="btn btn-default btn-sm" rel="tooltip" data-placement="top" data-original-title="View"><i class="fa fa-folder"></i></a>
+                            <a href="{{action('ChangeRequestController@edit', [$changerequest->id])}}" class="btn btn-default btn-sm" rel="tooltip" data-placement="top" data-original-title="Edit"><i class="fa fa-pencil"></i></a></td>
 
                     </tr>
 

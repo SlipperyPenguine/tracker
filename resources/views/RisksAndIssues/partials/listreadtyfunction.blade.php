@@ -14,10 +14,10 @@ $('#dt_risks').dataTable({
 "createdRow": function ( row, data, index )
 {
 if (beforenow( data[5] )) {
-$('td', row).eq(4).addClass('text-danger').css('font-weight', 'bold');
+$('td', row).eq(5).addClass('text-danger').css('font-weight', 'bold');
 }
 else if (next5days( data[5] )) {
-$('td', row).eq(4).addClass('text-warning').css('font-weight', 'bold');
+$('td', row).eq(5).addClass('text-warning').css('font-weight', 'bold');
 }
 },
 "pageLength": 10,

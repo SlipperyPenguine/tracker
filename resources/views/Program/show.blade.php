@@ -68,16 +68,11 @@
 
                 @include('RisksAndIssues.partials.list')
 
-                <div class="row">
 
-                    <div class="col-md-6">
                         @include('Rags.partials.list')
-                    </div>
 
-                    <div class="col-md-6">
                         @include('Members.partials.list')
-                    </div>
-                </div>
+
 
                 @include('Actions.partials.list')
 

@@ -16,6 +16,13 @@ use tracker\Models\WorkStream;
 
 class TaskController extends Controller
 {
+    public function indexall()
+    {
+        $tasks = Task::with('ActionOwner')->get();
+        //return $actions;
+
+        return view('Tasks.indexall', compact('tasks'));
+    }
 
     public function indexWorkstreamTask($programid, $workstreamid, Request $request)
     {

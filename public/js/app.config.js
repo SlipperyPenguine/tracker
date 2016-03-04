@@ -39,8 +39,7 @@
 /*
  * GLOBAL: Sound Config (define sound path, enable or disable all sounds)
  */
-	//$.sound_path = "sound/";
-	$.sound_path = document.getElementsByName('base_assets_url')[0].getAttribute('content') + '/sound/';
+$.sound_path = document.getElementsByName('base_assets_url')[0].getAttribute('content') + '/sound/';
 	$.sound_on = true; 
 /*
  * SAVE INSTANCE REFERENCE (DO NOT CHANGE)
@@ -52,7 +51,7 @@
  * debugState = true; will spit all debuging message inside browser console.
  * The colors are best displayed in chrome browser.
  */
-	debugState = true,
+	debugState = false,	
 	debugStyle = 'font-weight: bold; color: #00f;',
 	debugStyle_green = 'font-weight: bold; font-style:italic; color: #46C246;',
 	debugStyle_red = 'font-weight: bold; color: #ed1c24;',
@@ -218,7 +217,7 @@
 	 		
 		var commands = {
 					
-			'show dashboard' : function() { $('nav a[href="dashboard.php"]').trigger("click"); },
+			'show dashboard' : function() { $('nav a[href="/"]').trigger("click"); },
 			'show inbox' : function() { $('nav a[href="inbox.php"]').trigger("click"); },
 			'show graphs' : function() { $('nav a[href="flot.php"]').trigger("click"); },
 			'show flotchart' : function() { $('nav a[href="flot.php"]').trigger("click"); },
@@ -309,7 +308,7 @@
 				}
 			},
 			'help' : function() {
-				$('#voiceModal').removeData('modal').modal( { remote: "ajax/modal-content/modal-voicecommand.html", show: true } );
+				$('#voiceModal').removeData('modal').modal( { remote: document.getElementsByName('base_assets_url')[0].getAttribute('content') + "/ajax/modal-content/modal-voicecommand.html", show: true } );
 				if ($('#speech-btn .popover').is(':visible')) {
 					$('#speech-btn .popover').fadeOut(250);
 				}
@@ -326,9 +325,7 @@
 	};
 /*
  * END APP.CONFIG
- */ 
- 
- 
- 
+ */
+
  
  	

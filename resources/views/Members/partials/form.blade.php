@@ -7,7 +7,7 @@
         @if(isset($member))
             <p class="form-control-static"><img alt="image" height="30" class="img-circle" src="{{ URL::asset($member->User->avatar) }}" /> {{$member->User->name}}</p>
         @else
-            <label>Internal Dependency</label>
+            <label>User</label>
             <section>
                 {!! Form::select('user_id',  [],   null ,['class'=>"form-control", 'id'=>"user_id"] ) !!}
             </section>

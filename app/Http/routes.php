@@ -25,12 +25,8 @@ Route::get('welcome', function ()
 //Authentication
 Route::controllers(['auth'=>'Auth\AuthController', 'password'=>'Auth\PasswordController']);
 
-
-Route::get('/', 'ProgramController@index');
-Route::get('home', 'ProgramController@index');
-
-Route::get('welcome', 'PagesController@welcome');
-Route::get('minor', 'PagesController@minor');
+Route::get('/', 'PagesController@home');
+Route::get('home', 'PagesController@home');
 
 Route::get('programs', 'ProgramController@index');
 Route::get('programs/{ProgramID}', 'ProgramController@show');
@@ -63,6 +59,7 @@ Route::post('AjaxComments', [ 'uses' =>  'CommentController@AjaxStore'] );
 //users
 Route::get('users', 'UserController@index');
 Route::get('users/{id}', 'UserController@show');
+Route::get('users/{id}/dashboard', 'UserController@dashboard');
 Route::get('users/{id}/edit', 'UserController@edit');
 Route::post('users', ['middleware'=>'auth', 'uses' =>  'UserController@store'] );
 Route::patch('users/{id}', ['middleware'=>'auth', 'uses' => 'UserController@update'] );
@@ -104,6 +101,7 @@ Route::get('programs/{ProgramID}/workstreams/{WorkstreamID}/projects/{ProjectID}
 
 Route::get('tasks/create/{subjecttype}/{subjectid}',['middleware'=>'auth', 'uses' => 'TaskController@createTask' ] );
 Route::get('tasks/{id}/edit', ['middleware'=>'auth', 'uses' => 'TaskController@editTask'] );
+Route::get('tasks', ['uses' => 'TaskController@indexall'] );
 Route::get('tasks/index/{subjecttype}/{subjectid}', ['uses' => 'TaskController@indexTask'] );
 Route::get('tasks/{id}', ['uses' => 'TaskController@show'] );
 

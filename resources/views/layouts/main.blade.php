@@ -52,7 +52,7 @@
 
     <link rel="stylesheet"  href="{{ URL::asset('css/plugins/datepicker/datepicker3.css') }}">
 
-    <link rel="stylesheet"  href="{{ URL::asset('css/plugins/sweetalert/sweetalert.css') }}">
+   {{-- <link rel="stylesheet"  href="{{ URL::asset('css/plugins/sweetalert/sweetalert.css') }}">--}}
 
     <link rel="stylesheet"  href="{{ URL::asset('css/plugins/select2/select2.min.css') }}">
 
@@ -215,7 +215,8 @@
     <script src="{{ URL::asset('js/plugin/datatables/dataTables.bootstrap.min.js') }}"></script>
     <script src="{{ URL::asset('js/plugin/datatable-responsive/datatables.responsive.min.js') }}"></script>
 
-    <!--  My custom functions -->
+
+        <!--  My custom functions -->
     <script src="{{ URL::asset('js/tracker.js') }}"></script>
 
 
@@ -229,7 +230,7 @@
     {{--<script src="{{ URL::asset('js/plugins/toastr/toastr.min.js') }}"></script>--}}
 
             <!-- Sweetalerts script -->
-    <script src="{{ URL::asset('js/plugins/sweetalert/sweetalert.min.js') }}"></script>
+  {{--  <script src="{{ URL::asset('js/plugins/sweetalert/sweetalert.min.js') }}"></script>--}}
 
             <!-- Select2 -->
     {{--<script src="{{ URL::asset('js/plugins/select2/select2.full.min.js') }}"></script>--}}

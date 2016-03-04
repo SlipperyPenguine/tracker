@@ -59,6 +59,7 @@ class ProjectController extends Controller
 
         $subject->program_id = $request->program_id;
         $subject->work_stream_id = $request->work_stream_id;
+        $subject->program_id = WorkStream::where('id',$request->work_stream_id )->first()->Program->id;
         $subject->status = $request->status;
         $subject->PI = $request->PI;
         $subject->name = $request->name;

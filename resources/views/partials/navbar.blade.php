@@ -28,10 +28,6 @@
         -->
 
         <ul>
-            <li @if(str_contains($controller,'PagesController') && str_contains($action,'welcome') )class="active" @endif>
-                <a href="{{ URL::asset('welcome') }}" title="Welcome"><i class="fa fa-lg fa-fw fa-home"></i> <span class="menu-item-parent">Welcome</span></a>
-            </li>
-
             <li @if(str_contains($controller,'ProgramController') )class="active" @endif>
                 <a href="{{ URL::asset('programs') }}" title="Programs"><i class="fa fa-lg fa-fw fa-briefcase"></i> <span class="menu-item-parent">Programs</span></a>
             </li>
@@ -42,6 +38,10 @@
 
             <li @if(str_contains($controller,'ActionController') && str_contains($action,'indexall') )class="active" @endif>
                 <a href="{{ URL::asset('actions') }}" title="Actions"><i class="fa fa-lg fa-fw fa-bolt"></i> <span class="menu-item-parent">Actions</span></a>
+            </li>
+
+            <li @if(str_contains($controller,'TaskController') && str_contains($action,'indexall') )class="active" @endif>
+                <a href="{{ URL::asset('tasks') }}" title="Tasks"><i class="fa fa-lg fa-fw fa-calendar"></i> <span class="menu-item-parent">Tasks</span></a>
             </li>
 
             @if(Auth::isSuperUser())

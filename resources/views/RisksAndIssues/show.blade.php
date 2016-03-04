@@ -61,7 +61,7 @@
                             </table>
                         </td>
                         <td valign="centre" class="text-right">
-                            <a href="{{action('RiskAndIssueController@editRisk', [$subject->id])}}" class="btn btn-default btn-sm"><i class="fa fa-pencil"></i> Edit </a>
+                            <a href="{{action('RiskAndIssueController@editRisk', [$subject->id])}}" class="btn btn-default btn-sm" rel="tooltip" data-placement="top" data-original-title="Edit"><i class="fa fa-pencil"></i></a>
                         </td>
                     </tr>
                     <tr>

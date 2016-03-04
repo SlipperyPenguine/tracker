@@ -71,8 +71,8 @@
                         <td class="text-nowrap">{{$project->EndDate->format('d M Y')}}</td>
 
                         <td CLASS="text-nowrap">
-                            <a href="{{ URL::asset('programs/') }}/{{$program['id']}}/workstreams/{{$subject['id']}}/projects/{{$project->id}}" class="btn btn-default btn-sm"><i class="fa fa-folder"></i> View </a>
-                            <a href="{{ URL::asset('programs/') }}/{{$program['id']}}/workstreams/{{$subject['id']}}/projects/{{$project->id}}/edit" class="btn btn-default btn-sm"><i class="fa fa-pencil"></i> Edit </a>
+                            <a href="{{ URL::asset('programs/') }}/{{$program['id']}}/workstreams/{{$subject['id']}}/projects/{{$project->id}}" class="btn btn-default btn-sm" rel="tooltip" data-placement="top" data-original-title="View"><i class="fa fa-folder"></i></a>
+                            <a href="{{ URL::asset('programs/') }}/{{$program['id']}}/workstreams/{{$subject['id']}}/projects/{{$project->id}}/edit" class="btn btn-default btn-sm" rel="tooltip" data-placement="top" data-original-title="Edit"><i class="fa fa-pencil"></i></a>
                         </td>
 
                     </tr>

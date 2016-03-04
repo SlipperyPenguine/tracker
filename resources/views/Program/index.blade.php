@@ -78,7 +78,7 @@
                                         <td >
                                             <span class="label label-success">Active</span>
                                         </td>
-                                        <td >
+                                        <td class="table-title">
                                             <a href="{{ URL::asset('programs/') }}/{{$program['id']}}">{{$program['name']}}</a>
                                         </td>
                                         <td style="width: 50%">
@@ -95,8 +95,8 @@
                                             @endif
                                         </td>
                                         <td >
-                                            <a href="{{ URL::asset('programs/') }}/{{$program['id']}}" class="btn btn-default btn-sm"><i class="fa fa-folder"></i> View </a>
-                                            <a href="#" class="btn btn-default btn-sm"><i class="fa fa-pencil"></i> Edit </a>
+                                            <a href="{{ URL::asset('programs/') }}/{{$program['id']}}" class="btn btn-default btn-sm" rel="tooltip" data-placement="top" data-original-title="View"><i class="fa fa-folder"></i></a>
+                                            <a href="#" class="btn btn-default btn-sm" rel="tooltip" data-placement="top" data-original-title="Edit"><i class="fa fa-pencil"></i></a>
                                         </td>
                                     </tr>
 
