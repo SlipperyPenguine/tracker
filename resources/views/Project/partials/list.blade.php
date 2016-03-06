@@ -50,7 +50,7 @@
 
 
                                     @if($rag['value']=='R')
-                                        <span class="badge bg-color-redLightLight" data-toggle="tooltip" data-placement="top" title="{{$rag['title']}}">R</span>
+                                        <span class="badge bg-color-redLight" data-toggle="tooltip" data-placement="top" title="{{$rag['title']}}">R</span>
                                     @elseif($rag['value']=='A')
                                         <span class="badge bg-color-yellow  " data-toggle="tooltip" data-placement="top" title="{{$rag['title']}}">A</span>
                                     @else

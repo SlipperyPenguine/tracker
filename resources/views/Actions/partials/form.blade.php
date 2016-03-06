@@ -48,14 +48,14 @@
     <section>
         <label class="textarea">
             {!! Form::textarea('description', null, ['rows'=>'5','placeholder'=>"Description"] ) !!}
-            <b class="tooltip tooltip-top-left">Describe the project here</b>
+            <b class="tooltip tooltip-top-left">Describe the action here</b>
         </label>
     </section>
 
     <section>
         <label class="input"> <i class="icon-prepend fa fa-star"></i>
             {!! Form::text('raised', null, ['placeholder'=>"Action Originate from"] ) !!}
-            <b class="tooltip tooltip-bottom-right">Enter where the action was orignially raised</b> </label>
+            <b class="tooltip tooltip-bottom-right">Enter where the action was originally raised</b> </label>
     </section>
 </fieldset>
 

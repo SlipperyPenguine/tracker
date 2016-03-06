@@ -19,17 +19,17 @@ class CreateUsersTable extends Migration
             $table->string('name');
             $table->boolean('superUser')->default(false);
 
-            $table->boolean('notifyNewTasks')->default(true);
-            $table->boolean('notifyNewActions')->default(true);
-            $table->boolean('notifyNewRisks')->default(true);
+            $table->boolean('notifyNewTasks')->default(false);
+            $table->boolean('notifyNewActions')->default(false);
+            $table->boolean('notifyNewRisks')->default(false);
 
-            $table->boolean('notifyChangedTasks')->default(true);
-            $table->boolean('notifyChangedActions')->default(true);
-            $table->boolean('notifyChangedRisks')->default(true);
+            $table->boolean('notifyChangedTasks')->default(false);
+            $table->boolean('notifyChangedActions')->default(false);
+            $table->boolean('notifyChangedRisks')->default(false);
 
-            $table->boolean('notifyDueTasks')->default(true);
-            $table->boolean('notifyDueActions')->default(true);
-            $table->boolean('notifyDueRisks')->default(true);
+            $table->boolean('notifyDueTasks')->default(false);
+            $table->boolean('notifyDueActions')->default(false);
+            $table->boolean('notifyDueRisks')->default(false);
 
             $table->rememberToken();
             $table->timestamps();

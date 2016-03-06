@@ -111,5 +111,69 @@ class SeedRags extends Seeder
         rag::create(array('subject_id' => 5, 'subject_type' => 'Project' ,'title' => 'Benefits', 'value' => 'G', 'comments' => '' ));
         rag::create(array('subject_id' => 5, 'subject_type' => 'Project' ,'title' => 'Infrastructure', 'value' => 'G', 'comments' => '' ));
         rag::create(array('subject_id' => 5, 'subject_type' => 'Project' ,'title' => 'Risks & Issues', 'value' => 'G', 'comments' => '' ));
+
+        rag::create(array('subject_id' => 6, 'subject_type' => 'Project' ,'title' => 'Resource', 'value' => 'G', 'comments' => '' ));
+        rag::create(array('subject_id' => 6, 'subject_type' => 'Project' ,'title' => 'Schedule', 'value' => 'G', 'comments' => '' ));
+        rag::create(array('subject_id' => 6, 'subject_type' => 'Project' ,'title' => 'Costs', 'value' => 'G', 'comments' => '' ));
+        rag::create(array('subject_id' => 6, 'subject_type' => 'Project' ,'title' => 'Quality', 'value' => 'G', 'comments' => '' ));
+        rag::create(array('subject_id' => 6, 'subject_type' => 'Project' ,'title' => 'Benefits', 'value' => 'G', 'comments' => '' ));
+        rag::create(array('subject_id' => 6, 'subject_type' => 'Project' ,'title' => 'Infrastructure', 'value' => 'G', 'comments' => '' ));
+        rag::create(array('subject_id' => 6, 'subject_type' => 'Project' ,'title' => 'Risks & Issues', 'value' => 'G', 'comments' => '' ));
+
+        rag::create(array('subject_id' => 7, 'subject_type' => 'Project' ,'title' => 'Resource', 'value' => 'G', 'comments' => '' ));
+        rag::create(array('subject_id' => 7, 'subject_type' => 'Project' ,'title' => 'Schedule', 'value' => 'G', 'comments' => '' ));
+        rag::create(array('subject_id' => 7, 'subject_type' => 'Project' ,'title' => 'Costs', 'value' => 'G', 'comments' => '' ));
+        rag::create(array('subject_id' => 7, 'subject_type' => 'Project' ,'title' => 'Quality', 'value' => 'G', 'comments' => '' ));
+        rag::create(array('subject_id' => 7, 'subject_type' => 'Project' ,'title' => 'Benefits', 'value' => 'G', 'comments' => '' ));
+        rag::create(array('subject_id' => 7, 'subject_type' => 'Project' ,'title' => 'Infrastructure', 'value' => 'G', 'comments' => '' ));
+        rag::create(array('subject_id' => 7, 'subject_type' => 'Project' ,'title' => 'Risks & Issues', 'value' => 'G', 'comments' => '' ));
+
+        rag::create(array('subject_id' => 8, 'subject_type' => 'Project' ,'title' => 'Resource', 'value' => 'G', 'comments' => '' ));
+        rag::create(array('subject_id' => 8, 'subject_type' => 'Project' ,'title' => 'Schedule', 'value' => 'G', 'comments' => '' ));
+        rag::create(array('subject_id' => 8, 'subject_type' => 'Project' ,'title' => 'Costs', 'value' => 'G', 'comments' => '' ));
+        rag::create(array('subject_id' => 8, 'subject_type' => 'Project' ,'title' => 'Quality', 'value' => 'G', 'comments' => '' ));
+        rag::create(array('subject_id' => 8, 'subject_type' => 'Project' ,'title' => 'Benefits', 'value' => 'G', 'comments' => '' ));
+        rag::create(array('subject_id' => 8, 'subject_type' => 'Project' ,'title' => 'Infrastructure', 'value' => 'G', 'comments' => '' ));
+        rag::create(array('subject_id' => 8, 'subject_type' => 'Project' ,'title' => 'Risks & Issues', 'value' => 'G', 'comments' => '' ));
+
+        rag::create(array('subject_id' => 9, 'subject_type' => 'Project' ,'title' => 'Resource', 'value' => 'G', 'comments' => '' ));
+        rag::create(array('subject_id' => 9, 'subject_type' => 'Project' ,'title' => 'Schedule', 'value' => 'G', 'comments' => '' ));
+        rag::create(array('subject_id' => 9, 'subject_type' => 'Project' ,'title' => 'Costs', 'value' => 'G', 'comments' => '' ));
+        rag::create(array('subject_id' => 9, 'subject_type' => 'Project' ,'title' => 'Quality', 'value' => 'G', 'comments' => '' ));
+        rag::create(array('subject_id' => 9, 'subject_type' => 'Project' ,'title' => 'Benefits', 'value' => 'G', 'comments' => '' ));
+        rag::create(array('subject_id' => 9, 'subject_type' => 'Project' ,'title' => 'Infrastructure', 'value' => 'G', 'comments' => '' ));
+        rag::create(array('subject_id' => 9, 'subject_type' => 'Project' ,'title' => 'Risks & Issues', 'value' => 'G', 'comments' => '' ));
+
+        rag::create(array('subject_id' => 10, 'subject_type' => 'Project' ,'title' => 'Resource', 'value' => 'G', 'comments' => '' ));
+        rag::create(array('subject_id' => 10, 'subject_type' => 'Project' ,'title' => 'Schedule', 'value' => 'G', 'comments' => '' ));
+        rag::create(array('subject_id' => 10, 'subject_type' => 'Project' ,'title' => 'Costs', 'value' => 'G', 'comments' => '' ));
+        rag::create(array('subject_id' => 10, 'subject_type' => 'Project' ,'title' => 'Quality', 'value' => 'G', 'comments' => '' ));
+        rag::create(array('subject_id' => 10, 'subject_type' => 'Project' ,'title' => 'Benefits', 'value' => 'G', 'comments' => '' ));
+        rag::create(array('subject_id' => 10, 'subject_type' => 'Project' ,'title' => 'Infrastructure', 'value' => 'G', 'comments' => '' ));
+        rag::create(array('subject_id' => 10, 'subject_type' => 'Project' ,'title' => 'Risks & Issues', 'value' => 'G', 'comments' => '' ));
+
+        rag::create(array('subject_id' => 11, 'subject_type' => 'Project' ,'title' => 'Resource', 'value' => 'G', 'comments' => '' ));
+        rag::create(array('subject_id' => 11, 'subject_type' => 'Project' ,'title' => 'Schedule', 'value' => 'G', 'comments' => '' ));
+        rag::create(array('subject_id' => 11, 'subject_type' => 'Project' ,'title' => 'Costs', 'value' => 'G', 'comments' => '' ));
+        rag::create(array('subject_id' => 11, 'subject_type' => 'Project' ,'title' => 'Quality', 'value' => 'G', 'comments' => '' ));
+        rag::create(array('subject_id' => 11, 'subject_type' => 'Project' ,'title' => 'Benefits', 'value' => 'G', 'comments' => '' ));
+        rag::create(array('subject_id' => 11, 'subject_type' => 'Project' ,'title' => 'Infrastructure', 'value' => 'G', 'comments' => '' ));
+        rag::create(array('subject_id' => 11, 'subject_type' => 'Project' ,'title' => 'Risks & Issues', 'value' => 'G', 'comments' => '' ));
+
+        rag::create(array('subject_id' => 12, 'subject_type' => 'Project' ,'title' => 'Resource', 'value' => 'G', 'comments' => '' ));
+        rag::create(array('subject_id' => 12, 'subject_type' => 'Project' ,'title' => 'Schedule', 'value' => 'G', 'comments' => '' ));
+        rag::create(array('subject_id' => 12, 'subject_type' => 'Project' ,'title' => 'Costs', 'value' => 'G', 'comments' => '' ));
+        rag::create(array('subject_id' => 12, 'subject_type' => 'Project' ,'title' => 'Quality', 'value' => 'G', 'comments' => '' ));
+        rag::create(array('subject_id' => 12, 'subject_type' => 'Project' ,'title' => 'Benefits', 'value' => 'G', 'comments' => '' ));
+        rag::create(array('subject_id' => 12, 'subject_type' => 'Project' ,'title' => 'Infrastructure', 'value' => 'G', 'comments' => '' ));
+        rag::create(array('subject_id' => 12, 'subject_type' => 'Project' ,'title' => 'Risks & Issues', 'value' => 'G', 'comments' => '' ));
+
+        rag::create(array('subject_id' => 13, 'subject_type' => 'Project' ,'title' => 'Resource', 'value' => 'G', 'comments' => '' ));
+        rag::create(array('subject_id' => 13, 'subject_type' => 'Project' ,'title' => 'Schedule', 'value' => 'G', 'comments' => '' ));
+        rag::create(array('subject_id' => 13, 'subject_type' => 'Project' ,'title' => 'Costs', 'value' => 'G', 'comments' => '' ));
+        rag::create(array('subject_id' => 13, 'subject_type' => 'Project' ,'title' => 'Quality', 'value' => 'G', 'comments' => '' ));
+        rag::create(array('subject_id' => 13, 'subject_type' => 'Project' ,'title' => 'Benefits', 'value' => 'G', 'comments' => '' ));
+        rag::create(array('subject_id' => 13, 'subject_type' => 'Project' ,'title' => 'Infrastructure', 'value' => 'G', 'comments' => '' ));
+        rag::create(array('subject_id' => 13, 'subject_type' => 'Project' ,'title' => 'Risks & Issues', 'value' => 'G', 'comments' => '' ));
     }
 }

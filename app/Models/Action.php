@@ -45,13 +45,15 @@ class Action extends Model
         parent::boot();
 
         static::updating(function($action){
-            event(new ActionUpdated($action));
             $action->RecordAuditTrail(false);
+
+            event(new ActionUpdated($action));
         });
 
         static::created(function($action){
-            event(new ActionCreated($action));
             $action->RecordAuditTrail(true);
+
+            event(new ActionCreated($action));
         });
     }
 }
