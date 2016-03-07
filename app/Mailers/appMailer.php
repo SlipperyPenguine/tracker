@@ -11,6 +11,7 @@ namespace tracker\Mailers;
 
 use Illuminate\Contracts\Mail\Mailer;
 use tracker\Models\Action;
+use tracker\Models\Risk;
 use tracker\Models\User;
 
 /**
@@ -61,6 +62,38 @@ class appMailer
 
         //email the user
         $this->SendMail($user->email, 'emails.NotifyUserActionCreated', compact('action'));
+
+        return true;
+
+    }
+
+    public function emailUserNewRisk(Risk $risk)
+    {
+        //get the actionee for the action
+        $user = User::findOrFail($risk->RiskOwner->id);
+
+        //check if this user wants emails
+        if (!$user->notifyNewRisks)
+            return false;
+
+        //email the user
+        $this->SendMail($user->email, 'emails.NotifyUserRiskCreated', compact('risk'));
+
+        return true;
+
+    }
+
+    public function emailUserRiskUpdated(Risk $risk)
+    {
+        //get the actionee for the action
+        $user = User::findOrFail($risk->RiskOwner->id);
+
+        //check if this user wants emails
+        if (!$user->notifyChangedRisks)
+            return false;
+
+        //email the user
+        $this->SendMail($user->email, 'emails.NotifyUserRiskHasChanged', compact('risk'));
 
         return true;
 

@@ -248,7 +248,7 @@ class HtmlFormating
                 return "<span class='text-danger'><strong>Very High</strong> - Very likely the risk will occur</span>";
                 break;
             default:
-                return score;
+                return $score;
                 break;
         }
     }
@@ -270,6 +270,9 @@ class HtmlFormating
                 break;
             case 5:
                 return "<span class='text-danger'><strong>Critical</strong> - the program will fail. Minimum acceptable requirements will not be met</span>";
+            default:
+                return $score;
+                break;
         }
     }
 
