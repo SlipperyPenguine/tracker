@@ -14,6 +14,7 @@ class Kernel extends ConsoleKernel
      */
     protected $commands = [
         \tracker\Console\Commands\Inspire::class,
+        \tracker\Console\Commands\sendOverdueEmails::class,
     ];
 
     /**
@@ -24,7 +25,7 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->command('inspire')
-                 ->hourly();
+        $schedule->command('tracker:sendOverdueEmails')
+                 ->dailyAt('01:00');
     }
 }

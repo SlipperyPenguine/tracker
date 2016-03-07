@@ -40,6 +40,13 @@ class Action extends Model
 
     }
 
+    public function scopeDueActions($query)
+    {
+
+        return $query->where('status', 'Open')->Where('DueDate', '<', Carbon::today()->addDays(5));
+
+    }
+
     public static function boot()
     {
         parent::boot();

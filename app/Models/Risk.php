@@ -29,6 +29,13 @@ class Risk extends Model
         return $this->hasOne('tracker\Models\User', 'action_owner', 'id');
     }
 
+    public function scopeDueReview($query)
+    {
+
+        return $query->where('status', 'Open')->Where('NextReviewDate', '<', Carbon::today()->addDays(5));
+
+    }
+
     public static function boot()
     {
         parent::boot();

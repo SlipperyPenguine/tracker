@@ -10,6 +10,7 @@ namespace tracker\Mailers;
 
 
 use Illuminate\Contracts\Mail\Mailer;
+use Illuminate\Support\Facades\Mail;
 use tracker\Models\Action;
 use tracker\Models\Risk;
 use tracker\Models\Task;
@@ -129,6 +130,17 @@ class appMailer
 
         return true;
 
+    }
+
+    public static function emailUserDueNotfications($user, $actions, $risks)
+    {
+        $recipient = $user->email;
+        //email the user
+        //self::SendMail($user->email, 'emails.SendUserDueNotifications', compact('actions', 'risks'));
+
+        Mail::send('emails.SendUserDueNotifications', compact('actions','risks'), function ($message) use ($recipient) {
+          $message->to($recipient);
+        });
     }
 
     private function SendMail($recipient, $view, $data = [])
