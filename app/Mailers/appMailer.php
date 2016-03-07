@@ -12,6 +12,7 @@ namespace tracker\Mailers;
 use Illuminate\Contracts\Mail\Mailer;
 use tracker\Models\Action;
 use tracker\Models\Risk;
+use tracker\Models\Task;
 use tracker\Models\User;
 
 /**
@@ -33,6 +34,37 @@ class appMailer
         $this->mailer = $mailer;
     }
 
+    public function emailUserTaskHasChanged(Task $task)
+    {
+        //get the actionee for the action
+        $user = User::findOrFail($task->ActionOwner->id);
+
+        //check if this user wants emails
+        if (!$user->notifyChangedTasks)
+            return false;
+
+        //email the user
+        $this->SendMail($user->email, 'emails.NotifyUserTaskHasChanged', compact('task'));
+
+        return true;
+
+    }
+
+    public function emailUserNewTask(Task $task)
+    {
+        //get the actionee for the action
+        $user = User::findOrFail($task->ActionOwner->id);
+
+        //check if this user wants emails
+        if (!$user->notifyNewTasks)
+            return false;
+
+        //email the user
+        $this->SendMail($user->email, 'emails.NotifyUserTaskCreated', compact('task'));
+
+        return true;
+
+    }
 
     public function emailUserActionHasChanged(Action $action)
     {

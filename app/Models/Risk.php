@@ -37,12 +37,12 @@ class Risk extends Model
             $risk->calculateCurrentRiskClassificationScore();
             $risk->CheckForProbabilityOrImpactChange();
             $risk->RecordAuditTrail(false);
-
-            event(new RiskUpdated($risk));
-
-
         });
 
+        static::updated(function($risk){
+
+            event(new RiskUpdated($risk));
+        });
         static::creating(function($risk){
             $risk->calculateCurrentRiskClassificationScore();
         });

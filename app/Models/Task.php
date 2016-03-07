@@ -41,16 +41,20 @@ class Task extends Model
 
         static::updating(function($task)
         {
-            event(new TaskUpdated($task));
-
             $task->RecordAuditTrail(false);
      });
 
+        static::updated(function($task)
+        {
+            event(new TaskUpdated($task));
+        });
+
         static::created(function($task){
+
+            $task->RecordAuditTrail(true);
 
             event(new TaskCreated($task));
 
-            $task->RecordAuditTrail(true);
         });
     }
 }

@@ -46,7 +46,9 @@ class Action extends Model
 
         static::updating(function($action){
             $action->RecordAuditTrail(false);
+        });
 
+        static::updated(function($action){
             event(new ActionUpdated($action));
         });
 
