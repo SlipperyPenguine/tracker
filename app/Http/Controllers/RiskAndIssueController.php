@@ -171,6 +171,8 @@ class RiskAndIssueController extends Controller
         $risk->target_probability = $request->target_probability;
         $risk->target_impact = $request->target_impact;
         $risk->description = $request->description;
+        $risk->cause_description = $request->cause_description;
+        $risk->impact_description = $request->impact_description;
         $risk->NextReviewDate = Carbon::parse($request->NextReviewDate)->toDateTimeString();
         $risk->owner =  $request->owner;
         $risk->response_strategy =  $request->response_strategy;
@@ -250,6 +252,8 @@ class RiskAndIssueController extends Controller
         $risk->target_probability = $request->target_probability;
         $risk->target_impact = $request->target_impact;
         $risk->description = $request->description;
+        $risk->cause_description = $request->cause_description;
+        $risk->impact_description = $request->impact_description;
         $risk->NextReviewDate = Carbon::parse($request->NextReviewDate)->toDateTimeString();
         $risk->owner =  $request->owner;
         $risk->response_strategy =  $request->response_strategy;

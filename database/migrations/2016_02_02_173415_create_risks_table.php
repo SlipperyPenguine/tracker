@@ -32,6 +32,8 @@ class CreateRisksTable extends Migration
             $table->integer('action_owner')->nullable;
             $table->string('title');
             $table->text('description');
+            $table->text('cause_description');
+            $table->text('impact_description');
             $table->string('response_strategy')->nullable;;
             $table->text('response_notes')->nullable;
             $table->timestamps();

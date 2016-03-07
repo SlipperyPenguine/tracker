@@ -91,12 +91,31 @@
     <section>
         <label class="textarea">
             {!! Form::textarea('description', null, ['rows'=>'5','placeholder'=>"Description"] ) !!}
-            <b class="tooltip tooltip-top-left">Describe the risk or issue here</b>
+            <b class="tooltip tooltip-top-left">Describe the risk or issue here.  What is the risk?</b>
         </label>
     </section>
 
 </fieldset>
 
+<fieldset>
+    <section>
+        <label class="textarea">
+            {!! Form::textarea('cause_description', null, ['rows'=>'5','placeholder'=>"Cause of Risk or Isssue"] ) !!}
+            <b class="tooltip tooltip-top-left">Describe the cause of the risk/issue.  There is a risk/issue because of...</b>
+        </label>
+    </section>
+
+</fieldset>
+
+<fieldset>
+    <section>
+        <label class="textarea">
+            {!! Form::textarea('impact_description', null, ['rows'=>'5','placeholder'=>"Impact of the Risk or Issue"] ) !!}
+            <b class="tooltip tooltip-top-left">Describe the impact of the risk/issue.  This risk/issue will result in...</b>
+        </label>
+    </section>
+
+</fieldset>
 
 <fieldset>
     <section>

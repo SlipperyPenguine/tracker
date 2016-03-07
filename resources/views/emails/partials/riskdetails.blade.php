@@ -65,6 +65,22 @@
 </tr>
 <tr>
     <td style="font-family: Helvetica, arial, sans-serif; font-size: 13px; color: #333333; text-align:left;line-height: 24px;">
+        Cause:
+    </td>
+    <td style="font-family: Helvetica, arial, sans-serif; font-size: 13px; color: #333333; text-align:left;line-height: 24px;">
+        {{$risk->cause_description}}
+    </td>
+</tr>
+<tr>
+    <td style="font-family: Helvetica, arial, sans-serif; font-size: 13px; color: #333333; text-align:left;line-height: 24px;">
+        Impact Description:
+    </td>
+    <td style="font-family: Helvetica, arial, sans-serif; font-size: 13px; color: #333333; text-align:left;line-height: 24px;">
+        {{$risk->impact_description}}
+    </td>
+</tr>
+<tr>
+    <td style="font-family: Helvetica, arial, sans-serif; font-size: 13px; color: #333333; text-align:left;line-height: 24px;">
         Current Classification:
     </td>
     <td style="font-family: Helvetica, arial, sans-serif; font-size: 13px; color: #333333; text-align:left;line-height: 24px;">
