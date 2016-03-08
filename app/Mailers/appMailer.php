@@ -61,7 +61,7 @@ class appMailer
             return false;
 
         //email the user
-        $this->SendMail($user->email, 'emails.NotifyUserTaskCreated', compact('task'));
+        $this->SendMail($user->email, 'emails.NotifyUserTaskCreated', 'New Task assigned to you', compact('task'));
 
         return true;
 
@@ -77,7 +77,7 @@ class appMailer
             return false;
 
         //email the user
-        $this->SendMail($user->email, 'emails.NotifyUserActionHasChanged', compact('action'));
+        $this->SendMail($user->email, 'emails.NotifyUserActionHasChanged', 'Action Updated', compact('action'));
 
         return true;
 
@@ -94,7 +94,7 @@ class appMailer
             return false;
 
         //email the user
-        $this->SendMail($user->email, 'emails.NotifyUserActionCreated', compact('action'));
+        $this->SendMail($user->email, 'emails.NotifyUserActionCreated', 'New Action assigned to you', compact('action'));
 
         return true;
 
@@ -110,7 +110,7 @@ class appMailer
             return false;
 
         //email the user
-        $this->SendMail($user->email, 'emails.NotifyUserRiskCreated', compact('risk'));
+        $this->SendMail($user->email, 'emails.NotifyUserRiskCreated', 'New Risk assigned to you', compact('risk'));
 
         return true;
 
@@ -126,7 +126,7 @@ class appMailer
             return false;
 
         //email the user
-        $this->SendMail($user->email, 'emails.NotifyUserRiskHasChanged', compact('risk'));
+        $this->SendMail($user->email, 'emails.NotifyUserRiskHasChanged', 'Risk you are the owner for has been updated', compact('risk'));
 
         return true;
 
@@ -139,15 +139,15 @@ class appMailer
         //self::SendMail($user->email, 'emails.SendUserDueNotifications', compact('actions', 'risks'));
 
         Mail::send('emails.SendUserDueNotifications', compact('actions','risks'), function ($message) use ($recipient) {
-          $message->to($recipient);
+          $message->to($recipient)->subject('Items that require your review');
         });
     }
 
-    private function SendMail($recipient, $view, $data = [])
+    private function SendMail($recipient, $view, $subject='Update form Program Traker',  $data = [])
     {
-        $this->mailer->send($view, $data, function($message) use ($recipient)
+        $this->mailer->send($view, $data, function($message) use ($recipient, $subject)
         {
-            $message->to($recipient);
+            $message->to($recipient)->subject($subject);
         } );
     }
 }
