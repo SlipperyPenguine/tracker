@@ -9,6 +9,28 @@
 
     </div>
 
+    <!-- projects dropdown -->
+    <div class="project-context hidden-xs">
+
+        <span class="label">Projects:</span>
+        <span class="project-selector dropdown-toggle" data-toggle="dropdown">Active Projects <i class="fa fa-angle-down"></i></span>
+
+        <ul class="dropdown-menu">
+
+        @foreach($projects as $project)
+
+                <li>
+                    <a href="{{action('ProjectController@show', [$project->program_id, $project->work_stream_id, $project->id])}}">{{$project->name}}</a>
+                </li>
+
+        @endforeach
+
+        </ul>
+        <!-- end dropdown-menu-->
+
+    </div>
+    <!-- end projects dropdown -->
+
     <!-- pulled right: nav area -->
     <div class="pull-right">
 
@@ -31,43 +53,7 @@
         </div>
         <!-- end logout button -->
 
-        <!-- search mobile button (this is hidden till mobile view port) -->
-        <div id="search-mobile" class="btn-header transparent pull-right">
-            <span> <a href="javascript:void(0)" title="Search"><i class="fa fa-search"></i></a> </span>
-        </div>
-        <!-- end search mobile button -->
 
-        <!-- input: search field -->
-        <form action="search.html" class="header-search pull-right">
-            <input id="search-fld"  type="text" name="param" placeholder="Find reports and more" data-autocomplete='[
-					"ActionScript",
-					"AppleScript",
-					"Asp",
-					"BASIC",
-					"C",
-					"C++",
-					"Clojure",
-					"COBOL",
-					"ColdFusion",
-					"Erlang",
-					"Fortran",
-					"Groovy",
-					"Haskell",
-					"Java",
-					"JavaScript",
-					"Lisp",
-					"Perl",
-					"PHP",
-					"Python",
-					"Ruby",
-					"Scala",
-					"Scheme"]'>
-            <button type="submit">
-                <i class="fa fa-search"></i>
-            </button>
-            <a href="javascript:void(0);" id="cancel-search-js" title="Cancel Search"><i class="fa fa-times"></i></a>
-        </form>
-        <!-- end input: search field -->
 
         <!-- fullscreen button -->
         <div id="fullscreen" class="btn-header transparent pull-right">

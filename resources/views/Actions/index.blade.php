@@ -51,7 +51,16 @@
                             <td>{{$action['raised']}}</td>
                             <td class="text-nowrap">
                                 <a href="{{ URL::asset('actions/') }}/{{$action['id']}}" class="btn btn-default btn-sm" rel="tooltip" data-placement="top" data-original-title="View"><i class="fa fa-folder"></i></a>
-                                <a href="{{action('ActionController@editAction', [$action->id])}}" class="btn btn-default btn-sm" rel="tooltip" data-placement="top" data-original-title="Edit"><i class="fa fa-pencil"></i></a>
+                                <a href="{{action('ActionController@edit', [$action->id])}}" class="btn btn-default btn-sm" rel="tooltip" data-placement="top" data-original-title="Edit"><i class="fa fa-pencil"></i></a>
+                                @if( auth()->check() && auth()->user()->isAdmin() )
+                                    <a class="btn btn-default btn-sm"
+                                       rel="tooltip" data-placement="top" data-original-title="Delete"
+                                       href="{{action('ActionController@destroy', $action->id)}}"
+                                       data-delete=""
+                                       data-title="Delete Action"
+                                       data-message="Are you sure you want to delete this action?"
+                                       data-button-text="Confirm Delete"><i style="color: black" class="fa fa-trash-o"></i> </a>
+                                @endif
                             </td>
 
 
@@ -64,7 +73,7 @@
 
                 <div class="widget-footer">
                     <div class="pull-left">
-                        <a href="{{action('ActionController@createAction', [$subjecttype, $subjectid])}}" class="btn btn-primary btn-sm">Add new Action</a>
+                        <a href="{{action('ActionController@create', [$subjecttype, $subjectid])}}" class="btn btn-primary btn-sm">Add new Action</a>
 
                     </div>
 

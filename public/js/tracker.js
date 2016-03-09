@@ -94,7 +94,7 @@ var deleter = {
         //self.confirmDelete();
 
         $.SmartMessageBox({
-            title : link.data('title') || self.modalTitle,
+            title : "<i class='fa fa-exclamation-triangle txt-color-red'></i> " + link.data('title') || self.modalTitle,
             content : link.data('message') || self.modalMessage,
             buttons : '[No][Yes]'
         }, function(ButtonPressed) {

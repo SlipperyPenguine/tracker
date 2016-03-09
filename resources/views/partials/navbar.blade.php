@@ -44,6 +44,10 @@
                 <a href="{{ URL::asset('tasks') }}" title="Tasks"><i class="fa fa-lg fa-fw fa-calendar"></i> <span class="menu-item-parent">Tasks</span></a>
             </li>
 
+            <li @if(str_contains($controller,'ChangeRequestController') && str_contains($action,'indexall') )class="active" @endif>
+                <a href="{{ URL::asset('changerequests') }}" title="Change Requests"><i class="fa fa-lg fa-fw fa-adjust"></i> <span class="menu-item-parent">Change Requests</span></a>
+            </li>
+
             @if(Auth::isSuperUser())
                 <li @if(str_contains($controller,'UserController'))class="active" @endif>
                     <a href="#" title="Configuration"><i class="fa fa-lg fa-fw fa-wrench"></i> <span class="menu-item-parent">Configuration</span></a>

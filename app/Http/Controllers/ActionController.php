@@ -3,6 +3,7 @@
 namespace tracker\Http\Controllers;
 
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\URL;
@@ -16,33 +17,23 @@ class ActionController extends Controller
     public function indexall()
     {
         $actions = Action::with('Actionee')->get();
-        //return $actions;
 
         return view('Actions.indexall', compact('actions'));
     }
 
-    public function indexAction($subjecttype, $subjectid, Request $request)
+    public function index($subjecttype, $subjectid, Request $request)
     {
-
-
         $title = "Actions for $subjecttype ".Breadcrumbs::getSubjectName($subjecttype, $subjectid);
 
         $breadcrumbs = Breadcrumbs::getBreadCrumb($subjecttype, $subjectid);
-
-        $breadcrumbs[] = ['Actions', URL::action('ActionController@indexAction', [$subjecttype, $subjectid]), true];
-
-        //return $breadcrumbs;
-
-        //return $subjecttype.'  '.$subjectid;
-
-        $redirect = $request->server('HTTP_REFERER');
+        $breadcrumbs[] = ['Actions', URL::action('ActionController@index', [$subjecttype, $subjectid]), true];
 
         $actions = Action::where('subject_type', $subjecttype)->where('subject_id', $subjectid)->get();
 
         return view('Actions.index', compact('subjectid', 'subjecttype', 'actions', 'title', 'breadcrumbs'));
 
     }
-    public function createAction($subjecttype, $subjectid, Request $request)
+    public function create($subjecttype, $subjectid, Request $request)
     {
 
         $subjectname = Breadcrumbs::getSubjectName($subjecttype, $subjectid);
@@ -50,16 +41,16 @@ class ActionController extends Controller
         $title = "Create new Action for $subjecttype $subjectname ";
 
         $breadcrumbs = Breadcrumbs::getBreadCrumb($subjecttype, $subjectid);
-        $breadcrumbs[] = ['Actions', '', false];
+        $breadcrumbs[] = ['Actions', URL::action('ActionController@index', [$subjecttype, $subjectid]), false];
         $breadcrumbs[] = ['Create', '', false];
 
         $redirect = $request->server('HTTP_REFERER');
-        //return $redirect;
+
         return view('Actions.create', compact('subjectid', 'subjecttype', 'subjectname', 'title', 'breadcrumbs', 'redirect'));
 
     }
 
-    public function editAction($actionid, Request $request)
+    public function edit($actionid, Request $request)
     {
         $action = Action::findOrFail($actionid);
 
@@ -70,12 +61,11 @@ class ActionController extends Controller
         $title = "Edit Action $action->title for $action->subject_type $subjectname";
 
         $breadcrumbs = Breadcrumbs::getBreadCrumb($subjecttype, $subjectid);
-        $breadcrumbs[] = ['Actions', URL::action('ActionController@indexAction', [$subjecttype, $subjectid]), false];
+        $breadcrumbs[] = ['Actions', URL::action('ActionController@index', [$subjecttype, $subjectid]), false];
         $breadcrumbs[] = [$action->title, URL::action('ActionController@show', [$actionid]), false];
         $breadcrumbs[] = ['Edit', '', false];
 
         $redirect = $request->server('HTTP_REFERER');
-
 
         return view('Actions.edit', compact('action', 'title', 'breadcrumbs', 'redirect', 'subjectid', 'subjecttype', 'subjectname'));
     }
@@ -89,7 +79,6 @@ class ActionController extends Controller
      */
     public function store(Request $request)
     {
-        //return $request->all();
         $action = new Action();
 
         $action->subject_id = $request->subject_id;
@@ -108,7 +97,6 @@ class ActionController extends Controller
 
         flash()->success('Success', "New Action created successfully");
 
-
         return redirect($request->redirect);
     }
 
@@ -120,7 +108,14 @@ class ActionController extends Controller
      */
     public function show($id, Request $request)
     {
-        $subject = Action::findOrFail($id);
+        try
+        {
+            $subject = Action::findOrFail($id);
+        }
+        catch(ModelNotFoundException $e)
+        {
+            return $this->indexall();
+        }
 
         $subjectid = $subject->subject_id;
         $subjecttype = $subject->subject_type;
@@ -128,15 +123,10 @@ class ActionController extends Controller
         $title = "Edit Action $subject->title for $subject->subject_type ".Breadcrumbs::getSubjectName($subjecttype, $subjectid);
 
         $breadcrumbs = Breadcrumbs::getBreadCrumb($subjecttype, $subjectid);
-        $breadcrumbs[] = ['Actions', URL::action('ActionController@indexAction', [$subjecttype, $subjectid]), false];
+        $breadcrumbs[] = ['Actions', URL::action('ActionController@index', [$subjecttype, $subjectid]), false];
         $breadcrumbs[] = [$subject->title, '', true];
 
-        $redirect = $request->server('HTTP_REFERER');
-
-        $subjecttype = 'Action';
-
-
-        return view('Actions.show', compact('subject', 'title', 'breadcrumbs', 'redirect', 'subjectid', 'subjecttype'));
+        return view('Actions.show', compact('subject', 'title', 'breadcrumbs'));
     }
 
 
@@ -175,6 +165,14 @@ class ActionController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $action = Action::findOrFail($id);
+
+        $action->delete();
+
+        //todo delete audit trail and comments
+
+        flash()->success('Success', "Action deleted successfully");
+
+        return redirect()->back();
     }
 }

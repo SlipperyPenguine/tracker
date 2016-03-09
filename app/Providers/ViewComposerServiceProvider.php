@@ -3,6 +3,7 @@
 namespace tracker\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use tracker\Models\Project;
 
 class ViewComposerServiceProvider extends ServiceProvider
 {
@@ -15,7 +16,7 @@ class ViewComposerServiceProvider extends ServiceProvider
     {
 
         $this->AddVariablesForDashboardNavbar();
-
+        $this->AddVariablesForTopBar();
     }
 
     /**
@@ -29,18 +30,11 @@ class ViewComposerServiceProvider extends ServiceProvider
     }
 
 
-
-
-
     private function AddVariablesForDashboardNavbar()
     {
 
         view()->composer('partials.navbar', function($view)
         {
-
-/*            $CharacterID = SeatUserSetting::where('user_id', auth()->user()->id )
-                ->where('setting','main_character_id')
-                ->first()->value;*/
 
             $action = app('request')->route()->getAction();
 
@@ -49,6 +43,18 @@ class ViewComposerServiceProvider extends ServiceProvider
             list($controller, $action) = explode('@', $controller);
 
             $view->with(compact('controller', 'action'));
+        });
+    }
+
+    private function AddVariablesForTopBar()
+    {
+
+        view()->composer('partials.topbar', function($view)
+        {
+
+            $projects = Project::Active()->get();
+
+            $view->with(compact('projects'));
         });
     }
 

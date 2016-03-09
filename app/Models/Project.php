@@ -52,6 +52,12 @@ class Project extends Model
 
     }
 
+    public function scopeActive($query)
+    {
+
+        return $query->where('status','>', 0)->where('status', '<', 7);
+    }
+
     public function getStatusTextAttribute()
     {
         switch($this->Status)

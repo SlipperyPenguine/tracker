@@ -3,6 +3,7 @@
 namespace tracker\Http\Controllers;
 
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\Auth;
@@ -14,22 +15,25 @@ use tracker\Models\ChangeRequest;
 
 class ChangeRequestController extends Controller
 {
+    public function indexall()
+    {
+        $changerequests = ChangeRequest::with('Contact')->get();
+
+        return view('ChangeRequests.indexall', compact('changerequests'));
+    }
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index($subjecttype, $subjectid, Request $request)
+    public function index($subjecttype, $subjectid)
     {
-
-
-        $title = "Change Requests for $subjecttype ".Breadcrumbs::getSubjectName($subjecttype, $subjectid);
+       $title = "Change Requests for $subjecttype ".Breadcrumbs::getSubjectName($subjecttype, $subjectid);
 
         $breadcrumbs = Breadcrumbs::getBreadCrumb($subjecttype, $subjectid);
 
         $breadcrumbs[] = ['Change Requests', URL::action('ChangeRequestController@index', [$subjecttype, $subjectid]), true];
-
-        $redirect = $request->server('HTTP_REFERER');
 
         $changerequests = ChangeRequest::where('subject_type', $subjecttype)->where('subject_id', $subjectid)->get();
 
@@ -54,7 +58,7 @@ class ChangeRequestController extends Controller
         $breadcrumbs[] = ['Create', '', false];
 
         $redirect = $request->server('HTTP_REFERER');
-        //return $redirect;
+
         return view('ChangeRequests.create', compact('subjectid', 'subjecttype', 'subjectname', 'title', 'breadcrumbs', 'redirect'));
 
     }
@@ -97,7 +101,6 @@ class ChangeRequestController extends Controller
 
         flash()->success('Success', "New Change Request created successfully");
 
-
         return redirect($request->redirect);
     }
 
@@ -109,7 +112,14 @@ class ChangeRequestController extends Controller
      */
     public function show($id, Request $request)
     {
-        $subject = ChangeRequest::findOrFail($id);
+        try
+        {
+            $subject = ChangeRequest::findOrFail($id);
+        }
+        catch(ModelNotFoundException $e)
+        {
+            return $this->indexall();
+        }
 
         $subjectid = $subject->subject_id;
         $subjecttype = $subject->subject_type;
@@ -120,12 +130,7 @@ class ChangeRequestController extends Controller
         $breadcrumbs[] = ['Change Requests', URL::action('ChangeRequestController@index', [$subjecttype, $subjectid]), true];
         $breadcrumbs[] = [$subject->title, '', true];
 
-        $redirect = $request->server('HTTP_REFERER');
-
-        $subjecttype = 'ChangeRequest';
-
-
-        return view('ChangeRequests.show', compact('subject', 'title', 'breadcrumbs', 'redirect', 'subjectid', 'subjecttype'));
+        return view('ChangeRequests.show', compact('subject', 'title', 'breadcrumbs'));
     }
 
     /**
@@ -136,7 +141,14 @@ class ChangeRequestController extends Controller
      */
     public function edit($id, Request $request)
     {
-        $changerequest = ChangeRequest::findOrFail($id);
+        try
+        {
+            $changerequest = ChangeRequest::findOrFail($id);
+        }
+        catch(ModelNotFoundException $e)
+        {
+            abort(404, "Change Request with id $id not found");
+        }
 
         $subjectid = $changerequest->subject_id;
         $subjecttype = $changerequest->subject_type;
@@ -151,7 +163,6 @@ class ChangeRequestController extends Controller
 
         $redirect = $request->server('HTTP_REFERER');
 
-
         return view('ChangeRequests.edit', compact('changerequest', 'title', 'breadcrumbs', 'redirect', 'subjectid', 'subjecttype', 'subjectname'));
     }
     /**
@@ -163,8 +174,14 @@ class ChangeRequestController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //return $request->all();
-        $changerequest = ChangeRequest::findorFail($id);
+        try
+        {
+            $changerequest = ChangeRequest::findOrFail($id);
+        }
+        catch(ModelNotFoundException $e)
+        {
+            abort(404, "Change Request with id $id not found");
+        }
 
         $changerequest->external_id = $request->external_id;
         $changerequest->status = $request->status;
@@ -197,6 +214,19 @@ class ChangeRequestController extends Controller
      */
     public function destroy($id)
     {
-        //
+        try
+        {
+            $changerequest = ChangeRequest::findOrFail($id);
+        }
+        catch(ModelNotFoundException $e)
+        {
+            abort(404, "Change Request with id $id not found");
+        }
+
+        $changerequest->delete();
+
+        flash()->success('Success', "Change Request deleted successfully");
+
+        return redirect()->back();
     }
 }

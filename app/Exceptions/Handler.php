@@ -42,9 +42,20 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $e)
     {
+        //return redirect()->route('home')->withErrors(['error' => $e->getMessage()]);
+
         if ($e instanceof ModelNotFoundException) {
             $e = new NotFoundHttpException($e->getMessage(), $e);
         }
+
+/*        if ($e instanceof NotFoundHttpException)
+            return response(view('errors.404'), 404);
+
+        if ($e instanceof ForbiddenException) {
+            return response(view('errors.500'), 500);
+            //return redirect()->route('home')->withErrors(['error' => $e->getMessage()]);
+        }*/
+
 
         return parent::render($request, $e);
     }

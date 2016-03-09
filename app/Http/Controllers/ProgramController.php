@@ -55,6 +55,9 @@ class ProgramController extends Controller
             ->with('RAGs', 'Risks', 'Members.User', 'Tasks.ActionOwner')
             ->first();
 
+        if(! $subject)
+            abort(404, 'Program not found');
+
         //get worksteams for this program
         //todo : Move this to a seperate model to ensure single responsibility.  Should add number of active projects to the workstream list.  Maybe a nice small char
         $workstreams = WorkStream::where('program_id', $id)

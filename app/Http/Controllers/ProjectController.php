@@ -69,8 +69,6 @@ class ProjectController extends Controller
 
         $subject->save();
 
-        //todo Add the default RAGs
-
         flash()->success('Success', "New Project created successfully");
 
         return redirect($request->redirect);
@@ -82,7 +80,7 @@ class ProjectController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($programid, $workstreamid, $subjectid, Request$request)
+    public function show($programid, $workstreamid, $subjectid, Request $request)
     {
         $program = Program::findOrFail($programid);
 
@@ -96,12 +94,6 @@ class ProjectController extends Controller
 
         $subjecttype = 'Project';
         $subjectid = $subject->id;
-
-        //$redirect = $request->url();
-
-        //return $subject;
-
-        //return $subject->getActiveTasks();
 
         return view('Project.show', compact('program', 'workstream', 'subject', 'subjecttype', 'subjectid', 'redirect'));
     }
@@ -117,8 +109,6 @@ class ProjectController extends Controller
         $subject = Project::findOrFail($subjectid);
 
         $workstreamname = $this->getWorkstream($work_stream_id)->name;
-        $title = "Create new Project for $workstreamname Workstream";
-
         $title = "Edit Task $subject->name for $workstreamname Workstream";
 
         $breadcrumbs = Breadcrumbs::getBreadCrumb('WorkStream', $work_stream_id);

@@ -37,7 +37,9 @@
 
                     <tr>
 
-                        <td><img alt="image" height="30" class="img-circle" src="{{ URL::asset($task->ActionOwner->avatar) }}" /> {{$task->ActionOwner->name}}</td>
+                        <td>
+                            <span rel="tooltip" data-placement="top" data-original-title="{{$task->ActionOwner->name}}"><img alt="image" height="30" class="img-circle" src="{{ URL::asset($task->ActionOwner->avatar) }}" /></span>
+                        </td>
 
                         <td>{{$task['title']}}</td>
                         <td>{{$task['status']}}</td>

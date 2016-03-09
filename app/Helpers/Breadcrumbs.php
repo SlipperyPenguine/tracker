@@ -82,7 +82,7 @@ class Breadcrumbs
                 $action = Action::findOrFail($subjectid);
 
                 $breadcrumbs = Breadcrumbs::getBreadCrumb($action->subject_type, $action->subject_id);
-                $breadcrumbs[] = ['Actions',  URL::action('ActionController@indexAction', [$action->subject_type, $action->subject_id]), false];
+                $breadcrumbs[] = ['Actions',  URL::action('ActionController@index', [$action->subject_type, $action->subject_id]), false];
                 $breadcrumbs[] = [$action->title,  '', false];
                 return $breadcrumbs;
                 break;

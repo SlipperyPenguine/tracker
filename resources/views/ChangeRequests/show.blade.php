@@ -69,6 +69,15 @@
                         </td>
                         <td valign="centre" class="text-right">
                             <a href="{{action('ChangeRequestController@edit', [$subject->id])}}" class="btn btn-white btn-sm"><i class="fa fa-pencil"></i> Edit </a>
+                            @if( auth()->check() && auth()->user()->isAdmin() )
+                                <a class="btn btn-default"
+                                   rel="tooltip" data-placement="top" data-original-title="Delete"
+                                   href="{{action('ChangeRequestController@destroy', $subject->id)}}"
+                                   data-delete=""
+                                   data-title="Delete Change Request"
+                                   data-message="Are you sure you want to delete this change request?"
+                                   data-button-text="Confirm Delete"><i style="color: black" class="fa fa-trash-o"></i> Delete</a>
+                            @endif
                         </td>
                     </tr>
                     <tr>
@@ -120,6 +129,8 @@
 
         <article class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
 
+            @include('RisksAndIssues.partials.list')
+
             @include('Comments.partials.list')
 
             @include('AuditTrail.partials.list')
@@ -140,6 +151,7 @@
 
 @section('readyfunction')
 
+    @include('RisksAndIssues.partials.listreadtyfunction')
 
     @include('Actions.partials.listreadtfunction')
 

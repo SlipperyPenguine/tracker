@@ -32,7 +32,7 @@
 
                     <tr>
                         <td class="tooltip-demo text-nowrap">
-                            <span data-toggle="tooltip" data-placement="top" title="{{$action->Actionee->name}}"><img alt="image" height="30" class="img-circle" src="{{ URL::asset($action->Actionee->avatar) }}" /></span>
+                            <span rel="tooltip" data-placement="top" data-original-title="{{$action->Actionee->name}}"><img alt="image" height="30" class="img-circle" src="{{ URL::asset($action->Actionee->avatar) }}" /></span>
                         </td>
                         <td >{{$action->id}}</td>
                         <td>{{$action['title']}}</td>
@@ -42,7 +42,16 @@
                         <td>{{$action['raised']}}</td>
                         <td class="text-nowrap">
                             <a href="{{ URL::asset('actions/') }}/{{$action['id']}}" class="btn btn-default btn-sm" rel="tooltip" data-placement="top" data-original-title="View"><i class="fa fa-folder"></i></a>
-                            <a href="{{action('ActionController@editAction', [$action->id])}}" class="btn btn-default btn-sm" rel="tooltip" data-placement="top" data-original-title="Edit"><i class="fa fa-pencil"></i></a>
+                            <a href="{{action('ActionController@edit', [$action->id])}}" class="btn btn-default btn-sm" rel="tooltip" data-placement="top" data-original-title="Edit"><i class="fa fa-pencil"></i></a>
+                            @if( auth()->check() && auth()->user()->isAdmin() )
+                                <a class="btn btn-default btn-sm"
+                                   rel="tooltip" data-placement="top" data-original-title="Delete"
+                                   href="{{action('ActionController@destroy', $action->id)}}"
+                                   data-delete=""
+                                   data-title="Delete Action"
+                                   data-message="Are you sure you want to delete this action?"
+                                   data-button-text="Confirm Delete"><i style="color: black" class="fa fa-trash-o"></i> </a>
+                            @endif
                         </td>
 
 
@@ -55,10 +64,10 @@
 
             <div class="widget-footer">
                 <div class="pull-left">
-                    <a href="{{action('ActionController@createAction', [$subject->subjecttype, $subject->id])}}" class="btn btn-primary btn-sm">Add new Action</a>
+                    <a href="{{action('ActionController@create', [$subject->subjecttype, $subject->id])}}" class="btn btn-primary btn-sm">Add new Action</a>
 
                     </div>
-                    <a href="{{action('ActionController@indexAction', [$subject->subjecttype, $subject->id])}}" class="btn btn-default"><i class="fa fa-folder"></i> View All </a>
+                    <a href="{{action('ActionController@index', [$subject->subjecttype, $subject->id])}}" class="btn btn-default"><i class="fa fa-folder"></i> View All </a>
 
             </div>
 

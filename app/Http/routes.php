@@ -1,41 +1,23 @@
 <?php
 
-/*
-|--------------------------------------------------------------------------
-| Application Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register all of the routes for an application.
-| It's a breeze. Simply tell Laravel the URIs it should respond to
-| and give it the controller to call when that URI is requested.
-|
-*/
-
-Route::get('/', function ()
-{
-    return view('welcome');
-});
-
-Route::get('welcome', function ()
-{
-    return view('welcome');
-});
-
+//Home Page - will redirect to user dashboard if they are logged in
+Route::get('/', 'PagesController@home');
+Route::get('home', ['as' => 'home', 'uses' => 'PagesController@home' ]);
 
 //Authentication
 Route::controllers(['auth'=>'Auth\AuthController', 'password'=>'Auth\PasswordController']);
 
-Route::get('/', 'PagesController@home');
-Route::get('home', 'PagesController@home');
-
+//Programs
 Route::get('programs', 'ProgramController@index');
 Route::get('programs/{ProgramID}', 'ProgramController@show');
 Route::get('programs/{ProgramID}/edit', 'ProgramController@edit');
+
+//Work Streams
 Route::get('programs/{ProgramID}/workstreams/{WorkstreamID}', 'WorkstreamController@show');
 Route::get('programs/{ProgramID}/workstreams/{WorkstreamID}/risksandissues/create',['middleware'=>'auth', 'uses' => 'RiskAndIssueController@createWorkstreamRiskOrIssue' ] );
 Route::get('programs/{ProgramID}/workstreams/{WorkstreamID}/risksandissues/{id}/edit', ['middleware'=>'auth', 'uses' => 'RiskAndIssueController@editWorkstreamRiskOrIssue'] );
 
-
+//Projects
 Route::get('programs/{ProgramID}/workstreams/{WorkstreamID}/projects/create',['middleware'=>'auth', 'uses' => 'ProjectController@create' ] );
 Route::get('programs/{ProgramID}/workstreams/{WorkstreamID}/projects/{id}/edit',['middleware'=>'auth', 'uses' => 'ProjectController@edit' ] );
 Route::get('programs/{ProgramID}/workstreams/{WorkstreamID}/projects/{id}',['uses' => 'ProjectController@show' ] );
@@ -65,21 +47,20 @@ Route::post('users', ['middleware'=>'auth', 'uses' =>  'UserController@store'] )
 Route::patch('users/{id}', ['middleware'=>'auth', 'uses' => 'UserController@update'] );
 
 //Actions
-Route::get('actions/create/{subjecttype}/{subjectid}',['middleware'=>'auth', 'uses' => 'ActionController@createAction' ] );
-Route::get('actions/{id}/edit', ['middleware'=>'auth', 'uses' => 'ActionController@editAction'] );
-Route::get('actions/index/{subjecttype}/{subjectid}', ['uses' => 'ActionController@indexAction'] );
+Route::get('actions/create/{subjecttype}/{subjectid}',['middleware'=>'auth', 'uses' => 'ActionController@create' ] );
+Route::get('actions/{id}/edit', ['middleware'=>'auth', 'uses' => 'ActionController@edit'] );
+Route::get('actions/index/{subjecttype}/{subjectid}', ['uses' => 'ActionController@index'] );
 Route::get('actions', ['uses' => 'ActionController@indexall'] );
 Route::get('actions/{id}', [ 'uses' => 'ActionController@show'] );
-
 Route::post('actions', ['middleware'=>'auth', 'uses' =>  'ActionController@store'] );
 Route::patch('actions/{id}', ['middleware'=>'auth', 'uses' => 'ActionController@update'] );
+Route::delete('actions/{id}', ['middleware'=>'auth', 'uses' =>  'ActionController@destroy'] );
 
 //Members
 Route::get('members/create/{subjecttype}/{subjectid}',['middleware'=>'auth', 'uses' => 'MemberController@createMember' ] );
 Route::get('members/{id}/edit', ['middleware'=>'auth', 'uses' => 'MemberController@editMember'] );
 Route::get('members/index/{subjecttype}/{subjectid}', ['uses' => 'MemberController@indexMember'] );
 Route::get('members/{id}', [ 'uses' => 'MemberController@show'] );
-
 Route::post('members', ['middleware'=>'auth', 'uses' =>  'MemberController@store'] );
 Route::patch('members/{id}', ['middleware'=>'auth', 'uses' => 'MemberController@update'] );
 
@@ -88,17 +69,14 @@ Route::get('rags/create/{subjecttype}/{subjectid}',['middleware'=>'auth', 'uses'
 Route::get('rags/{id}/edit', ['middleware'=>'auth', 'uses' => 'RagController@edit'] );
 Route::get('rags/index/{subjecttype}/{subjectid}', ['uses' => 'RagController@index'] );
 Route::get('rags/{id}', [ 'uses' => 'RagController@show'] );
-
 Route::post('rags', ['middleware'=>'auth', 'uses' =>  'RagController@store'] );
 Route::patch('rags/{id}', ['middleware'=>'auth', 'uses' => 'RagController@update'] );
 
 //Tasks
 Route::post('tasks', ['middleware'=>'auth', 'uses' =>  'TaskController@store'] );
 Route::patch('tasks/{id}', ['middleware'=>'auth', 'uses' => 'TaskController@update'] );
-
 Route::get('programs/{ProgramID}/workstreams/{WorkstreamID}/tasks',[ 'uses' => 'TaskController@indexWorkstreamTask' ] );
 Route::get('programs/{ProgramID}/workstreams/{WorkstreamID}/projects/{ProjectID}/tasks',[ 'uses' => 'TaskController@indexProjectTask' ] );
-
 Route::get('tasks/create/{subjecttype}/{subjectid}',['middleware'=>'auth', 'uses' => 'TaskController@createTask' ] );
 Route::get('tasks/{id}/edit', ['middleware'=>'auth', 'uses' => 'TaskController@editTask'] );
 Route::get('tasks', ['uses' => 'TaskController@indexall'] );
@@ -110,7 +88,6 @@ Route::get('dependencies/create/{subjecttype}/{subjectid}',['middleware'=>'auth'
 Route::get('dependencies/{id}/edit', ['middleware'=>'auth', 'uses' => 'DependencyController@edit'] );
 Route::get('dependencies/index/{subjecttype}/{subjectid}', ['uses' => 'DependencyController@index'] );
 Route::get('dependencies/{id}', [ 'uses' => 'DependencyController@show'] );
-
 Route::post('dependencies', ['middleware'=>'auth', 'uses' =>  'DependencyController@store'] );
 Route::patch('dependencies/{id}', ['middleware'=>'auth', 'uses' => 'DependencyController@update'] );
 
@@ -118,10 +95,11 @@ Route::patch('dependencies/{id}', ['middleware'=>'auth', 'uses' => 'DependencyCo
 Route::get('changerequests/create/{subjecttype}/{subjectid}',['middleware'=>'auth', 'uses' => 'ChangeRequestController@create' ] );
 Route::get('changerequests/{id}/edit', ['middleware'=>'auth', 'uses' => 'ChangeRequestController@edit'] );
 Route::get('changerequests/index/{subjecttype}/{subjectid}', ['uses' => 'ChangeRequestController@index'] );
+Route::get('changerequests', ['uses' => 'ChangeRequestController@indexall'] );
 Route::get('changerequests/{id}', [ 'uses' => 'ChangeRequestController@show'] );
-
 Route::post('changerequests', ['middleware'=>'auth', 'uses' =>  'ChangeRequestController@store'] );
 Route::patch('changerequests/{id}', ['middleware'=>'auth', 'uses' => 'ChangeRequestController@update'] );
+Route::delete('changerequests/{id}', ['middleware'=>'auth', 'uses' =>  'ChangeRequestController@destroy'] );
 
 //API
 Route::get('api/getUsers', 'ApiController@getUsers');
