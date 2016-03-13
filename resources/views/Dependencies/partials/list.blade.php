@@ -20,6 +20,7 @@
                     <th>Type</th>
                     <th>Dependence</th>
                     <th data-hide="phone,tablet">Status</th>
+                    <th data-hide="phone,tablet">Owner</th>
                     <th data-hide="phone,tablet">Next Review</th>
                     <th></th>
                     <th data-hide="always">Description</th>
@@ -35,6 +36,7 @@
                         <td>@if($dependency->unlinked) External @else {{$dependency->dependent_on_type}} @endif</td>
                         <td>{{$dependency->dependent_on_name}}</td>
                         <td>{{$dependency['status']}}</td>
+                        <td><span rel="tooltip" data-placement="top" data-original-title="{{$dependency->Owner->name}}"><img alt="image" height="30" class="img-circle" src="{{ URL::asset($dependency->Owner->avatar) }}" /></span></td>
                         <td class="text-nowrap">{{$dependency->NextReviewDate->format('d M Y')}}</td>
 
                         <td class="text-nowrap"><a href="{{ URL::asset('dependencies/') }}/{{$dependency['id']}}" class="btn btn-default btn-sm" rel="tooltip" data-placement="top" data-original-title="View"><i class="fa fa-folder"></i></a>

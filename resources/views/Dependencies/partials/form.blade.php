@@ -45,6 +45,11 @@
 </fieldset>
 
 <fieldset>
+    <label>Owner</label>
+    <section>
+        {!! Form::select('owner', isset($dependency) ? [  $dependency->owner => $dependency->Owner->name ] : [], isset($dependency) ? $dependency->owner :  null ,['class'=>"form-control", 'id'=>"owner"] ) !!}
+    </section>
+
     <section>
         <label class="input"> <i class="icon-prepend fa fa-calendar"></i>
             {!! Form::text('NextReviewDate', isset($dependency) ? $dependency->NextReviewDate->format('d F Y') : null, ['id'=>'NextReviewDate', 'placeholder'=>"Next Review Date"] ) !!}

@@ -45,13 +45,17 @@ class TaskController extends Controller
         $title = "Tasks for $subjecttype ".Breadcrumbs::getSubjectName($subjecttype, $subjectid);
 
         $breadcrumbs = Breadcrumbs::getBreadCrumb($subjecttype, $subjectid);
-        $breadcrumbs[] = ['Tasks', '', false];
+        $breadcrumbs[] = ['Tasks', action('TaskController@indexTask', [$subjecttype, $subjectid]), true];
+
 
         $redirect = $request->server('HTTP_REFERER');
 
         $tasks = Task::where('subject_type', $subjecttype)->where('subject_id', $subjectid)->get();
 
-        return view('Tasks.index', compact('subjectid', 'subjecttype', 'tasks', 'title', 'breadcrumbs'));
+        if($subjecttype=='Project')
+            return view('Tasks.indexProject', compact('subjectid', 'subjecttype', 'tasks', 'title', 'breadcrumbs'));
+        else
+            return view('Tasks.index', compact('subjectid', 'subjecttype', 'tasks', 'title', 'breadcrumbs'));
 
     }
     public function createTask($subjecttype, $subjectid, Request $request)
@@ -61,7 +65,7 @@ class TaskController extends Controller
         $title = "Create new Task for $subjecttype ".Breadcrumbs::getSubjectName($subjecttype, $subjectid);
 
         $breadcrumbs = Breadcrumbs::getBreadCrumb($subjecttype, $subjectid);
-        $breadcrumbs[] = ['Tasks', '', false];
+        $breadcrumbs[] = ['Tasks', action('TaskController@indexTask', [$subjecttype, $subjectid]), false];
         $breadcrumbs[] = ['Create', '', false];
 
         $redirect = $request->server('HTTP_REFERER');
@@ -80,7 +84,7 @@ class TaskController extends Controller
         $title = "Edit Task $task->title for $task->subject_type ".Breadcrumbs::getSubjectName($subjecttype, $subjectid);
 
         $breadcrumbs = Breadcrumbs::getBreadCrumb($subjecttype, $subjectid);
-        $breadcrumbs[] = ['Tasks', '', false];
+        $breadcrumbs[] = ['Tasks', action('TaskController@indexTask', [$subjecttype, $subjectid]), false];
         $breadcrumbs[] = [$task->title, '', false];
         $breadcrumbs[] = ['Edit', '', false];
 
@@ -148,7 +152,7 @@ class TaskController extends Controller
         $title = "Task $subject->title for $subject->subject_type ".Breadcrumbs::getSubjectName($subjecttype, $subjectid);
 
         $breadcrumbs = Breadcrumbs::getBreadCrumb($subjecttype, $subjectid);
-        $breadcrumbs[] = ['Tasks', '', false];
+        $breadcrumbs[] = ['Tasks', action('TaskController@indexTask', [$subjecttype, $subjectid]), false];
         $breadcrumbs[] = [$subject->title, '', true];
 
         $redirect = $request->server('HTTP_REFERER');

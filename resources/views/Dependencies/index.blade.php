@@ -36,6 +36,7 @@
                                 <th>Type</th>
                                 <th>Dependence</th>
                                 <th data-hide="phone,tablet">Status</th>
+                                <th data-hide="phone,tablet">Owner</th>
                                 <th data-hide="phone,tablet">Next Review</th>
                                 <th data-hide="phone,tablet">Description</th>
                                 <th></th>
@@ -51,6 +52,7 @@
                                     <td>@if($dependency->unlinked) External @else {{$dependency->dependent_on_type}} @endif</td>
                                     <td>{{$dependency->dependent_on_name}}</td>
                                     <td>{{$dependency['status']}}</td>
+                                    <td><span rel="tooltip" data-placement="top" data-original-title="{{$dependency->Owner->name}}"><img alt="image" height="30" class="img-circle" src="{{ URL::asset($dependency->Owner->avatar) }}" /></span></td>
                                     <td class="text-nowrap">{{$dependency->NextReviewDate->format('d M Y')}}</td>
                                     <td>{{$dependency->description}}</td>
 
@@ -103,17 +105,17 @@
 
     "createdRow": function ( row, data, index )
     {
-    if (beforenow( data[4] )) {
-    $('td', row).eq(4).addClass('text-danger').css('font-weight', 'bold');
+    if (beforenow( data[5] )) {
+    $('td', row).eq(5).addClass('text-danger').css('font-weight', 'bold');
     }
-    else if (next5days( data[4] )) {
-    $('td', row).eq(4).addClass('text-warning').css('font-weight', 'bold');
+    else if (next5days( data[5] )) {
+    $('td', row).eq(5).addClass('text-warning').css('font-weight', 'bold');
     }
     },
     "pageLength": 20,
-    "order": [[ 4, "asc" ]],
+    "order": [[ 5, "asc" ]],
     "columnDefs": [
-    {"targets": [6],"orderable": false},
+    {"targets": [7],"orderable": false},
     ],
     "sDom": "<'dt-toolbar'<'col-xs-12 col-sm-6'f><'col-sm-6 col-xs-6 hidden-xs'T>r>"+
     "t"+

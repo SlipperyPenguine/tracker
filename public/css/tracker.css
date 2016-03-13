@@ -68,8 +68,19 @@
     padding-bottom: 10px;
 }
 
-.test {
-    color: #71843f;
+
+.text-bold {
+    font-weight: bold;
+}
+
+.gantt_cell a {
+    color: #5e5e5e;
+    font-weight: bold;
+}
+
+.gantt_task_content a {
+    color: white;
+    font-weight: bold;
 }
 
  

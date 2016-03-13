@@ -23,6 +23,7 @@ class CreateDependenciesTable extends Migration
             $table->boolean('unlinked');
             $table->string('status',12);
             $table->integer('created_by')->unsigned();
+            $table->integer('owner')->unsigned()->index();
             $table->string('title');
             $table->text('description');
             $table->dateTime('NextReviewDate');

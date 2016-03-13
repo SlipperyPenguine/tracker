@@ -141,6 +141,7 @@ return [
         Illuminate\Html\HtmlServiceProvider::class,
 
         Intervention\Image\ImageServiceProvider::class,
+        /*Orchestra\Parser\XmlServiceProvider::class,*/
 
         /*
          * Application Service Providers...
@@ -202,6 +203,7 @@ return [
         'Form'      => Illuminate\Html\FormFacade::class,
         'Html'      => Illuminate\Html\HtmlFacade::class,
         'Image'     => Intervention\Image\Facades\Image::class,
+        /*'XmlParser' => Orchestra\Parser\Xml\Facade::class,*/
 
     ],
 

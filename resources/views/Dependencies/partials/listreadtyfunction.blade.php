@@ -13,17 +13,17 @@ $('#dt_dependencies').dataTable({
 
 "createdRow": function ( row, data, index )
 {
-if (beforenow( data[4] )) {
-$('td', row).eq(4).addClass('text-danger').css('font-weight', 'bold');
+if (beforenow( data[5] )) {
+$('td', row).eq(5).addClass('text-danger').css('font-weight', 'bold');
 }
-else if (next5days( data[4] )) {
-$('td', row).eq(4).addClass('text-warning').css('font-weight', 'bold');
+else if (next5days( data[5] )) {
+$('td', row).eq(5).addClass('text-warning').css('font-weight', 'bold');
 }
 },
 "pageLength": 10,
-"order": [[ 4, "asc" ]],
+"order": [[ 5, "asc" ]],
 "columnDefs": [
-{"targets": [5],"orderable": false},
+{"targets": [6],"orderable": false},
 ],
 "sDom": "<'dt-toolbar'<'col-xs-12 col-sm-6'f><'col-sm-6 col-xs-6 hidden-xs'T>r>"+
 "t"+

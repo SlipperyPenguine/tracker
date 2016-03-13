@@ -50,7 +50,7 @@
                                     <td>{{$task['title']}}</td>
                                     <td>{{$task['status']}}</td>
                                     <td class="text-nowrap">{{$task->StartDate->format('d M Y')}}</td>
-                                    <td class="text-nowrap">@if($task->milestone==0){{$task->Enddate->format('d M Y')}}@endif</td>
+                                    <td class="text-nowrap">@if($task->milestone==0){{$task->EndDate->format('d M Y')}}@endif</td>
                                     <td>{{$task->description}}</td>
                                     <td>
                                         <a href="{{ URL::asset('tasks/') }}/{{$task['id']}}" class="btn btn-default btn-sm" rel="tooltip" data-placement="top" data-original-title="View"><i class="fa fa-folder"></i></a>

@@ -42,7 +42,10 @@
                                         <td><i class="fa fa-calendar-o"></i> Next Review: &nbsp; </td>
                                         <td class="text-nowrap"> {!! $formater::StandardDateHTML($subject->NextReviewDate, false, true, false) !!}</td>
                                     </tr>
-
+                                    <tr class="itemattributerow">
+                                        <td>Owner &nbsp;</td>
+                                        <td><strong>{{$subject->Owner->name}}</strong></td>
+                                    </tr>
                                 </table>
 
                             </div>

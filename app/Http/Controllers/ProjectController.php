@@ -3,16 +3,29 @@
 namespace tracker\Http\Controllers;
 
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Input;
 use tracker\Helpers\Breadcrumbs;
 use tracker\Http\Requests;
 use tracker\Http\Controllers\Controller;
 use tracker\Models\Program;
 use tracker\Models\Project;
 use tracker\Models\WorkStream;
+use tracker\Project\MSProjectUpload;
+
 
 class ProjectController extends Controller
 {
+    protected $MSProjectUpload;
+
+    public function __construct(MSProjectUpload $MSProjectUpload)
+    {
+        $this->MSProjectUpload = $MSProjectUpload;
+    }
+
+
     /**
      * Display a listing of the resource.
      *
@@ -158,4 +171,25 @@ class ProjectController extends Controller
     {
         //
     }
+
+    public function MicrosoftProjectUpload($id)
+    {
+        return $this->MSProjectUpload->OpenLoadForm($id);
+    }
+
+    public function AjaxFileUpload(Request $request)
+    {
+        if (!$request->hasFile('fileToUpload') ) {
+            return "No file selected to upload";
+
+        }
+
+        return $this->MSProjectUpload->ParseFile($request->input('projectid'), $request->file('fileToUpload'));
+    }
+
+    public function StoreMicrosoftProjectUpload( $projectid)
+    {
+        return $this->MSProjectUpload->ProcessTheParsedFile($projectid);
+    }
+
 }
