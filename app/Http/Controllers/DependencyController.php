@@ -14,6 +14,14 @@ use tracker\Models\Dependency;
 
 class DependencyController extends Controller
 {
+
+    public function indexall()
+    {
+        $dependencies = Dependency::with('Owner')->get();
+
+        return view('Dependencies.indexall', compact('dependencies'));
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -196,6 +204,14 @@ class DependencyController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $dependency = Dependency::findOrFail($id);
+
+        $dependency->delete();
+
+        //todo delete audit trail and comments
+
+        flash()->success('Success', "Dependency deleted successfully");
+
+        return redirect()->back();
     }
 }

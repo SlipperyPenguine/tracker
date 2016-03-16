@@ -169,6 +169,21 @@ class User extends Model implements AuthenticatableContract,
         return $ownercount + $action_owner_count;*/
     }
 
+    public function Dependencies()
+    {
+        return Dependency::where('owner', $this->id)->get();
+    }
+
+    public function DependencyCount()
+    {
+        return Dependency::where('owner', $this->id)->where('status','Open')->count();
+    }
+
+    public function OverdueDependencyCount()
+    {
+        return Dependency::where('owner', $this->id)->where('status','Open')->where('NextReviewDate', '<', date("Y-m-d H:i:s") )->count();
+    }
+
     public function isAdmin()
     {
         return $this->superUser;

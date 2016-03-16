@@ -93,8 +93,10 @@ Route::get('dependencies/create/{subjecttype}/{subjectid}',['middleware'=>'auth'
 Route::get('dependencies/{id}/edit', ['middleware'=>'auth', 'uses' => 'DependencyController@edit'] );
 Route::get('dependencies/index/{subjecttype}/{subjectid}', ['uses' => 'DependencyController@index'] );
 Route::get('dependencies/{id}', [ 'uses' => 'DependencyController@show'] );
+Route::get('dependencies', [ 'uses' => 'DependencyController@indexall'] );
 Route::post('dependencies', ['middleware'=>'auth', 'uses' =>  'DependencyController@store'] );
 Route::patch('dependencies/{id}', ['middleware'=>'auth', 'uses' => 'DependencyController@update'] );
+Route::delete('dependencies/{id}', ['middleware'=>'auth', 'uses' =>  'DependencyController@destroy'] );
 
 //Change Requests
 Route::get('changerequests/create/{subjecttype}/{subjectid}',['middleware'=>'auth', 'uses' => 'ChangeRequestController@create' ] );

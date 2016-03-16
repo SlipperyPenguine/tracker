@@ -83,6 +83,8 @@
 
             @include('Actions.partials.list')
 
+            @include('AuditTrail.partials.list')
+
         </article>
 
     </div>

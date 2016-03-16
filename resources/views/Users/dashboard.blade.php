@@ -23,7 +23,7 @@
 
         <!-- Top Banner row -->
         <div class="row">
-            <article class="col-lg-4">
+            <article class="col-lg-12">
 
                 <div class="well">
                     <table width="100%">
@@ -37,6 +37,11 @@
                     </table>
                 </div>
             </article>
+        </div>
+        <!-- END Top Banner row -->
+
+        <!-- Metrics -->
+        <div class="row">
 
             <div class="col col-lg-2">
 
@@ -108,6 +113,25 @@
                         </tr>
                         <tr>
                             <td><h4><strong><i>{{$user->OverdueIssueCount()}} Outstanding</i></strong></h4></td>
+
+                        </tr>
+                    </table>
+
+                </div>
+            </div>
+
+            <div class="col col-lg-2">
+
+                <div class="well well-sm bg-color-blue txt-color-white text-center">
+                    <table width="100%">
+                        <tr >
+                            <td rowspan="2"><i class="fa fa-5x fa-link"></i></td>
+                            <td>
+                                <h4>{{$user->DependencyCount()}} Dependencies</h4>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><h4><strong><i>{{$user->OverdueDependencyCount()}} Outstanding</i></strong></h4></td>
 
                         </tr>
                     </table>
@@ -268,6 +292,8 @@
 
                 @include('Tasks.partials.userlist')
 
+                @include('Dependencies.partials.userlist')
+
              </article>
 
             <article class="col-lg-6">
@@ -291,6 +317,8 @@
     @include('Tasks.partials.userlistreadtfunction')
 
     @include('RisksAndIssues.partials.userlistreadtfunction')
+
+    @include('Dependencies.partials.userlistreadtfunction')
 
 @endsection
 
@@ -394,6 +422,27 @@
             $this.parents('.btn-group').find('.dropdown-toggle').html(selText + ' <span class="caret"></span>');
             $this.parents('.dropdown-menu').find('li').removeClass('active');
             $this.parent().addClass('active');
+        });
+
+        $('#showdependencyclosed').click(function() {
+
+            var table = $('#dt_dependencies').DataTable();
+
+            if (!$(this).is(':checked')) {
+                //show everything
+                var filteredData = table
+                        .column( 4 )
+                        .search('');
+            }
+            else
+            {
+                //only show open
+                var filteredData = table
+                        .column( 4 )
+                        .search('Open');
+            }
+
+            table.draw();
         });
 
     </script>
