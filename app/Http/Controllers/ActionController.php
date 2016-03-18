@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\URL;
 use tracker\Helpers\Breadcrumbs;
+use tracker\Helpers\Session;
 use tracker\Http\Requests;
 use tracker\Http\Controllers\Controller;
 use tracker\Models\Action;
@@ -44,9 +45,9 @@ class ActionController extends Controller
         $breadcrumbs[] = ['Actions', URL::action('ActionController@index', [$subjecttype, $subjectid]), false];
         $breadcrumbs[] = ['Create', '', false];
 
-        $redirect = $request->server('HTTP_REFERER');
+        //$redirect = $request->server('HTTP_REFERER');
 
-        return view('Actions.create', compact('subjectid', 'subjecttype', 'subjectname', 'title', 'breadcrumbs', 'redirect'));
+        return view('Actions.create', compact('subjectid', 'subjecttype', 'subjectname', 'title', 'breadcrumbs'));
 
     }
 
@@ -65,9 +66,7 @@ class ActionController extends Controller
         $breadcrumbs[] = [$action->title, URL::action('ActionController@show', [$actionid]), false];
         $breadcrumbs[] = ['Edit', '', false];
 
-        $redirect = $request->server('HTTP_REFERER');
-
-        return view('Actions.edit', compact('action', 'title', 'breadcrumbs', 'redirect', 'subjectid', 'subjecttype', 'subjectname'));
+        return view('Actions.edit', compact('action', 'title', 'breadcrumbs', 'subjectid', 'subjecttype', 'subjectname'));
     }
 
 
@@ -97,7 +96,7 @@ class ActionController extends Controller
 
         flash()->success('Success', "New Action created successfully");
 
-        return redirect($request->redirect);
+        return redirect(Session::GetRedirect());
     }
 
     /**
@@ -153,7 +152,7 @@ class ActionController extends Controller
 
         flash()->success('Success', "Action updated successfully");
 
-        return redirect($request->redirect);
+        return redirect(Session::GetRedirect());
 
     }
 

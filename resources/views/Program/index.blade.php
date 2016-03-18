@@ -1,3 +1,5 @@
+{{\tracker\Helpers\Session::SetRedirect(action('ProgramController@index'))}}
+
 @extends('layouts.main')
 
 @section('heading')Programs @endsection

@@ -1,3 +1,5 @@
+{{\tracker\Helpers\Session::SetRedirect(action('PagesController@home'))}}
+
 @extends('layouts.main')
 
 @section('content')

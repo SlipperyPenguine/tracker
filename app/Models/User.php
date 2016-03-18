@@ -10,6 +10,7 @@ use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 use Illuminate\Support\Facades\File;
+use tracker\Events\UserCreated;
 
 class User extends Model implements AuthenticatableContract,
                                     AuthorizableContract,
@@ -37,6 +38,18 @@ class User extends Model implements AuthenticatableContract,
      * @var array
      */
     protected $hidden = ['password', 'remember_token'];
+
+    public static function boot()
+    {
+        parent::boot();
+
+        static::created(function($user){
+
+            //raised the event
+            event(new UserCreated($user));
+
+        });
+    }
 
     public function getavatarAttribute($value)
     {
@@ -188,4 +201,6 @@ class User extends Model implements AuthenticatableContract,
     {
         return $this->superUser;
     }
+
+
 }

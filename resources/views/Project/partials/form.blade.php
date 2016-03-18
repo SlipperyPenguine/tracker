@@ -1,4 +1,4 @@
-<input type="hidden" name="redirect" value="{{$redirect}}">
+
 <input type="hidden" name="program_id" value="{{$program_id}}">
 <input type="hidden" name="work_stream_id" value="{{$work_stream_id}}">
 

@@ -1,3 +1,5 @@
+{{\tracker\Helpers\Session::SetRedirect(action('UserController@index'))}}
+
 @extends('layouts.main')
 
 

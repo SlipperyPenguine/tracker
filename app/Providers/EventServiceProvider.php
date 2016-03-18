@@ -57,6 +57,9 @@ class EventServiceProvider extends ServiceProvider
         'tracker\Events\ProjectCreated' => [
             'tracker\Listeners\AddNewProjectToDependenciesLookupList',
         ],
+        'tracker\Events\UserCreated' => [
+            'tracker\Listeners\SendUserRegisteredEmail',
+        ],
     ];
 
     /**

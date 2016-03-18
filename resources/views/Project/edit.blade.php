@@ -1,3 +1,5 @@
+{{\tracker\Helpers\Session::SetRedirect(action('ProjectController@edit', [$subject['program_id'], $subject['work_stream_id'], $subject['id']]))}}
+
 @extends('layouts.main')
 
 @section('heading'){{$title}} @endsection

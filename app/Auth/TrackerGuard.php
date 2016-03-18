@@ -30,10 +30,16 @@ class TrackerGuard extends Guard
         // If no user is specified, we assume the user context
         // should be the currently logged in user.
         if (is_null($user))
-            $user = \Auth::User();
+        {
+            if (auth()->check())
+                $user = auth()->user();
+            else
+                return false;
+        }
+
 
         //for now force it
-        return true;
+        return ($user->superUser==1);
     }
 
 }

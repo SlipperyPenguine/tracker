@@ -1,3 +1,5 @@
+{{\tracker\Helpers\Session::SetRedirect(action('PagesController@home'))}}
+
 @extends('layouts.main')
 @inject('formater', 'tracker\Helpers\HtmlFormating')
 

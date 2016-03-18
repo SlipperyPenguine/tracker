@@ -36,13 +36,19 @@ class ViewComposerServiceProvider extends ServiceProvider
         view()->composer('partials.navbar', function($view)
         {
 
-            $action = app('request')->route()->getAction();
+            try {
+                $action = app('request')->route()->getAction();
 
-            $controller = class_basename($action['controller']);
+                $controller = class_basename($action['controller']);
 
-            list($controller, $action) = explode('@', $controller);
+                list($controller, $action) = explode('@', $controller);
 
-            $view->with(compact('controller', 'action'));
+                $view->with(compact('controller', 'action'));
+            }
+            catch (\Exception $e)
+            {
+                //do nothing
+            }
         });
     }
 

@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\URL;
 use tracker\Helpers\Breadcrumbs;
+use tracker\Helpers\Session;
 use tracker\Http\Requests;
 use tracker\Http\Controllers\Controller;
 use tracker\Models\Dependency;
@@ -37,12 +38,6 @@ class DependencyController extends Controller
 
         $breadcrumbs[] = ['Dependencies', URL::action('DependencyController@index', [$subjecttype, $subjectid]), true];
 
-        //return $breadcrumbs;
-
-        //return $subjecttype.'  '.$subjectid;
-
-        $redirect = $request->server('HTTP_REFERER');
-
         $dependencies = Dependency::where('subject_type', $subjecttype)->where('subject_id', $subjectid)->get();
 
         return view('Dependencies.index', compact('subjectid', 'subjecttype', 'dependencies', 'title', 'breadcrumbs'));
@@ -65,9 +60,7 @@ class DependencyController extends Controller
         $breadcrumbs[] = ['Dependencies', URL::action('DependencyController@index', [$subjecttype, $subjectid]), true];
         $breadcrumbs[] = ['Create', '', false];
 
-        $redirect = $request->server('HTTP_REFERER');
-        //return $redirect;
-        return view('Dependencies.create', compact('subjectid', 'subjecttype', 'subjectname', 'title', 'breadcrumbs', 'redirect'));
+        return view('Dependencies.create', compact('subjectid', 'subjecttype', 'subjectname', 'title', 'breadcrumbs'));
 
     }
 
@@ -114,7 +107,7 @@ class DependencyController extends Controller
         flash()->success('Success', "New Dependency created successfully");
 
 
-        return redirect($request->redirect);
+        return redirect(Session::GetRedirect());
     }
 
     /**
@@ -135,13 +128,9 @@ class DependencyController extends Controller
         $breadcrumbs = Breadcrumbs::getBreadCrumb($subjecttype, $subjectid);
         $breadcrumbs[] = ['Dependencies', URL::action('DependencyController@index', [$subjecttype, $subjectid]), true];
         $breadcrumbs[] = [$subject->title, '', true];
-
-        $redirect = $request->server('HTTP_REFERER');
-
         $subjecttype = 'Dependency';
 
-
-        return view('Dependencies.show', compact('subject', 'title', 'breadcrumbs', 'redirect', 'subjectid', 'subjecttype'));
+        return view('Dependencies.show', compact('subject', 'title', 'breadcrumbs', 'subjectid', 'subjecttype'));
     }
 
     /**
@@ -164,9 +153,6 @@ class DependencyController extends Controller
         $breadcrumbs[] = ['Dependencies', URL::action('DependencyController@index', [$subjecttype, $subjectid]), true];
         $breadcrumbs[] = [$dependency->title, URL::action('DependencyController@show', [$id]), false];
         $breadcrumbs[] = ['Edit', '', false];
-
-        $redirect = $request->server('HTTP_REFERER');
-
 
         return view('Dependencies.edit', compact('dependency', 'title', 'breadcrumbs', 'redirect', 'subjectid', 'subjecttype', 'subjectname'));
     }
@@ -192,7 +178,7 @@ class DependencyController extends Controller
 
         flash()->success('Success', "Dependency updated successfully");
 
-        return redirect($request->redirect);
+        return redirect(Session::GetRedirect());
 
     }
 

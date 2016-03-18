@@ -1,3 +1,5 @@
+{{\tracker\Helpers\Session::SetRedirect(action('RagController@index', [$subjecttype, $subjectid]))}}
+
 @extends('layouts.main')
 @inject('formater', 'tracker\Helpers\HtmlFormating')
 

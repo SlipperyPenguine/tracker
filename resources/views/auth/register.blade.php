@@ -56,7 +56,7 @@
         <span id="logo"> <img src="{{asset('img/logo.png')}}" alt="SmartAdmin"> </span>
     </div>
 
-    <span id="extr-page-header-space"> <span class="hidden-mobile hiddex-xs">Need an account?</span> <a href="{{url('auth/register')}}" class="btn btn-danger">Create account</a> </span>
+    <span id="extr-page-header-space"> <span class="hidden-mobile hiddex-xs">Already registered?</span> <a href="{{url('auth/login')}}" class="btn btn-danger">Sign In</a> </span>
 
 </header>
 
@@ -97,42 +97,52 @@
             </div>
             <div class="col-xs-12 col-sm-12 col-md-5 col-lg-4">
                 <div class="well no-padding">
-                    <form method="post" id="login-form" class="smart-form client-form">
+                    <form method="post" id="registration-form" class="smart-form client-form">
                         <header>
-                            Sign In
+                            Register
                         </header>
 
                         {{csrf_field()}}
+
                         <fieldset>
-
                             <section>
-                                <label class="label">E-mail</label>
                                 <label class="input"> <i class="icon-append fa fa-user"></i>
-                                    <input type="email" name="email">
-                                    <b class="tooltip tooltip-top-right"><i class="fa fa-user txt-color-teal"></i> Please enter email address/username</b></label>
+                                    <input type="text" name="name" placeholder="Your Name">
+                                    <b class="tooltip tooltip-bottom-right">Needed for display purposes</b> </label>
                             </section>
 
                             <section>
-                                <label class="label">Password</label>
+                                <label class="input"> <i class="icon-append fa fa-envelope"></i>
+                                    <input type="email" name="email" placeholder="Email address">
+                                    <b class="tooltip tooltip-bottom-right">Needed to login to Program Tracker</b> </label>
+                            </section>
+
+                            <section>
                                 <label class="input"> <i class="icon-append fa fa-lock"></i>
-                                    <input type="password" name="password">
-                                    <b class="tooltip tooltip-top-right"><i class="fa fa-lock txt-color-teal"></i> Enter your password</b> </label>
-                                <div class="note">
-                                    <a href="forgotpassword.html">Forgot password?</a>
-                                </div>
+                                    <input type="password" name="password" placeholder="Password" id="password">
+                                    <b class="tooltip tooltip-bottom-right">Don't forget your password</b> </label>
                             </section>
 
                             <section>
-                                <label class="checkbox">
-                                    <input type="checkbox" name="remember" checked="">
-                                    <i></i>Stay signed in</label>
+                                <label class="input"> <i class="icon-append fa fa-lock"></i>
+                                    <input type="password" name="password_confirmation" placeholder="Confirm password">
+                                    <b class="tooltip tooltip-bottom-right">Don't forget your password</b> </label>
                             </section>
                         </fieldset>
+
                         <footer>
                             <button type="submit" class="btn btn-primary">
-                                Sign in
+                                Register
                             </button>
                         </footer>
+
+                        <div class="message">
+                            <i class="fa fa-check"></i>
+                            <p>
+                                Thank you for your registration!
+                            </p>
+                        </div>
+
                     </form>
 
                 </div>
@@ -193,9 +203,13 @@
 
     $(function() {
         // Validation
-        $("#login-form").validate({
+        $("#registration-form").validate({
             // Rules for form validation
             rules : {
+                name : {
+                    required : true,
+                    minlength : 4
+                },
                 email : {
                     required : true,
                     email : true
@@ -204,6 +218,12 @@
                     required : true,
                     minlength : 3,
                     maxlength : 20
+                },
+                password_confirmation : {
+                    required : true,
+                    minlength : 3,
+                    maxlength : 20,
+                    equalTo : '#password'
                 }
             },
 

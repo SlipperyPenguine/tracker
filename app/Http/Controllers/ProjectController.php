@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Input;
 use tracker\Helpers\Breadcrumbs;
+use tracker\Helpers\Session;
 use tracker\Http\Requests;
 use tracker\Http\Controllers\Controller;
 use tracker\Models\Program;
@@ -55,9 +56,8 @@ class ProjectController extends Controller
         $breadcrumbs[] = ['Projects', '', false];
         $breadcrumbs[] = ['Create', '', false];
 
-        $redirect = $request->server('HTTP_REFERER');
-        //return $redirect;
-        return view('Project.create', compact('program_id', 'work_stream_id', 'title', 'breadcrumbs', 'redirect'));
+
+        return view('Project.create', compact('program_id', 'work_stream_id', 'title', 'breadcrumbs'));
     }
 
     /**
@@ -84,7 +84,7 @@ class ProjectController extends Controller
 
         flash()->success('Success', "New Project created successfully");
 
-        return redirect($request->redirect);
+        return redirect(Session::GetRedirect());
     }
 
     /**
@@ -129,9 +129,7 @@ class ProjectController extends Controller
         $breadcrumbs[] = [$subject->name, '', false];
         $breadcrumbs[] = ['edit', '', false];
 
-        $redirect = $request->server('HTTP_REFERER');
-        //return $redirect;
-        return view('Project.edit', compact('program_id', 'work_stream_id', 'title', 'breadcrumbs', 'redirect', 'subject'));
+        return view('Project.edit', compact('program_id', 'work_stream_id', 'title', 'breadcrumbs', 'subject'));
 
     }
 
@@ -158,7 +156,7 @@ class ProjectController extends Controller
 
         flash()->success('Success', "Project updated successfully");
 
-        return redirect($request->redirect);
+        return redirect(Session::GetRedirect());
     }
 
     /**

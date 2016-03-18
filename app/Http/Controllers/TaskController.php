@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\URL;
 use tracker\Helpers\Breadcrumbs;
+use tracker\Helpers\Session;
 use tracker\Http\Requests;
 use tracker\Http\Controllers\Controller;
 use tracker\Models\Program;
@@ -47,13 +48,12 @@ class TaskController extends Controller
         $breadcrumbs = Breadcrumbs::getBreadCrumb($subjecttype, $subjectid);
         $breadcrumbs[] = ['Tasks', action('TaskController@indexTask', [$subjecttype, $subjectid]), true];
 
-
-        $redirect = $request->server('HTTP_REFERER');
-
         $tasks = Task::where('subject_type', $subjecttype)->where('subject_id', $subjectid)->get();
 
-        if($subjecttype=='Project')
-            return view('Tasks.indexProject', compact('subjectid', 'subjecttype', 'tasks', 'title', 'breadcrumbs'));
+        if($subjecttype=='Project') {
+            $project = Project::findOrFail($subjectid);
+            return view('Tasks.indexProject', compact('subjectid', 'subjecttype', 'tasks', 'title', 'breadcrumbs', 'project'));
+        }
         else
             return view('Tasks.index', compact('subjectid', 'subjecttype', 'tasks', 'title', 'breadcrumbs'));
 
@@ -68,9 +68,7 @@ class TaskController extends Controller
         $breadcrumbs[] = ['Tasks', action('TaskController@indexTask', [$subjecttype, $subjectid]), false];
         $breadcrumbs[] = ['Create', '', false];
 
-        $redirect = $request->server('HTTP_REFERER');
-        //return $redirect;
-        return view('Tasks.create', compact('subjectid', 'subjecttype', 'title', 'breadcrumbs', 'redirect'));
+        return view('Tasks.create', compact('subjectid', 'subjecttype', 'title', 'breadcrumbs'));
 
     }
 
@@ -88,10 +86,7 @@ class TaskController extends Controller
         $breadcrumbs[] = [$task->title, '', false];
         $breadcrumbs[] = ['Edit', '', false];
 
-        $redirect = $request->server('HTTP_REFERER');
-
-
-        return view('Tasks.edit', compact('task', 'title', 'breadcrumbs', 'redirect', 'subjectid', 'subjecttype'));
+        return view('Tasks.edit', compact('task', 'title', 'breadcrumbs', 'subjectid', 'subjecttype'));
     }
 
 
@@ -133,7 +128,7 @@ class TaskController extends Controller
         flash()->success('Success', "New Task created successfully");
 
 
-        return redirect($request->redirect);
+        return redirect(Session::GetRedirect());
     }
 
     /**
@@ -155,10 +150,7 @@ class TaskController extends Controller
         $breadcrumbs[] = ['Tasks', action('TaskController@indexTask', [$subjecttype, $subjectid]), false];
         $breadcrumbs[] = [$subject->title, '', true];
 
-        $redirect = $request->server('HTTP_REFERER');
-
-
-        return view('Tasks.show', compact('subject', 'title', 'breadcrumbs', 'redirect', 'subjectid', 'subjecttype'));
+        return view('Tasks.show', compact('subject', 'title', 'breadcrumbs', 'subjectid', 'subjecttype'));
     }
 
 
@@ -194,7 +186,7 @@ class TaskController extends Controller
 
         flash()->success('Success', "Task updated successfully");
 
-        return redirect($request->redirect);
+        return redirect(Session::GetRedirect());
 
     }
 

@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\URL;
 use tracker\Helpers\Breadcrumbs;
+use tracker\Helpers\Session;
 use tracker\Http\Requests;
 use tracker\Http\Controllers\Controller;
 use tracker\Models\Member;
@@ -23,8 +24,6 @@ class MemberController extends Controller
 
         $breadcrumbs[] = ['Members', URL::action('MemberController@indexMember', [$subjecttype, $subjectid]), true];
 
-        $redirect = $request->server('HTTP_REFERER');
-
         $members = Member::where('subject_type', $subjecttype)->where('subject_id', $subjectid)->get();
 
         return view('Members.index', compact('subjectid', 'subjecttype', 'members', 'title', 'breadcrumbs'));
@@ -40,9 +39,7 @@ class MemberController extends Controller
         $breadcrumbs[] = ['Members', URL::action('MemberController@indexMember', [$subjecttype, $subjectid]), false];
         $breadcrumbs[] = ['Create', '', false];
 
-        $redirect = $request->server('HTTP_REFERER');
-        //return $redirect;
-        return view('Members.create', compact('subjectid', 'subjecttype', 'title', 'breadcrumbs', 'redirect'));
+        return view('Members.create', compact('subjectid', 'subjecttype', 'title', 'breadcrumbs'));
 
     }
 
@@ -60,10 +57,7 @@ class MemberController extends Controller
         $breadcrumbs[] = [$member->User->name, URL::action('MemberController@show', [$memberid]), false];
         $breadcrumbs[] = ['Edit', '', false];
 
-        $redirect = $request->server('HTTP_REFERER');
-
-
-        return view('Members.edit', compact('member', 'title', 'breadcrumbs', 'redirect', 'subjectid', 'subjecttype'));
+        return view('Members.edit', compact('member', 'title', 'breadcrumbs', 'subjectid', 'subjecttype'));
     }
 
 
@@ -88,7 +82,7 @@ class MemberController extends Controller
         flash()->success('Success', "New Member created successfully");
 
 
-        return redirect($request->redirect);
+        return redirect(Session::GetRedirect());
     }
 
     /**
@@ -111,12 +105,9 @@ class MemberController extends Controller
         $breadcrumbs[] = ['Members', URL::action('MemberController@indexMember', [$subjecttype, $subjectid]), false];
         $breadcrumbs[] = [$username, '', true];
 
-        $redirect = $request->server('HTTP_REFERER');
-
         $subjecttype = 'Member';
 
-
-        return view('Members.show', compact('subject', 'title', 'breadcrumbs', 'redirect', 'subjectid', 'subjecttype'));
+        return view('Members.show', compact('subject', 'title', 'breadcrumbs', 'subjectid', 'subjecttype'));
     }
 
 
@@ -138,7 +129,7 @@ class MemberController extends Controller
 
         flash()->success('Success', "Member updated successfully");
 
-        return redirect($request->redirect);
+        return redirect(Session::GetRedirect());
 
     }
 

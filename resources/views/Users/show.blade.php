@@ -1,3 +1,5 @@
+{{\tracker\Helpers\Session::SetRedirect(action('UserController@show', [$user->id]))}}
+
 @extends('layouts.main')
 @inject('formater', 'tracker\Helpers\HtmlFormating')
 

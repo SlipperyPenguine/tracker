@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\URL;
 use tracker\Helpers\Breadcrumbs;
+use tracker\Helpers\Session;
 use tracker\Http\Requests;
 use tracker\Http\Controllers\Controller;
 use tracker\Models\rag;
@@ -23,8 +24,6 @@ class RagController extends Controller
 
         $breadcrumbs[] = ['RAGs', URL::action('RagController@index', [$subjecttype, $subjectid]), true];
 
-        $redirect = $request->server('HTTP_REFERER');
-
         $rags = rag::where('subject_type', $subjecttype)->where('subject_id', $subjectid)->get();
 
         return view('Rags.index', compact('subjectid', 'subjecttype', 'rags', 'title', 'breadcrumbs'));
@@ -40,9 +39,7 @@ class RagController extends Controller
         $breadcrumbs[] = ['RAGs', '', false];
         $breadcrumbs[] = ['Create', '', false];
 
-        $redirect = $request->server('HTTP_REFERER');
-
-        return view('Rags.create', compact('subjectid', 'subjecttype', 'title', 'breadcrumbs', 'redirect'));
+        return view('Rags.create', compact('subjectid', 'subjecttype', 'title', 'breadcrumbs'));
 
     }
 
@@ -60,10 +57,7 @@ class RagController extends Controller
         $breadcrumbs[] = [$rag->title, URL::action('RagController@show', [$ragid]), false];
         $breadcrumbs[] = ['Edit', '', false];
 
-        $redirect = $request->server('HTTP_REFERER');
-
-
-        return view('Rags.edit', compact('rag', 'title', 'breadcrumbs', 'redirect', 'subjectid', 'subjecttype'));
+        return view('Rags.edit', compact('rag', 'title', 'breadcrumbs', 'subjectid', 'subjecttype'));
     }
 
 
@@ -89,7 +83,7 @@ class RagController extends Controller
         flash()->success('Success', "New RAG created successfully");
 
 
-        return redirect($request->redirect);
+        return redirect(Session::GetRedirect());
     }
 
     /**
@@ -111,12 +105,10 @@ class RagController extends Controller
         $breadcrumbs[] = ['RAGs', URL::action('RagController@index', [$subjecttype, $subjectid]), false];
         $breadcrumbs[] = [$subject->title, '', true];
 
-        $redirect = $request->server('HTTP_REFERER');
-
         $subjecttype = 'Rag';
 
 
-        return view('Rags.show', compact('subject', 'title', 'breadcrumbs', 'redirect', 'subjectid', 'subjecttype'));
+        return view('Rags.show', compact('subject', 'title', 'breadcrumbs', 'subjectid', 'subjecttype'));
     }
 
 
@@ -140,7 +132,7 @@ class RagController extends Controller
 
         flash()->success('Success', "RAG updated successfully");
 
-        return redirect($request->redirect);
+        return redirect(Session::GetRedirect());
 
     }
 

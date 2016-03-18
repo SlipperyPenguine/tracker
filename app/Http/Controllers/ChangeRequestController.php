@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\URL;
 use tracker\Helpers\Breadcrumbs;
+use tracker\Helpers\Session;
 use tracker\Http\Requests;
 use tracker\Http\Controllers\Controller;
 use tracker\Models\ChangeRequest;
@@ -57,9 +58,7 @@ class ChangeRequestController extends Controller
         $breadcrumbs[] = ['Change Requests', URL::action('ChangeRequestController@index', [$subjecttype, $subjectid]), true];
         $breadcrumbs[] = ['Create', '', false];
 
-        $redirect = $request->server('HTTP_REFERER');
-
-        return view('ChangeRequests.create', compact('subjectid', 'subjecttype', 'subjectname', 'title', 'breadcrumbs', 'redirect'));
+        return view('ChangeRequests.create', compact('subjectid', 'subjecttype', 'subjectname', 'title', 'breadcrumbs'));
 
     }
 
@@ -101,7 +100,7 @@ class ChangeRequestController extends Controller
 
         flash()->success('Success', "New Change Request created successfully");
 
-        return redirect($request->redirect);
+        return redirect(Session::GetRedirect());
     }
 
     /**
@@ -161,9 +160,7 @@ class ChangeRequestController extends Controller
         $breadcrumbs[] = [$changerequest->title, URL::action('ChangeRequestController@show', [$id]), false];
         $breadcrumbs[] = ['Edit', '', false];
 
-        $redirect = $request->server('HTTP_REFERER');
-
-        return view('ChangeRequests.edit', compact('changerequest', 'title', 'breadcrumbs', 'redirect', 'subjectid', 'subjecttype', 'subjectname'));
+        return view('ChangeRequests.edit', compact('changerequest', 'title', 'breadcrumbs', 'subjectid', 'subjecttype', 'subjectname'));
     }
     /**
      * Update the specified resource in storage.
@@ -202,7 +199,7 @@ class ChangeRequestController extends Controller
 
         flash()->success('Success', "Change Request updated successfully");
 
-        return redirect($request->redirect);
+        return redirect(Session::GetRedirect());
 
     }
 

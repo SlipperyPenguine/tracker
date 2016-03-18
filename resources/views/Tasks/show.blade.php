@@ -1,3 +1,5 @@
+{{\tracker\Helpers\Session::SetRedirect(action('TaskController@show', [$subject->id]))}}
+
 @extends('layouts.main')
 @inject('formater', 'tracker\Helpers\HtmlFormating')
 

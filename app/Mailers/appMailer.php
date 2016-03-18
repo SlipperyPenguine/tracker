@@ -132,6 +132,13 @@ class appMailer
 
     }
 
+    public function emailUserRegistration(User $user)
+    {
+        //email the user
+        $this->SendMail($user->email, 'emails.SendRegistrationEmail', 'Project Tracker Registration', compact('user'));
+
+    }
+
     public static function emailUserDueNotfications($user, $actions, $risks)
     {
         $recipient = $user->email;

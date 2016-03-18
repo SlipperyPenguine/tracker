@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\URL;
 use tracker\Events\RiskCreated;
 use tracker\Events\RiskUpdated;
 use tracker\Helpers\Breadcrumbs;
+use tracker\Helpers\Session;
 use tracker\Http\Requests;
 use tracker\Http\Controllers\Controller;
 use tracker\Http\Requests\CreateRiskRequest;
@@ -32,12 +33,6 @@ class RiskAndIssueController extends Controller
         $breadcrumbs = Breadcrumbs::getBreadCrumb($subjecttype, $subjectid);
 
         $breadcrumbs[] = ['Risks', URL::action('RiskAndIssueController@index', [$subjecttype, $subjectid]), true];
-
-        //return $breadcrumbs;
-
-        //return $subjecttype.'  '.$subjectid;
-
-        $redirect = $request->server('HTTP_REFERER');
 
         $risks = Risk::where('subject_type', $subjecttype)->where('subject_id', $subjectid)->get();
 
@@ -114,9 +109,7 @@ class RiskAndIssueController extends Controller
         $breadcrumbs[] = ['Risks', '', false];
         $breadcrumbs[] = ['Create', '', false];
 
-        $redirect = $request->server('HTTP_REFERER');
-        //return $redirect;
-        return view('RisksAndIssues.create', compact('subjectid', 'subjecttype', 'title', 'breadcrumbs', 'redirect'));
+        return view('RisksAndIssues.create', compact('subjectid', 'subjecttype', 'title', 'breadcrumbs'));
 
     }
 
@@ -134,9 +127,7 @@ class RiskAndIssueController extends Controller
         $breadcrumbs[] = [$risk->title, '', false];
         $breadcrumbs[] = ['Edit', '', false];
 
-        $redirect = $request->server('HTTP_REFERER');
-
-        return view('RisksAndIssues.edit', compact('risk', 'title', 'breadcrumbs', 'redirect', 'subjectid', 'subjecttype'));
+        return view('RisksAndIssues.edit', compact('risk', 'title', 'breadcrumbs', 'subjectid', 'subjecttype'));
     }
 
     /**
@@ -188,7 +179,7 @@ class RiskAndIssueController extends Controller
         flash()->success('Success', "New $type created successfully");
 
 
-        return redirect($request->redirect);
+        return redirect(Session::GetRedirect());
     }
 
     /**
@@ -211,12 +202,10 @@ class RiskAndIssueController extends Controller
         $breadcrumbs[] = ['Risks', '', false];
         $breadcrumbs[] = [$subject->title, '', true];
 
-        $redirect = $request->server('HTTP_REFERER');
-
         $subjecttype = 'Risk';
 
         //return $risk;
-        return view('RisksAndIssues.show', compact('subject', 'title', 'breadcrumbs', 'redirect', 'risksubjectid','risksubjecttype', 'subjecttype'));
+        return view('RisksAndIssues.show', compact('subject', 'title', 'breadcrumbs', 'risksubjectid','risksubjecttype', 'subjecttype'));
     }
 
     /**
@@ -269,7 +258,7 @@ class RiskAndIssueController extends Controller
 
         flash()->success('Success', "$type updated successfully");
 
-        return redirect($request->redirect);
+        return redirect(Session::GetRedirect());
 
         //return $request->all();
     }

@@ -1,3 +1,5 @@
+{{\tracker\Helpers\Session::SetRedirect(action('DependencyController@indexall'))}}
+
 @extends('layouts.main')
 
 @inject('formater', 'tracker\Helpers\HtmlFormating')

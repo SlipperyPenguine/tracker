@@ -1,3 +1,5 @@
+{{\tracker\Helpers\Session::SetRedirect(action('TaskController@indexProjectTask', [$project->program_id, $project->work_stream_id, $project->id]))}}
+
 @extends('layouts.main')
 
 @section('header')

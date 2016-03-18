@@ -1,3 +1,5 @@
+{{\tracker\Helpers\Session::SetRedirect(action('RiskAndIssueController@index', [$subjecttype, $subjectid]))}}
+
 @extends('layouts.main')
 
 @section('heading'){{$title}} @endsection
