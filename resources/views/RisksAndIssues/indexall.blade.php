@@ -114,7 +114,7 @@
                                         <td class="text-nowrap">{{$risk->NextReviewDate->format('d M Y')}}</td>
                                         <td>{{$risk->OpenActionCount}}</td>
                                         <td>{{$risk->Comments->count()}}</td>
-                                        <td>
+                                        <td class="text-nowrap">
                                             <a href="{{ URL::asset('risks/') }}/{{$risk['id']}}" class="btn btn-default btn-sm" rel="tooltip" data-placement="top" data-original-title="View"><i class="fa fa-folder"></i></a>
                                             <a href="{{action('RiskAndIssueController@editRisk', [$risk->id])}}" class="btn btn-default btn-sm" rel="tooltip" data-placement="top" data-original-title="Edit"><i class="fa fa-pencil"></i></a>
                                         </td>

@@ -85,7 +85,7 @@
                                         <td>{{$changerequest->Risks->count()}}</td>
                                         <td>{{$changerequest->Actions->count()}}</td>
                                         <td>{{$changerequest->Comments->count()}}</td>
-                                        <td>
+                                        <td class="text-nowrap">
                                             <a href="{{ URL::asset('changerequests/') }}/{{$changerequest['id']}}" class="btn btn-default btn-sm" rel="tooltip" data-placement="top" data-original-title="View"><i class="fa fa-folder"></i></a>
                                             <a href="{{action('ChangeRequestController@edit', [$changerequest->id])}}" class="btn btn-default btn-sm" rel="tooltip" data-placement="top" data-original-title="Edit"><i class="fa fa-pencil"></i></a>
                                             @if( auth()->check() && auth()->user()->isAdmin() )

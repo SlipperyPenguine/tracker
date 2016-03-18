@@ -79,7 +79,7 @@
                                         <td class="text-nowrap">{{$action->DueDate->format('d M Y')}}</td>
                                         <td>{{$action->raised}}</td>
                                         <td>{{$action->Comments->count()}}</td>
-                                        <td>
+                                        <td class="text-nowrap">
                                             <a href="{{ URL::asset('actions/') }}/{{$action['id']}}" class="btn btn-default btn-sm" rel="tooltip" data-placement="top" data-original-title="View"><i class="fa fa-folder"></i></a>
                                             <a href="{{action('ActionController@edit', [$action->id])}}" class="btn btn-default btn-sm" rel="tooltip" data-placement="top" data-original-title="Edit"><i class="fa fa-pencil"></i></a>
                                             @if( auth()->check() && auth()->user()->isAdmin() )

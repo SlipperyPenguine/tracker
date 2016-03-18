@@ -84,7 +84,7 @@
                                         <td>{{$task->description}}</td>
                                         <td>{{$task->ActiveActionsCount}}</td>
                                         <td>{{$task->Comments->count()}}</td>
-                                        <td>
+                                        <td class="text-nowrap">
                                             <a href="{{ URL::asset('tasks/') }}/{{$task['id']}}" class="btn btn-default btn-sm" rel="tooltip" data-placement="top" data-original-title="View"><i class="fa fa-folder"></i></a>
                                             <a href="{{action('TaskController@editTask', [$task->id])}}" class="btn btn-default btn-sm" rel="tooltip" data-placement="top" data-original-title="Edit"><i class="fa fa-pencil"></i></a>
                                         </td>
