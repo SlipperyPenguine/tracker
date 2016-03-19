@@ -102,6 +102,7 @@
 
     // Tabletools options:
     //   https://datatables.net/extensions/tabletools/button_options
+    stateSave: true,
 
     "createdRow": function ( row, data, index )
         {

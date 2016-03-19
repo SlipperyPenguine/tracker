@@ -8,6 +8,7 @@ phone : 480
 
 $('#dt_usertasks').dataTable({
 
+stateSave: true,
 "pageLength": 10,
 "order": [[ 0, "asc" ]],
 "columnDefs": [

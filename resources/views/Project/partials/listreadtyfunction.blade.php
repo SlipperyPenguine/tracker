@@ -7,6 +7,7 @@ phone : 480
 
 $('#dt_projects').dataTable(
 {
+    stateSave: true,
     "createdRow": function ( row, data, index )
     {
         if (beforenow( data[5] ))

@@ -180,6 +180,7 @@
 
     $('#dt_users').dataTable({
 
+    stateSave: true,
     "pageLength": 20,
     "order": [[ 2, "asc" ]],
     "columnDefs": [

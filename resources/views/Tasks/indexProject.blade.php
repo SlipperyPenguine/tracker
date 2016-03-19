@@ -63,8 +63,20 @@
         var tasks =  {
             data:[
                     @foreach($tasks as $task)
-                {id:@if(isset($task->UID)){{$task->UID}} @else 999{{$task->id}}  @endif, text:"<a href='{{ URL::asset('tasks/') }}/{{$task['id']}}'>{{$task->title}}</a>", start_date:"{{$task->StartDate->format('d-m-Y')}}", @if($task->milestone==1) end_date:"{{$task->StartDate->adddays(1)->format('d-m-Y')}}" @else end_date:"{{$task->EndDate->format('d-m-Y')}}" @endif ,order:10,
-                    @if(isset($task->parentUID))parent:{{$task->parentUID}}, @endif progress:0.4, open: true},
+                {id:@if(isset($task->UID)){{$task->UID}} @else 999{{$task->id}}  @endif,
+                    text:"<a href='{{ URL::asset('tasks/') }}/{{$task['id']}}'>{{$task->title}}</a>",
+                    start_date:"{{$task->StartDate->format('d-m-Y')}}",
+                    @if($task->milestone==1)
+                        end_date:"{{$task->StartDate->adddays(1)->format('d-m-Y')}}", type:gantt.config.types.milestone
+                    @else
+                        end_date:"{{$task->EndDate->format('d-m-Y')}}" @if($task->flag1==0) , type:gantt.config.types.project @endif
+                    @endif ,
+                    order:10,
+                    @if(isset($task->parentUID))
+                        parent:{{$task->parentUID}},
+                    @endif
+                    progress:0.4,
+                    open: true},
                 @endforeach
             ],
             links:[
@@ -72,8 +84,27 @@
         };
 
         gantt.config.readonly = true;
-        gantt.init("gantt_here");
+        gantt.config.sort = true;
+        
+        gantt.templates.progress_text = function(start, end, task){
+            return "<span>"+Math.round(task.progress*100)+ "% </span>";
+        };
 
+
+        gantt.templates.rightside_text = function(start, end, task){
+            if(task.type == gantt.config.types.milestone){
+                return task.text;
+            }
+            return "";
+        };
+
+        gantt.config.columns = [
+            {name:"text", tree:true, width:'*', resize:true },
+            {name:"start_date", align: "left" },
+            {name:"duration", align: "left", width:50 }
+        ];
+
+        gantt.init("gantt_here");
 
         gantt.parse(tasks);
 

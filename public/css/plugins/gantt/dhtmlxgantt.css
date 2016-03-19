@@ -636,9 +636,11 @@ div.dhx_modal_cover {
   text-align: center;
 }
 .gantt_task_progress {
-  text-align: center;
+  text-align: left;
   z-index: 0;
   background: #1cd0af;
+  color: white;
+  padding-left: 10px;
 }
 .gantt_task_line {
   -webkit-border-radius: 2px;
@@ -879,8 +881,8 @@ div.dhx_modal_cover {
 }
 .gantt_task_line.gantt_milestone {
   visibility: hidden;
-  background-color: #d33daf;
-  border: 0px solid #61164f;
+  background-color: #57889c;
+  border: 0px solid #4c4f53;
   box-sizing: content-box;
   -moz-box-sizing: content-box;
 }
