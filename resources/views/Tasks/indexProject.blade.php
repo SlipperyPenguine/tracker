@@ -85,7 +85,7 @@
 
         gantt.config.readonly = true;
         gantt.config.sort = true;
-        
+
         gantt.templates.progress_text = function(start, end, task){
             return "<span>"+Math.round(task.progress*100)+ "% </span>";
         };
