@@ -28,6 +28,8 @@
         -->
 
         <ul>
+
+
             <li @if(str_contains($controller,'ProgramController') )class="active" @endif>
                 <a href="{{ URL::asset('programs') }}" title="Programs"><i class="fa fa-lg fa-fw fa-briefcase"></i> <span class="menu-item-parent">Programs</span></a>
             </li>
@@ -58,6 +60,10 @@
                 <ul>
                     <li @if(str_contains($controller,'UserController') && str_contains($action,'index'))class="active" @endif>
                         <a href="{{ URL::asset('users') }}"><i class="fa fa-users"></i> Users</a>
+                    </li>
+
+                    <li @if(str_contains($controller,'DebugController') && str_contains($action,'logfiles'))class="active" @endif>
+                        <a href="{{ action('DebugController@logfiles') }}"><i class="fa fa-files-o"></i> Logs</a>
                     </li>
 
                 </ul>

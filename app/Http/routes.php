@@ -111,3 +111,7 @@ Route::delete('changerequests/{id}', ['middleware'=>'auth', 'uses' =>  'ChangeRe
 //API
 Route::get('api/getUsers', 'ApiController@getUsers');
 Route::get('api/getDependentLookup', 'ApiController@getDependentLookup');
+
+//Debug
+Route::get('debug/logfiles', 'DebugController@logfiles');
+Route::post('debug/deletelaravellog', 'DebugController@deletelaravellog');
