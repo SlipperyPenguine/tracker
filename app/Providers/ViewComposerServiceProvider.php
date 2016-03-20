@@ -37,13 +37,17 @@ class ViewComposerServiceProvider extends ServiceProvider
         {
 
             try {
-                $action = app('request')->route()->getAction();
+                $route = app('request')->route();
+                if (isset($route)) {
+                    $action = $route->getAction();
 
-                $controller = class_basename($action['controller']);
+                    $controller = class_basename($action['controller']);
 
-                list($controller, $action) = explode('@', $controller);
+                    list($controller, $action) = explode('@', $controller);
 
-                $view->with(compact('controller', 'action'));
+                    $view->with(compact('controller', 'action'));
+
+                }
             }
             catch (\Exception $e)
             {
