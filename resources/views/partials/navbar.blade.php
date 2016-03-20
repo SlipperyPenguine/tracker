@@ -54,7 +54,7 @@
                 <a href="{{ URL::asset('dependencies') }}" title="Dependencies"><i class="fa fa-lg fa-fw fa-link"></i> <span class="menu-item-parent">Dependencies</span></a>
             </li>
 
-            @if(Auth::isSuperUser())
+            @if(auth()->check() && auth()->user()->isAdmin())
                 <li @if(str_contains($controller,'UserController'))class="active" @endif>
                     <a href="#" title="Configuration"><i class="fa fa-lg fa-fw fa-wrench"></i> <span class="menu-item-parent">Configuration</span></a>
                 <ul>

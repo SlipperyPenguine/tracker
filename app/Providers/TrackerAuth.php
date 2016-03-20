@@ -4,7 +4,6 @@ namespace tracker\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Auth\Guard;
-use ineluctable\Auth\IneluctableGuard;
 use Illuminate\Auth\EloquentUserProvider;
 use tracker\Auth\TrackerGuard;
 

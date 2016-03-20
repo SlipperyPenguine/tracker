@@ -14,7 +14,7 @@ use tracker\Models\Risk;
 use tracker\Models\Task;
 use tracker\Models\User;
 
-class SendUserOverdueEmails extends Job implements SelfHandling, ShouldQueue
+class SendUserOverdueEmails extends Job implements ShouldQueue
 {
     use InteractsWithQueue, SerializesModels;
 

@@ -13,6 +13,7 @@ return [
     |
     */
 
+    'env' => env('APP_ENV', 'production'),
     'debug' => env('APP_DEBUG', false),
 
     /*
@@ -113,13 +114,12 @@ return [
         /*
          * Laravel Framework Service Providers...
          */
-        Illuminate\Foundation\Providers\ArtisanServiceProvider::class,
+
         Illuminate\Auth\AuthServiceProvider::class,
         Illuminate\Broadcasting\BroadcastServiceProvider::class,
         Illuminate\Bus\BusServiceProvider::class,
         Illuminate\Cache\CacheServiceProvider::class,
         Illuminate\Foundation\Providers\ConsoleSupportServiceProvider::class,
-        Illuminate\Routing\ControllerServiceProvider::class,
         Illuminate\Cookie\CookieServiceProvider::class,
         Illuminate\Database\DatabaseServiceProvider::class,
         Illuminate\Encryption\EncryptionServiceProvider::class,
@@ -137,11 +137,9 @@ return [
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
 
-
-        Illuminate\Html\HtmlServiceProvider::class,
-
         Intervention\Image\ImageServiceProvider::class,
-        /*Orchestra\Parser\XmlServiceProvider::class,*/
+
+        Collective\Html\HtmlServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -150,8 +148,7 @@ return [
         tracker\Providers\AuthServiceProvider::class,
         tracker\Providers\EventServiceProvider::class,
         tracker\Providers\RouteServiceProvider::class,
-        tracker\Providers\ViewComposerServiceProvider::class,
-        tracker\Providers\TrackerAuth::class,
+        tracker\Providers\ViewComposerServiceProvider::class
     ],
 
     /*
@@ -200,10 +197,9 @@ return [
         'URL'       => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View'      => Illuminate\Support\Facades\View::class,
-        'Form'      => Illuminate\Html\FormFacade::class,
-        'Html'      => Illuminate\Html\HtmlFacade::class,
         'Image'     => Intervention\Image\Facades\Image::class,
-        /*'XmlParser' => Orchestra\Parser\Xml\Facade::class,*/
+        'Form'      => Collective\Html\FormFacade::class,
+        'Html'      => Collective\Html\HtmlFacade::class,
 
     ],
 
