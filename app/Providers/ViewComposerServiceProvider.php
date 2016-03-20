@@ -36,7 +36,11 @@ class ViewComposerServiceProvider extends ServiceProvider
         view()->composer('partials.navbar', function($view)
         {
 
+            $action = "";
+            $controller = "";
+
             try {
+
                 $route = app('request')->route();
                 if (isset($route)) {
                     $action = $route->getAction();
@@ -44,15 +48,14 @@ class ViewComposerServiceProvider extends ServiceProvider
                     $controller = class_basename($action['controller']);
 
                     list($controller, $action) = explode('@', $controller);
-
-                    $view->with(compact('controller', 'action'));
-
                 }
             }
             catch (\Exception $e)
             {
                 //do nothing
             }
+            
+            $view->with(compact('controller', 'action'));
         });
     }
 
