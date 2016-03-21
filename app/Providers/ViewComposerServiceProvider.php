@@ -54,7 +54,7 @@ class ViewComposerServiceProvider extends ServiceProvider
             {
                 //do nothing
             }
-            
+
             $view->with(compact('controller', 'action'));
         });
     }

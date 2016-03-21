@@ -140,6 +140,7 @@ return [
         Intervention\Image\ImageServiceProvider::class,
 
         Collective\Html\HtmlServiceProvider::class,
+        Spatie\Backup\BackupServiceProvider::class,
 
         /*
          * Application Service Providers...
