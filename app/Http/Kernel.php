@@ -30,4 +30,25 @@ class Kernel extends HttpKernel
         'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
         'guest' => \tracker\Http\Middleware\RedirectIfAuthenticated::class,
     ];
+
+    /**
+     * The application's route middleware groups.
+     *
+     * @var array
+     */
+    protected $middlewareGroups = [
+        'web' => [
+            \tracker\Http\Middleware\EncryptCookies::class,
+            \Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,
+            \Illuminate\Session\Middleware\StartSession::class,
+            \Illuminate\View\Middleware\ShareErrorsFromSession::class,
+            \tracker\Http\Middleware\VerifyCsrfToken::class,
+        ],
+
+        'api' => [
+            'throttle:60,1',
+            'auth:api',
+        ],
+    ];
+
 }

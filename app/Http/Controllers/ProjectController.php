@@ -93,7 +93,7 @@ class ProjectController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($programid, $workstreamid, $subjectid, Request $request)
+    public function show($programid, $workstreamid, $subjectid)
     {
         $program = Program::findOrFail($programid);
 
@@ -108,7 +108,7 @@ class ProjectController extends Controller
         $subjecttype = 'Project';
         $subjectid = $subject->id;
 
-        return view('Project.show', compact('program', 'workstream', 'subject', 'subjecttype', 'subjectid', 'redirect'));
+        return view('Project.show', compact('program', 'workstream', 'subject', 'subjecttype', 'subjectid'));
     }
 
     /**

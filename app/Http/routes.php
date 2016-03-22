@@ -5,7 +5,14 @@ Route::get('/', 'PagesController@home');
 Route::get('home', ['as' => 'home', 'uses' => 'PagesController@home' ]);
 
 //Authentication
-Route::controllers(['auth'=>'Auth\AuthController', 'password'=>'Auth\PasswordController']);
+//Route::controllers(['auth'=>'Auth\AuthController', 'password'=>'Auth\PasswordController']);
+
+//new Auth
+//Route::group(['middleware' => 'web'], function () {
+    Route::auth();
+
+    //Route::get('/home', 'HomeController@index');
+//});
 
 //Programs
 Route::get('programs', 'ProgramController@index');
@@ -115,3 +122,5 @@ Route::get('api/getDependentLookup', 'ApiController@getDependentLookup');
 //Debug
 Route::get('debug/logfiles', 'DebugController@logfiles');
 Route::post('debug/deletelaravellog', 'DebugController@deletelaravellog');
+
+

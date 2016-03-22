@@ -49,6 +49,7 @@ class User extends Model implements AuthenticatableContract,
             event(new UserCreated($user));
 
         });
+
     }
 
     public function getavatarAttribute($value)

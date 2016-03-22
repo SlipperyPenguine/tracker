@@ -45,9 +45,9 @@
         <div id="logout" class="btn-header transparent pull-right">
 
             @if (Auth::guest())
-                <span> <a href="{{ URL::asset('auth/login') }}"><i class="fa fa-sign-in"></i></a> </span>
+                <span> <a href="{{ URL::asset('login') }}"><i class="fa fa-sign-in"></i></a> </span>
             @else
-                <span> <a href="{{ URL::asset('auth/logout') }}" title="Sign Out" data-action="userLogout" data-logout-msg="Logout"><i class="fa fa-sign-out"></i></a> </span>
+                <span> <a href="{{ URL::asset('logout') }}" title="Sign Out" data-action="userLogout" data-logout-msg="Logout"><i class="fa fa-sign-out"></i></a> </span>
             @endif
 
         </div>
