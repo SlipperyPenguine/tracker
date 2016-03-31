@@ -36,7 +36,7 @@
 
 
                     <tr class="itemattributerow">
-                        <td><i class="glyphicon glyphicon-road"></i> Status:</td>
+                        <td><i class="fa fa-road"></i> Status:</td>
                         <td >{{$subject->status}}</td>
                         <td rowspan="10" valign="bottom">
                             <div class="text-right text-nowrap">

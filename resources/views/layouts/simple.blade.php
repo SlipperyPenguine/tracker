@@ -12,17 +12,9 @@
     <meta name="base_assets_url" content="{{ URL::asset('') }}">
 
     <!-- #CSS Links -->
-    <!-- Basic Styles -->
-    <link rel="stylesheet"  href="{{ URL::asset('css/bootstrap.min.css') }}">
-    <link rel="stylesheet" type="text/css" media="screen" href="{{ URL::asset('css/font-awesome.min.css') }}">
 
-    <!-- SmartAdmin Styles : Caution! DO NOT change the order -->
-    <link rel="stylesheet" type="text/css" media="screen" href="{{ URL::asset('css/smartadmin-production-plugins.min.css') }}">
-    <link rel="stylesheet" type="text/css" media="screen" href="{{ URL::asset('css/smartadmin-production.min.css') }}">
-    <link rel="stylesheet" type="text/css" media="screen" href="{{ URL::asset('css/smartadmin-skins.min.css') }}">
+    <link rel="stylesheet" type="text/css" media="screen" href="{{ URL::asset('css/app.css') }}">
 
-    <!-- SmartAdmin RTL Support -->
-    <link rel="stylesheet" type="text/css" media="screen" href="{{ URL::asset('css/smartadmin-rtl.min.css') }}">
 
     <!-- FAVICONS -->
     <link rel="shortcut icon" href="{{ URL::asset('img/favicon/favicon.ico') }}" type="image/x-icon">
@@ -40,17 +32,10 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
 
-    <!-- Startup image for web apps -->
-    <link rel="apple-touch-startup-image" href="{{ URL::asset('img/splash/ipad-landscape.png') }}" media="screen and (min-device-width: 481px) and (max-device-width: 1024px) and (orientation:landscape)">
-    <link rel="apple-touch-startup-image" href="{{ URL::asset('img/splash/ipad-portrait.png') }}" media="screen and (min-device-width: 481px) and (max-device-width: 1024px) and (orientation:portrait)">
-    <link rel="apple-touch-startup-image" href="{{ URL::asset('img/splash/iphone.png') }}" media="screen and (max-device-width: 320px)">
-
-    <link rel="stylesheet"  href="{{ URL::asset('css/tracker.css') }}">
-
     @yield('headers')
 </head>
 
-<body class="animated fadeInDown">
+<body style="background-color: white; background: none;" class="animated fadeInDown">
 
 <header id="header">
 
@@ -63,7 +48,7 @@
 
 
 
-<div id="main" role="main">
+<div id="main" role="main" style="margin-left: 0">
 
     <!-- MAIN CONTENT -->
     <div id="content" class="container">
@@ -122,31 +107,8 @@
 <script data-pace-options='{ "restartOnRequestAfter": true }' src="{{ URL::asset('js/plugin/pace/pace.min.js') }}"></script>
 
 <!-- Link to Google CDN's jQuery + jQueryUI; fall back to local -->
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-<script>
-    if (!window.jQuery) {
-        document.write('<script src="{{ URL::asset('js/libs/jquery-2.1.1.min.js') }}"><\/script>');
-    }
-</script>
 
-<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
-<script>
-    if (!window.jQuery.ui) {
-        document.write('<script src="{{ URL::asset('js/libs/jquery-ui-1.10.3.min.js') }}"><\/script>');
-    }
-</script>
-
-<!-- IMPORTANT: APP CONFIG -->
-<script src="{{ URL::asset('js/app.config.js') }}"></script>
-
-<!-- BOOTSTRAP JS -->
-<script src="{{ URL::asset('js/bootstrap/bootstrap.min.js') }}"></script>
-
-<!-- JQUERY VALIDATE -->
-<script src="{{ URL::asset('js/plugin/jquery-validate/jquery.validate.min.js') }}"></script>
-
-<!-- JQUERY MASKED INPUT -->
-<script src="{{ URL::asset('js/plugin/masked-input/jquery.maskedinput.min.js') }}"></script>
+    <script src="{{ URL::asset('js/all.js') }}"></script>
 
 <!--[if IE 8]>
 
@@ -154,11 +116,6 @@
 
 <![endif]-->
 
-<!-- MAIN APP JS FILE -->
-<script src="{{ URL::asset('js/app.min.js') }}"></script>
-
-<!--  My custom functions -->
-<script src="{{ URL::asset('js/tracker.js') }}"></script>
 
 <script type="text/javascript">
     runAllForms();

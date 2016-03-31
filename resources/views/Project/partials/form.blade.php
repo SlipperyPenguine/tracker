@@ -22,17 +22,18 @@
         <label class="label">Status</label>
         <div class="row">
             <div class="col col-4">
-                <label class="radio ">{!! Form::radio('status', 0, true) !!}<i></i>Pre Gate 1</label>
-                <label class="radio ">{!! Form::radio('status', 1, false) !!}<i></i>Post Gate 1, concept paper approved</label>
-                <label class="radio ">{!! Form::radio('status', 2, false) !!}<i></i>Post Review 1, concept paper and SDD approved</label>
+                <label class="radio ">{!! Form::radio('Status', 0, true) !!}<i></i>Pre Gate 0</label>
+                <label class="radio ">{!! Form::radio('Status', 1, false) !!}<i></i>Pre Gate 1</label>
+                <label class="radio ">{!! Form::radio('Status', 2, false) !!}<i></i>Post Gate 1, concept paper approved</label>
             </div>
             <div class="col col-4">
-                <label class="radio ">{!! Form::radio('status', 3, false) !!}<i></i>Post Gate 2, in build</label>
-                <label class="radio ">{!! Form::radio('status', 4, false) !!}<i></i>Post Gate 3, Rolling out</label>
+                <label class="radio ">{!! Form::radio('Status', 3, false) !!}<i></i>Post Review 1, concept paper and SDD approved</label>
+                <label class="radio ">{!! Form::radio('Status', 4, false) !!}<i></i>Post Gate 2, in build</label>
+                <label class="radio ">{!! Form::radio('Status', 5, false) !!}<i></i>Post Gate 3, Rolling out</label>
             </div>
             <div class="col col-4">
-                <label class="radio ">{!! Form::radio('status', 5, false) !!}<i></i>Closed</label>
-                <label class="radio ">{!! Form::radio('status', 6, false) !!}<i></i>Cancelled</label>
+                <label class="radio ">{!! Form::radio('Status', 6, false) !!}<i></i>Closed</label>
+                <label class="radio ">{!! Form::radio('Status', 7, false) !!}<i></i>Cancelled</label>
             </div>
         </div>
     </section>

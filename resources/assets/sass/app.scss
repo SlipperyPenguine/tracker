@@ -1,2 +1,16 @@
 @import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
+//@import "smart-admin/bootstrap";
 
+@import "colours";
+
+@import "font-awesome/font-awesome";
+
+@import "smart-admin/smartadmin-production-plugins";
+@import "smart-admin/smartadmin-production";
+@import "smart-admin/smartadmin-skins";
+
+@import "vis/vis";
+@import "datepicker/datepicker";
+@import "select2/select2";
+
+@import "tracker";

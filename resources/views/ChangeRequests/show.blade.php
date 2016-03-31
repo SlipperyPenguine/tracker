@@ -21,7 +21,7 @@
                             <H1 class="text-danger slideInRight fast animated"><strong>{{$subject['title']}} </strong> </H1>
                             <table >
                                 <tr class="itemattributerow">
-                                    <td><i class="glyphicon glyphicon-road"></i> Status:</td>
+                                    <td><i class="fa fa-road"></i> Status:</td>
                                     <td >{{$subject->status}}</td>
                                 </tr>
 

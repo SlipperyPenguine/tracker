@@ -45,7 +45,7 @@
                                 <H3> @if($subject->PI!='') ( {{$subject->PI}} )  @endif </H3>
                                 <div class="">
                                     <H4>part of {{$workstream['name']}}, Phase {{$workstream['phase']}} of {{$program['name']}}</H4>
-                                    <H4><i class="glyphicon glyphicon-road"></i> {{$subject->StatusText}}</H4>
+                                    <H4><i class="fa fa-road"></i> {{$subject->StatusText}}</H4>
                                 </div>
                             </td>
                             <td valign="centre" class="text-right">

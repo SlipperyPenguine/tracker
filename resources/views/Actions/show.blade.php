@@ -22,7 +22,7 @@
                         <td>
                             <H1 class="text-danger slideInRight fast animated"><strong>{{$subject['title']}} </strong> </H1>
                               <div class="">
-                                <H4><i class="glyphicon glyphicon-road"></i> {{$subject->status}}</H4>
+                                <H4><i class="fa fa-road"></i> {{$subject->status}}</H4>
                                 <table style="margin: 0px">
                                     <tr>
                                         <td height="24px" valign="top">ID &nbsp;</td>

@@ -66,17 +66,17 @@ class Project extends Model
                 return 'Pre Gate 0';
             case 1:
                 return 'Pre Gate 1';
-            case 3:
+            case 2:
                 return 'Post Gate 1, concept paper approved';
-            case 4:
+            case 3:
                 return 'Post Review 1, concept paper and SDD approved';
-            case 5:
+            case 4:
                 return 'Post Gate 2, in build';
-            case 6:
+            case 5:
                 return 'Post Gate 3, Rolling out';
-            case 7:
+            case 6:
                 return 'Closed';
-            Case 8:
+            Case 7:
                 return 'Cancelled';
             default:
                 Return 'Unknown';

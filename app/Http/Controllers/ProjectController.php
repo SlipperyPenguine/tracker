@@ -73,7 +73,7 @@ class ProjectController extends Controller
         $subject->program_id = $request->program_id;
         $subject->work_stream_id = $request->work_stream_id;
         $subject->program_id = WorkStream::where('id',$request->work_stream_id )->first()->Program->id;
-        $subject->status = $request->status;
+        $subject->Status = $request->Status;
         $subject->PI = $request->PI;
         $subject->name = $request->name;
         $subject->description = $request->description;
@@ -145,7 +145,7 @@ class ProjectController extends Controller
         //return $request->all();
         $subject = Project::findorFail($id);
 
-        $subject->status = $request->status;
+        $subject->Status = $request->Status;
         $subject->PI = $request->PI;
         $subject->name = $request->name;
         $subject->description = $request->description;

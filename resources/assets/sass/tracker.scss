@@ -1,0 +1,154 @@
+/********************************************************
+ * TRACKER custom CSS
+ * It is advised not to edit the smartadmin_production.css
+ * as this will override any changes you make in the
+ * later versions of this theme.
+ *
+*/
+
+.table-title a {
+  font-size: 14px;
+  color: $dark_colour;
+  font-weight: 600;
+}
+
+/* COLORS */
+.text-navy {
+  color: $navy;
+}
+.text-primary {
+  color: inherit;
+}
+.text-success {
+  color: $success_colour;
+}
+.text-info {
+  color: $info_colour;
+}
+.text-warning {
+  color: $warning_colour;
+}
+.text-danger {
+  color: $danger_colour;
+}
+.text-muted {
+  color: $muted_colour;
+}
+
+.darktext {
+  color: $dark_colour;
+}
+
+.text-yellow {
+  color: $yellow;
+}
+
+.text-green {
+  color: $green;
+}
+
+.itemattributerow {
+  vertical-align: top;
+}
+
+.itemattributerow > td {
+
+  padding-bottom: 10px;
+}
+
+
+.text-bold {
+  font-weight: bold;
+}
+
+.gantt_cell a {
+  color: $dark_colour;
+  font-weight: bold;
+}
+
+.gantt_task_content a {
+  color: $white;
+  font-weight: bold;
+}
+
+.gantt_side_content.gantt_right a {
+  color: $dark_colour;
+  font-weight: bold;
+}
+
+//override the dropdown hover colour
+.dropdown-menu > li > a:hover {
+  background-color: $success_colour;
+  color: $white;
+  background-image: none;
+}
+
+/*.vis-item {
+  position: absolute;
+  color: white;
+  border-color: #1b9070;
+  border-width: 1px;
+  background-color: #1ab394;
+  box-shadow: 5px 5px 12px rgba(109, 109, 109, 0.5);
+  display: inline-block;
+  !*overflow: hidden;*!
+}*/
+
+/*.vis-item.vis-selected {
+  border-color: #1bab8b;
+  background-color: #1cd0af;
+
+  z-index: 2;
+}*/
+
+.vis-item {
+  position: absolute;
+  color: white;
+  border-color: $green;
+  border-width: 1px;
+  background-color: $greenLight;
+  box-shadow: 5px 5px 12px rgba(109, 109, 109, 0.5);
+  display: inline-block;
+  /*overflow: hidden;*/
+}
+
+.vis-item.vis-selected {
+  border-color: $greenLight;
+  background-color: $greenBright;
+
+  /* z-index must be higher than the z-index of custom time bar and current time bar */
+  z-index: 2;
+}
+
+/*.vis-item.vis-background {
+  border: none;
+  background-color: rgba(31, 246, 207, 0.07);
+  box-shadow: #aaaaaa 0px 0px 0px 0px;
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}*/
+
+.vis-item.vis-background {
+  border: none;
+  background-color: $greenSubtle;
+  box-shadow: #aaaaaa 0px 0px 0px 0px;
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+.vis-item.blacktext {
+  color: black;
+}
+
+.vis-item.pointblacktext {
+  color: black;
+  box-shadow: none;
+}
+
+.vis-item.graybackground {
+  color: #4c4c4c;
+  background-color: #c5bbbb;
+  border-color: #aea4a4;
+
+}

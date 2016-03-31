@@ -26,8 +26,7 @@ class ActionController extends Controller
     {
         $title = "Actions for $subjecttype ".Breadcrumbs::getSubjectName($subjecttype, $subjectid);
 
-        $breadcrumbs = Breadcrumbs::getBreadCrumb($subjecttype, $subjectid);
-        $breadcrumbs[] = ['Actions', URL::action('ActionController@index', [$subjecttype, $subjectid]), true];
+        $breadcrumbs = $this->getBaseBreadcrumb($subjecttype, $subjectid, true);
 
         $actions = Action::where('subject_type', $subjecttype)->where('subject_id', $subjectid)->get();
 
@@ -41,8 +40,7 @@ class ActionController extends Controller
 
         $title = "Create new Action for $subjecttype $subjectname ";
 
-        $breadcrumbs = Breadcrumbs::getBreadCrumb($subjecttype, $subjectid);
-        $breadcrumbs[] = ['Actions', URL::action('ActionController@index', [$subjecttype, $subjectid]), false];
+        $breadcrumbs = $this->getBaseBreadcrumb($subjecttype, $subjectid);
         $breadcrumbs[] = ['Create', '', false];
 
         //$redirect = $request->server('HTTP_REFERER');
@@ -61,8 +59,7 @@ class ActionController extends Controller
 
         $title = "Edit Action $action->title for $action->subject_type $subjectname";
 
-        $breadcrumbs = Breadcrumbs::getBreadCrumb($subjecttype, $subjectid);
-        $breadcrumbs[] = ['Actions', URL::action('ActionController@index', [$subjecttype, $subjectid]), false];
+        $breadcrumbs = $this->getBaseBreadcrumb($subjecttype, $subjectid);
         $breadcrumbs[] = [$action->title, URL::action('ActionController@show', [$actionid]), false];
         $breadcrumbs[] = ['Edit', '', false];
 
@@ -121,8 +118,7 @@ class ActionController extends Controller
 
         $title = "Edit Action $subject->title for $subject->subject_type ".Breadcrumbs::getSubjectName($subjecttype, $subjectid);
 
-        $breadcrumbs = Breadcrumbs::getBreadCrumb($subjecttype, $subjectid);
-        $breadcrumbs[] = ['Actions', URL::action('ActionController@index', [$subjecttype, $subjectid]), false];
+        $breadcrumbs = $this->getBaseBreadcrumb($subjecttype, $subjectid);
         $breadcrumbs[] = [$subject->title, '', true];
 
         return view('Actions.show', compact('subject', 'title', 'breadcrumbs'));
@@ -173,5 +169,14 @@ class ActionController extends Controller
         flash()->success('Success', "Action deleted successfully");
 
         return redirect()->back();
+    }
+
+    protected function getBaseBreadcrumb($subjecttype, $subjectid, $active=false)
+    {
+        $breadcrumbs = Breadcrumbs::getBreadCrumb($subjecttype, $subjectid);
+        $breadcrumbs[] = ['Actions', URL::action('ActionController@index', [$subjecttype, $subjectid]), $active];
+
+        return $breadcrumbs;
+
     }
 }

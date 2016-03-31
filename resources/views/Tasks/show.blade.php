@@ -23,7 +23,7 @@
                             <table>
                                 <tr>
                                     <td>Status: </td>
-                                    <td><i class="glyphicon glyphicon-road"></i> {{$subject->status}}</td>
+                                    <td><i class="fa fa-road"></i> {{$subject->status}}</td>
                                 </tr>
 
                                 @if($subject['milestone'])

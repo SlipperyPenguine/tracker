@@ -16,16 +16,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
     <!-- Basic Styles -->
-    <link rel="stylesheet" type="text/css" media="screen" href="{{ URL::asset('css/bootstrap.min.css') }}">
-    <link rel="stylesheet" type="text/css" media="screen" href="{{ URL::asset('css/font-awesome.min.css') }}">
+    <link rel="stylesheet" type="text/css" media="screen" href="{{ URL::asset('css/app.css') }}">
+    {{--<link rel="stylesheet" type="text/css" media="screen" href="{{ URL::asset('css/bootstrap.min.css') }}">--}}
+    {{--<link rel="stylesheet" type="text/css" media="screen" href="{{ URL::asset('css/font-awesome.min.css') }}">--}}
 
     <!-- SmartAdmin Styles : Caution! DO NOT change the order -->
-    <link rel="stylesheet" type="text/css" media="screen" href="{{ URL::asset('css/smartadmin-production-plugins.min.css') }}">
+{{--    <link rel="stylesheet" type="text/css" media="screen" href="{{ URL::asset('css/smartadmin-production-plugins.min.css') }}">
     <link rel="stylesheet" type="text/css" media="screen" href="{{ URL::asset('css/smartadmin-production.min.css') }}">
-    <link rel="stylesheet" type="text/css" media="screen" href="{{ URL::asset('css/smartadmin-skins.min.css') }}">
+    <link rel="stylesheet" type="text/css" media="screen" href="{{ URL::asset('css/smartadmin-skins.min.css') }}">--}}
 
     <!-- SmartAdmin RTL Support -->
-    <link rel="stylesheet" type="text/css" media="screen" href="{{ URL::asset('css/smartadmin-rtl.min.css') }}">
+    {{--<link rel="stylesheet" type="text/css" media="screen" href="{{ URL::asset('css/smartadmin-rtl.min.css') }}">--}}
 
     <!-- FAVICONS -->
     <link rel="shortcut icon" href="{{ URL::asset('img/favicon/favicon.ico') }}" type="image/x-icon">
@@ -48,15 +49,13 @@
     <link rel="apple-touch-startup-image" href="{{ URL::asset('img/splash/ipad-portrait.png') }}" media="screen and (min-device-width: 481px) and (max-device-width: 1024px) and (orientation:portrait)">
     <link rel="apple-touch-startup-image" href="{{ URL::asset('img/splash/iphone.png') }}" media="screen and (max-device-width: 320px)">
 
-    <link rel="stylesheet"  href="{{ URL::asset('css/plugins/vis/vis.css') }}">
+    {{--<link rel="stylesheet"  href="{{ URL::asset('css/plugins/vis/vis.css') }}">--}}
 
-    <link rel="stylesheet"  href="{{ URL::asset('css/plugins/datepicker/datepicker3.css') }}">
+    {{--<link rel="stylesheet"  href="{{ URL::asset('css/plugins/datepicker/datepicker3.css') }}">--}}
 
-   {{-- <link rel="stylesheet"  href="{{ URL::asset('css/plugins/sweetalert/sweetalert.css') }}">--}}
+    {{--<link rel="stylesheet"  href="{{ URL::asset('css/plugins/select2/select2.min.css') }}">--}}
 
-    <link rel="stylesheet"  href="{{ URL::asset('css/plugins/select2/select2.min.css') }}">
-
-    <link rel="stylesheet"  href="{{ URL::asset('css/tracker.css') }}">
+    {{--<link rel="stylesheet"  href="{{ URL::asset('css/tracker.css') }}">--}}
 
     @yield('header')
 
@@ -143,11 +142,13 @@
 
             <!--================================================== -->
 
+    <script src="{{ URL::asset('js/all.js') }}"></script>
+
     <!-- PACE LOADER - turn this on if you want ajax loading to show (caution: uses lots of memory on iDevices)-->
-    <script data-pace-options='{ "restartOnRequestAfter": true }' src="{{ URL::asset('js/plugin/pace/pace.min.js') }}"></script>
+    {{--<script data-pace-options='{ "restartOnRequestAfter": true }' src="{{ URL::asset('js/plugin/pace/pace.min.js') }}"></script>--}}
 
     <!-- Link to Google CDN's jQuery + jQueryUI; fall back to local -->
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+{{--    <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script>
         if (!window.jQuery) {
             document.write('<script src="{{ URL::asset('js/libs/jquery-2.1.1.min.js') }}"><\/script>');
@@ -159,41 +160,41 @@
         if (!window.jQuery.ui) {
             document.write('<script src="{{ URL::asset('js/libs/jquery-ui-1.10.3.min.js') }}"><\/script>');
         }
-    </script>
+    </script>--}}
 
     <!-- IMPORTANT: APP CONFIG -->
-    <script src="{{ URL::asset('js/app.config.js') }}"></script>
+    {{--<script src="{{ URL::asset('js/app.config.js') }}"></script>--}}
 
     <!-- JS TOUCH : include this plugin for mobile drag / drop touch events-->
-    <script src="{{ URL::asset('js/plugin/jquery-touch/jquery.ui.touch-punch.min.js') }}"></script>
+    {{--<script src="{{ URL::asset('js/plugin/jquery-touch/jquery.ui.touch-punch.min.js') }}"></script>--}}
 
     <!-- BOOTSTRAP JS -->
-    <script src="{{ URL::asset('js/bootstrap/bootstrap.min.js') }}"></script>
+    {{--<script src="{{ URL::asset('js/bootstrap/bootstrap.min.js') }}"></script>--}}
 
     <!-- CUSTOM NOTIFICATION -->
-    <script src="{{ URL::asset('js/notification/SmartNotification.js') }}"></script>
+    {{--<script src="{{ URL::asset('js/notification/SmartNotification.js') }}"></script>--}}
 
     <!-- JARVIS WIDGETS -->
-    <script src="{{ URL::asset('js/smartwidgets/jarvis.widget.min.js') }}"></script>
+    {{--<script src="{{ URL::asset('js/smartwidgets/jarvis.widget.min.js') }}"></script>--}}
 
     <!-- JQUERY VALIDATE -->
-    <script src="{{ URL::asset('js/plugin/jquery-validate/jquery.validate.min.js') }}"></script>
+    {{--<script src="{{ URL::asset('js/plugin/jquery-validate/jquery.validate.min.js') }}"></script>--}}
 
     <!-- JQUERY MASKED INPUT -->
-    <script src="{{ URL::asset('js/plugin/masked-input/jquery.maskedinput.min.js') }}"></script>
+    {{--<script src="{{ URL::asset('js/plugin/masked-input/jquery.maskedinput.min.js') }}"></script>--}}
 
     <!-- JQUERY SELECT2 INPUT -->
     {{--<script src="{{ URL::asset('js/plugin/select2/select2.min.js') }}"></script>--}}
-    <script src="{{ URL::asset('js/plugins/select2/select2.full.min.js') }}"></script>
+    {{--<script src="{{ URL::asset('js/plugins/select2/select2.full.min.js') }}"></script>--}}
 
     <!-- JQUERY UI + Bootstrap Slider -->
-    <script src="{{ URL::asset('js/plugin/bootstrap-slider/bootstrap-slider.min.js') }}"></script>
+    {{--<script src="{{ URL::asset('js/plugin/bootstrap-slider/bootstrap-slider.min.js') }}"></script>--}}
 
     <!-- browser msie issue fix -->
-    <script src="{{ URL::asset('js/plugin/msie-fix/jquery.mb.browser.min.js') }}"></script>
+    {{--<script src="{{ URL::asset('js/plugin/msie-fix/jquery.mb.browser.min.js') }}"></script>--}}
 
     <!-- FastClick: For mobile devices -->
-    <script src="{{ URL::asset('js/plugin/fastclick/fastclick.min.js') }}"></script>
+    {{--<script src="{{ URL::asset('js/plugin/fastclick/fastclick.min.js') }}"></script>--}}
 
     <!--[if IE 8]>
 
@@ -202,29 +203,29 @@
     <![endif]-->
 
     <!-- MAIN APP JS FILE -->
-    <script src="{{ URL::asset('js/app.min.js') }}"></script>
+    {{--<script src="{{ URL::asset('js/app.min.js') }}"></script>--}}
 
     <!-- ENHANCEMENT PLUGINS : NOT A REQUIREMENT -->
     <!-- Voice command : plugin -->
-    <script src="{{ URL::asset('js/speech/voicecommand.min.js') }}"></script>
+    {{--<script src="{{ URL::asset('js/speech/voicecommand.min.js') }}"></script>--}}
 
     <!-- DataTables-->
-    <script src="{{ URL::asset('js/plugin/datatables/jquery.dataTables.min.js') }}"></script>
+    {{--<script src="{{ URL::asset('js/plugin/datatables/jquery.dataTables.min.js') }}"></script>
     <script src="{{ URL::asset('js/plugin/datatables/dataTables.colVis.min.js') }}"></script>
     <script src="{{ URL::asset('js/plugin/datatables/dataTables.tableTools.min.js') }}"></script>
     <script src="{{ URL::asset('js/plugin/datatables/dataTables.bootstrap.min.js') }}"></script>
-    <script src="{{ URL::asset('js/plugin/datatable-responsive/datatables.responsive.min.js') }}"></script>
+    <script src="{{ URL::asset('js/plugin/datatable-responsive/datatables.responsive.min.js') }}"></script>--}}
 
 
         <!--  My custom functions -->
-    <script src="{{ URL::asset('js/tracker.js') }}"></script>
+    {{--<script src="{{ URL::asset('js/tracker.js') }}"></script>--}}
 
 
     <!-- iCheck -->
     {{--<script src="{{ URL::asset('js/plugins/iCheck/icheck.min.js') }}"></script>--}}
 
             <!-- Data picker -->
-    <script src="{{ URL::asset('js/plugins/datepicker/bootstrap-datepicker.js') }}"></script>
+    {{--<script src="{{ URL::asset('js/plugins/datepicker/bootstrap-datepicker.js') }}"></script>--}}
 
             <!-- Toastr script -->
     {{--<script src="{{ URL::asset('js/plugins/toastr/toastr.min.js') }}"></script>--}}
@@ -236,7 +237,7 @@
     {{--<script src="{{ URL::asset('js/plugins/select2/select2.full.min.js') }}"></script>--}}
 
             <!-- Vis -->
-    <script src="{{ URL::asset('js/plugins/vis/vis.min.js') }}"></script>
+    {{--<script src="{{ URL::asset('js/plugins/vis/vis.min.js') }}"></script>--}}
 
     <!-- Data Tables -->
     {{--<script src="{{ URL::asset('js/plugins/dataTables/datatables.min.js') }}"></script>--}}

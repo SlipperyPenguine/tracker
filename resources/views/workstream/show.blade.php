@@ -37,7 +37,7 @@
                                 <H1 class="text-danger slideInRight fast animated"><strong>{{$subject['name']}} </strong> </H1>
                                 <H4>part of {{$program['name']}}, Phase {{$subject['phase']}}</H4>
                                 <div class="">
-                                    <H4><i class="glyphicon glyphicon-road"></i> {{$subject->StatusText}}</H4>
+                                    <H4><i class="fa fa-road"></i> {{$subject->StatusText}}</H4>
                                 </div>
                             </td>
                             <td valign="centre" class="text-right">
