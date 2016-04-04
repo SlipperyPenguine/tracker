@@ -85,14 +85,10 @@
         $('#meeting_id').change(function() {
             if ($(this).val()>0)
             {
-                //$('#raised').fadeOut('400');
-                //$('#raisedsection').fadeOut('400');
                 $('#raised').attr('disabled', 'disabled');
             }
             else
             {
-                //$('#raised').fadeIn('400');
-                //$('#raisedsection').fadeIn('400');
                 $('#raised').removeAttr('disabled');
             }
         });
@@ -100,25 +96,26 @@
         $('#raised').keyup(function() {
             if ($(this).val().length>0)
             {
-                //$('#selectsection').fadeOut('400');
                 $('#meeting_id').attr('disabled', 'disabled');
             }
-            else
+            else if($("#meeting_id option").length > 1)
             {
-                //$('#selectsection').fadeIn('400');
                 $('#meeting_id').removeAttr('disabled');
             }
         });
 
         @if($meetingid>0 )
-            //$('#raised').hide();
-            //$('#raisedsection').hide();
             $('#raised').attr('disabled', 'disabled');
         @endif
 
+        if($("#meeting_id option").length == 1)
+        {
+            //only one item in the list so disable it
+            $('#meeting_id').attr('disabled', 'disabled');
+        }
+
         if($('#raised').val().length > 0)
         {
-            //$('#selectsection').hide();
             $('#meeting_id').attr('disabled', 'disabled');
         }
 

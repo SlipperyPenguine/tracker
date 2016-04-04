@@ -226,16 +226,17 @@ class ActionController extends Controller
         //check if the parent has the meetings trait
         $parent = ObjectFinder::GetObject($subjecttype, $subjectid);
 
-        $meetings = null;
+        //$meetings = null;
+        $meetings = [];
         if (in_array(MeetingTrait::class, class_uses($parent)))
         {
             //$meetings = $parent->Meetings->all();
             $meetings = $parent->Meetings->lists('title', 'id');
 
-            if (count($meetings) > 0)
+            //if (count($meetings) > 0)
                 $meetings[-1] = 'Select a meeting';
-            else
-                $meetings = null;
+            //else
+                //$meetings = null;
         }
         return $meetings;
     }
