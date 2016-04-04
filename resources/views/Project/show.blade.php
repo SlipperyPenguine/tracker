@@ -80,7 +80,11 @@
 
                 @include('Tasks.partials.list')
 
+                @include('Meetings.partials.list')
+
                 @include('Comments.partials.list')
+
+
 
             </article>
 
@@ -126,6 +130,8 @@
     @include('ChangeRequests.partials.listreadtyfunction')
 
     @include('Comments.partials.listreadtfunction')
+
+    @include('Meetings.partials.listreadtfunction')
 
 
 @endsection

@@ -39,6 +39,10 @@ class User extends Model implements AuthenticatableContract,
      */
     protected $hidden = ['password', 'remember_token'];
 
+    public function Meetings() {
+        return $this->belongsToMany(Meeting::class);
+    }
+
     public static function boot()
     {
         parent::boot();

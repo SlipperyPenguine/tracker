@@ -51,11 +51,24 @@
             <b class="tooltip tooltip-top-left">Describe the action here</b>
         </label>
     </section>
+</fieldset>
 
-    <section>
+<fieldset>
+    @if ( $meetings )
+
+        <section id="selectsection">
+            <label class="label">Meeting Action Originated from</label>
+
+            {!! Form::select('meeting_id',$meetings, $meetingid , ['class'=>"form-control", 'id' => 'meeting_id']) !!}
+        </section>
+
+    @endif
+
+    <section id="raisedsection">
+        <label class="label">Or</label>
         <label class="input"> <i class="icon-prepend fa fa-star"></i>
-            {!! Form::text('raised', null, ['placeholder'=>"Action Originate from"] ) !!}
-            <b class="tooltip tooltip-bottom-right">Enter where the action was originally raised</b> </label>
+            {!! Form::text('raised', null, ['placeholder'=>"Action Originate from", 'id' => 'raised'] ) !!}
+            <b class="tooltip tooltip-bottom-right">Enter where the action was raised when not related to a meeting</b> </label>
     </section>
 </fieldset>
 
@@ -65,6 +78,53 @@
         Submit Form
     </button>
 </footer>
+
+@section('scripts')
+
+    <script>
+        $('#meeting_id').change(function() {
+            if ($(this).val()>0)
+            {
+                //$('#raised').fadeOut('400');
+                //$('#raisedsection').fadeOut('400');
+                $('#raised').attr('disabled', 'disabled');
+            }
+            else
+            {
+                //$('#raised').fadeIn('400');
+                //$('#raisedsection').fadeIn('400');
+                $('#raised').removeAttr('disabled');
+            }
+        });
+
+        $('#raised').keyup(function() {
+            if ($(this).val().length>0)
+            {
+                //$('#selectsection').fadeOut('400');
+                $('#meeting_id').attr('disabled', 'disabled');
+            }
+            else
+            {
+                //$('#selectsection').fadeIn('400');
+                $('#meeting_id').removeAttr('disabled');
+            }
+        });
+
+        @if($meetingid>0 )
+            //$('#raised').hide();
+            //$('#raisedsection').hide();
+            $('#raised').attr('disabled', 'disabled');
+        @endif
+
+        if($('#raised').val().length > 0)
+        {
+            //$('#selectsection').hide();
+            $('#meeting_id').attr('disabled', 'disabled');
+        }
+
+    </script>
+
+@endsection
 
 @section('readyfunction')
 

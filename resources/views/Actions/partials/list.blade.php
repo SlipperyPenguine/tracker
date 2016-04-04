@@ -39,7 +39,7 @@
                         <td>{{$action['status']}}</td>
                         <td class="text-nowrap">{{$action->DueDate->format('d M Y')}}</td>
                         <td>{{$action['description']}}</td>
-                        <td>{{$action['raised']}}</td>
+                        <td>@if(isset($action->meeting_id)) {{$action->Meeting->title}}  @else {{$action['raised']}} @endif</td>
                         <td class="text-nowrap">
                             <a href="{{ URL::asset('actions/') }}/{{$action['id']}}" class="btn btn-default btn-sm" rel="tooltip" data-placement="top" data-original-title="View"><i class="fa fa-folder"></i></a>
                             <a href="{{action('ActionController@edit', [$action->id])}}" class="btn btn-default btn-sm" rel="tooltip" data-placement="top" data-original-title="Edit"><i class="fa fa-pencil"></i></a>

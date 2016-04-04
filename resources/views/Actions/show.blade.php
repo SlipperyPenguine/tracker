@@ -34,6 +34,14 @@
                                             <td height="24px" valign="top"><strong>{{$subject->raised}} </strong></td>
                                         </tr>
                                     @endif
+
+                                    @if(isset($subject->meeting_id))
+                                        <tr>
+                                            <td height="24px" valign="top">Raised at </td>
+                                            <td height="24px" valign="top" class="table-title"><strong> <a href="{{action('MeetingController@show', $subject->Meeting->id)}}">{{$subject->Meeting->title}}</a> </strong></td>
+                                        </tr>
+
+                                    @endif
                                     <tr>
                                         <td height="24px" valign="top">Created By &nbsp;</td>
                                         <td height="24px" valign="top"><strong>{{$subject->Creator->name}}</strong></td>

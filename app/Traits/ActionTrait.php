@@ -9,12 +9,29 @@
 namespace tracker\Traits;
 
 
+use tracker\Helpers\ObjectFinder;
+use tracker\Models\Action;
+
 trait ActionTrait
 {
-    public function Actions() {
-        return $this->hasMany('tracker\Models\Action', 'subject_id', 'id')->where('subject_type', $this->subjecttype);
-    }
+    public function Actions()
+    {
+        if ($this->subjecttype == 'Meeting') {
 
+            //$parent = ObjectFinder::GetObject($this->subject_type, $this->subject_id);
+
+/*            return Action::where('subject_type', $parent->subject_type)
+                            ->where('subject_id', $parent->subject_id)
+                            ->where('meeting_id', $this->id)
+                            ->get();*/
+
+            return $this->hasMany('tracker\Models\Action', 'meeting_id', 'id');
+
+        } else {
+            return $this->hasMany('tracker\Models\Action', 'subject_id', 'id')->where('subject_type', $this->subjecttype);
+
+        }
+    }
     public function getActiveActionsCountAttribute()
     {
         return $this->Actions()->where('status', 'Open')->count();

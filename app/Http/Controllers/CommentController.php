@@ -9,6 +9,7 @@ use tracker\Models\Action;
 use tracker\Models\ChangeRequest;
 use tracker\Models\Comment;
 use tracker\Models\Dependency;
+use tracker\Models\Meeting;
 use tracker\Models\Program;
 use tracker\Models\Project;
 use tracker\Models\rag;
@@ -159,6 +160,9 @@ class CommentController extends Controller
                 break;
             case 'ChangeRequest':
                 $subject = ChangeRequest::findorFail($subjectid);
+                break;
+            case 'Meeting':
+                $subject = Meeting::findorFail($subjectid);
                 break;
         }
         return $subject;

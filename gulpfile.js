@@ -38,6 +38,7 @@ elixir(function(mix) {
         'plugin/datatable-responsive/datatables.responsive.min.js',
         'tracker.js',
         'plugins/datepicker/bootstrap-datepicker.js',
+        'plugin/bootstrap-timepicker/bootstrap-timepicker.min.js',
         'plugins/vis/vis.min.js'
 
         ]);

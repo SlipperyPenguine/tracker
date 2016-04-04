@@ -27,6 +27,13 @@ class Action extends Model
         return $this->hasOne('tracker\Models\User', 'id', 'created_by');
 
     }
+
+    public function Meeting() {
+
+        return $this->hasOne( Meeting::class , 'id', 'meeting_id');
+
+    }
+
     public function scopeActive($query)
     {
         // return $query->where('status', 'open')->orWhere('updated_at', '>' , Carbon::now()->addDays(-14));

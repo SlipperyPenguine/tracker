@@ -60,6 +60,12 @@ class EventServiceProvider extends ServiceProvider
         'tracker\Events\UserCreated' => [
             'tracker\Listeners\SendUserRegisteredEmail',
         ],
+        'tracker\Events\MeetingCreated' => [
+
+        ],
+        'tracker\Events\MeetingUpdated' => [
+
+        ],
     ];
 
     /**

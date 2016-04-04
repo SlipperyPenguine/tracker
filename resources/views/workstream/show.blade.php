@@ -81,6 +81,8 @@
 
                 @include('Members.partials.list')
 
+                @include('Meetings.partials.list')
+
                 @include('Actions.partials.list')
 
 
@@ -195,6 +197,8 @@
     @include('Dependencies.partials.listreadtyfunction')
 
     @include('Tasks.partials.listreadtyfunction')
+
+    @include('Meetings.partials.listreadtfunction')
 
 
 @endsection

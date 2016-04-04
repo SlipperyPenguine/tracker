@@ -7,6 +7,7 @@ use tracker\Events\ProgramCreated;
 use tracker\Events\ProgramUpdated;
 use tracker\Traits\ActionTrait;
 use tracker\Traits\DependencyTrait;
+use tracker\Traits\MeetingTrait;
 use tracker\Traits\MemberTrait;
 use tracker\Traits\RagTrait;
 use tracker\Traits\RiskTrait;
@@ -15,7 +16,7 @@ use tracker\Traits\TaskTrait;
 class Program extends Model
 {
     public $subjecttype = 'Program';
-    use TaskTrait, RagTrait, RiskTrait, MemberTrait, ActionTrait, DependencyTrait;
+    use TaskTrait, RagTrait, RiskTrait, MemberTrait, ActionTrait, DependencyTrait, MeetingTrait;
 
     protected $dates = ['StartDate', 'EndDate'];
 

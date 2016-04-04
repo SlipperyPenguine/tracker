@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\URL;
 use tracker\Models\Action;
 use tracker\Models\ChangeRequest;
 use tracker\Models\Dependency;
+use tracker\Models\Meeting;
 use tracker\Models\Program;
 use tracker\Models\Project;
 use tracker\Models\rag;
@@ -165,6 +166,10 @@ class Breadcrumbs
             case "ChangeRequest":
                 $changerequest = ChangeRequest::findOrFail($subjectid);
                 return $changerequest->title;
+                break;
+            case "Meeting":
+                $meeting = Meeting::findOrFail($subjectid);
+                return $meeting->title;
                 break;
         }
     }

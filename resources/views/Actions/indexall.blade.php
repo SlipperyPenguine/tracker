@@ -77,7 +77,7 @@
                                         <td>{{$action->title}}</td>
                                         <td><img alt="image" height="30" class="img-circle" src="{{ URL::asset($action->Actionee->avatar) }}" /> {{$action->Actionee->name}}</td>
                                         <td class="text-nowrap">{{$action->DueDate->format('d M Y')}}</td>
-                                        <td>{{$action->raised}}</td>
+                                        <td>@if(isset($action->meeting_id)) {{$action->Meeting->title}}  @else {{$action['raised']}} @endif</td>
                                         <td>{{$action->Comments->count()}}</td>
                                         <td class="text-nowrap">
                                             <a href="{{ URL::asset('actions/') }}/{{$action['id']}}" class="btn btn-default btn-sm" rel="tooltip" data-placement="top" data-original-title="View"><i class="fa fa-folder"></i></a>

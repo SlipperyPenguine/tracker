@@ -68,6 +68,16 @@ Route::post('actions', ['middleware'=>'auth', 'uses' =>  'ActionController@store
 Route::patch('actions/{id}', ['middleware'=>'auth', 'uses' => 'ActionController@update'] );
 Route::delete('actions/{id}', ['middleware'=>'auth', 'uses' =>  'ActionController@destroy'] );
 
+//Meetings
+Route::get('meetings/create/{subjecttype}/{subjectid}',['middleware'=>'auth', 'uses' => 'MeetingController@create' ] );
+Route::get('meetings/{id}/edit', ['middleware'=>'auth', 'uses' => 'MeetingController@edit'] );
+Route::get('meetings/index/{subjecttype}/{subjectid}', ['uses' => 'MeetingController@index'] );
+Route::get('meetings', ['uses' => 'MeetingController@indexall'] );
+Route::get('meetings/{id}', [ 'uses' => 'MeetingController@show'] );
+Route::post('meetings', ['middleware'=>'auth', 'uses' =>  'MeetingController@store'] );
+Route::patch('meetings/{id}', ['middleware'=>'auth', 'uses' => 'MeetingController@update'] );
+Route::delete('meetings/{id}', ['middleware'=>'auth', 'uses' =>  'MeetingController@destroy'] );
+
 //Members
 Route::get('members/create/{subjecttype}/{subjectid}',['middleware'=>'auth', 'uses' => 'MemberController@createMember' ] );
 Route::get('members/{id}/edit', ['middleware'=>'auth', 'uses' => 'MemberController@editMember'] );
