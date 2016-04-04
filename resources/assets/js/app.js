@@ -248,6 +248,7 @@ var calc_navbar_height = function() {
 						$.root_.toggleClass("minified");
 						$.root_.removeClass("hidden-menu");
 						$('html').removeClass("hidden-menu-mobile-lock");
+						tracker_setBodyClass('minified', $.root_.hasClass("minified"));
 						$this.effect("highlight", {}, 500);
 					}
 			    },
@@ -258,13 +259,15 @@ var calc_navbar_height = function() {
 						$('html').toggleClass("hidden-menu-mobile-lock");
 						$.root_.toggleClass("hidden-menu");
 						$.root_.removeClass("minified");
+						tracker_setBodyClass('hidden-menu', $.root_.hasClass("hidden-menu"));
 			    	//} else if ( $.root_.hasClass("menu-on-top") && $.root_.hasClass("mobile-view-activated") ) {
 			    	// suggested fix from Christian Jäger	
 			    	} else if ( $.root_.hasClass("menu-on-top") && $(window).width() < 979 ) {	
 			    		$('html').toggleClass("hidden-menu-mobile-lock");
 						$.root_.toggleClass("hidden-menu");
 						$.root_.removeClass("minified");
-			    	}
+						tracker_setBodyClass('hidden-menu', $.root_.hasClass("hidden-menu"));
+					}
 			    },     
 			
 			    // TOGGLE SHORTCUT 

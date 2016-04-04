@@ -29,7 +29,7 @@ elixir(function(mix) {
         'plugin/bootstrap-slider/bootstrap-slider.min.js',
         'plugin/msie-fix/jquery.mb.browser.min.js',
         'plugin/fastclick/fastclick.min.js',
-        'app.min.js',
+        'app.js',
         'speech/voicecommand.min.js',
         'plugin/datatables/jquery.dataTables.min.js',
         'plugin/datatables/dataTables.colVis.min.js',

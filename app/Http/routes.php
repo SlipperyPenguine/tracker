@@ -127,7 +127,7 @@ Route::delete('changerequests/{id}', ['middleware'=>'auth', 'uses' =>  'ChangeRe
 
 //API
 Route::get('api/getUsers', 'ApiController@getUsers');
-Route::get('api/getDependentLookup', 'ApiController@getDependentLookup');
+Route::post('api/setbodyclass', 'ApiController@setBodyClass');
 
 //Debug
 Route::get('debug/logfiles', 'DebugController@logfiles');

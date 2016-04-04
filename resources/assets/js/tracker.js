@@ -1,3 +1,22 @@
+function tracker_setBodyClass(styling, show)
+{
+    var value = 'normal';
+    if(show) {
+        value = styling;
+    }
+
+    //make ajax call to change session variable
+    request = $.ajax({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="token"]').attr('content')
+        },
+        url: APP_URL+"/api/setbodyclass",
+        type: "post",
+        data: "styling="+value
+    });
+
+}
+
 function beforenow(comparedate)
 {
     if(!(comparedate))
@@ -166,3 +185,4 @@ var deleter = {
 };
 
 deleter.init();
+

@@ -3,6 +3,8 @@
 namespace tracker\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Session;
 use tracker\Http\Requests;
 use tracker\Http\Controllers\Controller;
 use tracker\Models\DependencyLookup;
@@ -27,6 +29,23 @@ class ApiController extends Controller
             ->get();
 
         return response()->json($items);
+    }
+
+    public function setBodyClass(Request $request)
+    {
+        //$inputs = serialize($request->all());
+        //Log::info('Ajax request fired to setToggleMenu method: '.$inputs);
+
+        if($request->has('styling'))
+        {
+            //Log::info('Found hidemenu with value of: '.$request->input('hidemenu'));
+            session([ 'body-class' => $request->input('styling') ]);
+            //Log::info('Session value is now: '.Session::get('hidden-menu'));
+        }
+        else
+        {
+            Log::warning('setBodyClass called with no styling input');
+        }
     }
 
 }
