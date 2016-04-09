@@ -100,7 +100,7 @@
 <fieldset>
     <section>
         <label class="textarea">
-            {!! Form::textarea('cause_description', null, ['rows'=>'5','placeholder'=>"Cause of Risk or Isssue"] ) !!}
+            {!! Form::textarea('cause_description', null, ['rows'=>'5','placeholder'=>"Cause of Risk or Issue"] ) !!}
             <b class="tooltip tooltip-top-left">Describe the cause of the risk/issue.  There is a risk/issue because of...</b>
         </label>
     </section>
