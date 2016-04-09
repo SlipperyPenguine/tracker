@@ -4,7 +4,7 @@
 @inject('formater', 'tracker\Helpers\HtmlFormating')
 
 @section('breadcrumbs')
-    <li xmlns="http://www.w3.org/1999/html">
+    <li>
         <a href="{{ URL::asset('/home') }}">Home</a>
     </li>
     <li>
@@ -61,8 +61,6 @@
 
                 @include('Dependencies.partials.list')
 
-                @include('Tasks.partials.list')
-
 
             </article>
 
@@ -70,13 +68,11 @@
 
                 @include('RisksAndIssues.partials.list')
 
+                @include('Rags.partials.list')
 
-                        @include('Rags.partials.list')
-
-                        @include('Members.partials.list')
+                @include('Members.partials.list')
 
                 @include('Meetings.partials.list')
-
 
                 @include('Actions.partials.list')
 
@@ -90,8 +86,6 @@
 @section('scripts')
 
     @include('workstream.partials.workstreamtimelinesetup')
-
-    @include('Tasks.partials.timelinescript')
 
 @endsection
 
@@ -108,8 +102,6 @@
     @include('Members.partials.listreadtyfunction')
 
     @include('Dependencies.partials.listreadtyfunction')
-
-    @include('Tasks.partials.listreadtyfunction')
 
     @include('Meetings.partials.listreadtfunction')
 

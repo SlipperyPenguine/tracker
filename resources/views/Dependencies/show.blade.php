@@ -53,7 +53,16 @@
                             </div>
                         </td>
                         <td valign="centre" class="text-right">
-                            <a href="{{action('DependencyController@edit', [$subject->id])}}" class="btn btn-white btn-sm"><i class="fa fa-pencil"></i> Edit </a>
+                            <a href="{{action('DependencyController@edit', [$subject->id])}}" class="btn btn-default"><i class="fa fa-pencil"></i> Edit </a>
+                            @if( auth()->check() && auth()->user()->isAdmin() )
+                                <a class="btn btn-default"
+                                   rel="tooltip" data-placement="top" data-original-title="Delete"
+                                   href="{{action('DependencyController@destroy', $subject->id)}}"
+                                   data-delete=""
+                                   data-title="Delete Dependency"
+                                   data-message="Are you sure you want to delete this dependency?"
+                                   data-button-text="Confirm Delete"><i style="color: black" class="fa fa-trash-o"></i> Delete</a>
+                            @endif
                         </td>
                     </tr>
                     <tr>

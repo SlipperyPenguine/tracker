@@ -186,3 +186,10 @@ var deleter = {
 
 deleter.init();
 
+$(".smart-form select").on("change", function(e) {
+
+    $(this).valid();
+    $(this).next().children().children().addClass("valid");
+
+});
+

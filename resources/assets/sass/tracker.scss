@@ -6,6 +6,46 @@
  *
 */
 
+.smart-form .state-error input, .smart-form .state-error select, .smart-form .state-error textarea, .smart-form .radio.state-error i, .smart-form .checkbox.state-error i, .smart-form .toggle.state-error i {
+  background: #fff0f0 !important;
+  border-color: #a90329 !important;
+}
+
+.state-error .icon-append, .state-error .icon-prepend {
+  color: #ed1c24 !important;
+}
+
+.state-error {
+  color: red !important;
+}
+
+input.state-error, textarea.state-error, select.state-error{
+  color: red !important;
+  border-color: red !important;
+  background-color: rgba(255, 0, 0, 0.1) !important;
+}
+
+.state-error .select .select2-selection {
+  border: 1px solid #a94442 !important;
+  border-color: red !important;
+  background-color: rgba(255, 0, 0, 0.1) !important;
+}
+
+.smart-form .error {
+  color: red !important;
+}
+
+.smart-form input.error, textarea.error, select.error, span.error{
+  color: red !important;
+  border-color: red !important;
+  background-color: rgba(255, 0, 0, 0.1) !important;
+}
+
+.smart-form .valid {
+  background: #f0fff0 !important;
+  border-color: #7dc27d !important;
+}
+
 .table-title a {
   font-size: 14px;
   color: $dark_colour;

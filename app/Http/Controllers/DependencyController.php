@@ -28,15 +28,11 @@ class DependencyController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index($subjecttype, $subjectid, Request $request)
+    public function index($subjecttype, $subjectid)
     {
-
-
         $title = "Dependencies for $subjecttype ".Breadcrumbs::getSubjectName($subjecttype, $subjectid);
 
-        $breadcrumbs = Breadcrumbs::getBreadCrumb($subjecttype, $subjectid);
-
-        $breadcrumbs[] = ['Dependencies', URL::action('DependencyController@index', [$subjecttype, $subjectid]), true];
+        $breadcrumbs = $this->GetBaseBreadcrumb($subjecttype, $subjectid);
 
         $dependencies = Dependency::where('subject_type', $subjecttype)->where('subject_id', $subjectid)->get();
 
@@ -49,15 +45,14 @@ class DependencyController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create($subjecttype, $subjectid, Request $request)
+    public function create($subjecttype, $subjectid)
     {
 
         $subjectname = Breadcrumbs::getSubjectName($subjecttype, $subjectid);
 
         $title = "Create new Dependency for $subjecttype $subjectname ";
 
-        $breadcrumbs = Breadcrumbs::getBreadCrumb($subjecttype, $subjectid);
-        $breadcrumbs[] = ['Dependencies', URL::action('DependencyController@index', [$subjecttype, $subjectid]), true];
+        $breadcrumbs = $this->GetBaseBreadcrumb($subjecttype, $subjectid);
         $breadcrumbs[] = ['Create', '', false];
 
         return view('Dependencies.create', compact('subjectid', 'subjecttype', 'subjectname', 'title', 'breadcrumbs'));
@@ -73,39 +68,46 @@ class DependencyController extends Controller
     public function store(Request $request)
     {
         //return $request->all();
-        $dependency = new Dependency();
-
-        $dependency->subject_id = $request->subject_id;
-        $dependency->subject_type = $request->subject_type;
-        $dependency->subject_name = Breadcrumbs::getSubjectName($request->subject_type, $request->subject_id);
-        $dependency->status = $request->status;
-        $dependency->title = $request->title;
-        $dependency->description = $request->description;
-        $dependency->NextReviewDate = Carbon::parse($request->NextReviewDate)->toDateTimeString();
-        $dependency->owner =  $request->owner;
-
-        $dependency->created_by = Auth::id();
-
-        $dependency->unlinked = true;
-
         if(isset($request->dependent_on_id))
-            $dependency->unlinked = false;
-
-        if ($dependency->unlinked)
         {
-            //no link, just a name
-            $dependency->dependent_on_name = $request->freetextdependency;
+            //linked dependency
+            Dependency::Register([
+                'subject_id'        => $request->subject_id,
+                'subject_type'      => $request->subject_type,
+                'subject_name'      => Breadcrumbs::getSubjectName($request->subject_type, $request->subject_id),
+                'status'            => $request->status,
+                'title'             => $request->title,
+                'description'       => $request->description,
+                'NextReviewDate'    => Carbon::parse($request->NextReviewDate)->toDateTimeString(),
+                'owner'             => $request->owner,
+                'created_by'        => Auth::id(),
+                'unlinked'          => false,
+                'dependent_on_id'   => $request->dependent_on_id,
+                'dependent_on_type' => $request->dependent_on_type,
+                'dependent_on_name' => Breadcrumbs::getSubjectName($request->dependent_on_type, $request->dependent_on_id)
+            ]);
         }
-        else {
-            $dependency->dependent_on_id = $request->dependent_on_id;
-            $dependency->dependent_on_type = $request->dependent_on_type;
-            $dependency->dependent_on_name = Breadcrumbs::getSubjectName($dependency->dependent_on_type, $dependency->dependent_on_id);
+        else
+        {
+            //unlinked dependency
+            Dependency::Register([
+                'subject_id'        => $request->subject_id,
+                'subject_type'      => $request->subject_type,
+                'subject_name'      => Breadcrumbs::getSubjectName($request->subject_type, $request->subject_id),
+                'status'            => $request->status,
+                'title'             => $request->title,
+                'description'       => $request->description,
+                'NextReviewDate'    => Carbon::parse($request->NextReviewDate)->toDateTimeString(),
+                'owner'             => $request->owner,
+                'created_by'        => Auth::id(),
+                'unlinked'          => true,
+                'dependent_on_id'   => 0,
+                'dependent_on_type' => 'External',
+                'dependent_on_name' => $request->freetextdependency
+            ]);
         }
-
-        $dependency->save();
 
         flash()->success('Success', "New Dependency created successfully");
-
 
         return redirect(Session::GetRedirect());
     }
@@ -116,7 +118,7 @@ class DependencyController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id, Request $request)
+    public function show($id)
     {
         $subject = Dependency::findOrFail($id);
 
@@ -125,11 +127,10 @@ class DependencyController extends Controller
 
         $title = "Dependency $subject->title for $subject->subject_type ".Breadcrumbs::getSubjectName($subjecttype, $subjectid);
 
-        $breadcrumbs = Breadcrumbs::getBreadCrumb($subjecttype, $subjectid);
-        $breadcrumbs[] = ['Dependencies', URL::action('DependencyController@index', [$subjecttype, $subjectid]), true];
+        $breadcrumbs = $this->GetBaseBreadcrumb($subjecttype, $subjectid);
         $breadcrumbs[] = [$subject->title, '', true];
-        $subjecttype = 'Dependency';
 
+        $subjecttype = 'Dependency';
         return view('Dependencies.show', compact('subject', 'title', 'breadcrumbs', 'subjectid', 'subjecttype'));
     }
 
@@ -139,7 +140,7 @@ class DependencyController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id, Request $request)
+    public function edit($id)
     {
         $dependency = Dependency::findOrFail($id);
 
@@ -149,8 +150,7 @@ class DependencyController extends Controller
 
         $title = "Edit Dependency $dependency->title for $dependency->subject_type $subjectname";
 
-        $breadcrumbs = Breadcrumbs::getBreadCrumb($subjecttype, $subjectid);
-        $breadcrumbs[] = ['Dependencies', URL::action('DependencyController@index', [$subjecttype, $subjectid]), true];
+        $breadcrumbs = $this->GetBaseBreadcrumb($subjecttype, $subjectid);
         $breadcrumbs[] = [$dependency->title, URL::action('DependencyController@show', [$id]), false];
         $breadcrumbs[] = ['Edit', '', false];
 
@@ -168,13 +168,36 @@ class DependencyController extends Controller
         //return $request->all();
         $dependency = Dependency::findorFail($id);
 
-        $dependency->status = $request->status;
-        $dependency->title = $request->title;
-        $dependency->description = $request->description;
-        $dependency->NextReviewDate = Carbon::parse($request->NextReviewDate)->toDateTimeString();
-        $dependency->owner =  $request->owner;
-
-        $dependency->save();
+        if(isset($request->dependent_on_id))
+        {
+            //linked dependency
+            $dependency->UpdateDependency([
+                'status'            => $request->status,
+                'title'             => $request->title,
+                'description'       => $request->description,
+                'NextReviewDate'    => Carbon::parse($request->NextReviewDate)->toDateTimeString(),
+                'owner'             => $request->owner,
+                'unlinked'          => false,
+                'dependent_on_id'   => $request->dependent_on_id,
+                'dependent_on_type' => $request->dependent_on_type,
+                'dependent_on_name' => Breadcrumbs::getSubjectName($request->dependent_on_type, $request->dependent_on_id)
+            ]);
+        }
+        else
+        {
+            //unlinked dependency
+            $dependency->UpdateDependency([
+                'status'            => $request->status,
+                'title'             => $request->title,
+                'description'       => $request->description,
+                'NextReviewDate'    => Carbon::parse($request->NextReviewDate)->toDateTimeString(),
+                'owner'             => $request->owner,
+                'unlinked'          => true,
+                'dependent_on_id'   => 0,
+                'dependent_on_type' => 'External',
+                'dependent_on_name' => $request->freetextdependency
+            ]);
+        }
 
         flash()->success('Success', "Dependency updated successfully");
 
@@ -194,10 +217,21 @@ class DependencyController extends Controller
 
         $dependency->delete();
 
-        //todo delete audit trail and comments
-
         flash()->success('Success', "Dependency deleted successfully");
 
         return redirect()->back();
+    }
+
+    /**
+     * @param $subjecttype
+     * @param $subjectid
+     *
+     * @return array
+     */
+    protected function GetBaseBreadcrumb($subjecttype, $subjectid)
+    {
+        $breadcrumbs = Breadcrumbs::getBreadCrumb($subjecttype, $subjectid);
+        $breadcrumbs[] = ['Dependencies', URL::action('DependencyController@index', [$subjecttype, $subjectid]), true];
+        return $breadcrumbs;
     }
 }

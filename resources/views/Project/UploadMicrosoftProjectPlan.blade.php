@@ -37,20 +37,34 @@
         {{--Form to select a file to upload--}}
         {!! Form::open(['id'=>'msprojectfileuploadform', 'class'=>'smart-form', 'url'=>route('MicrosoftProjectUpload', $project->id )]) !!}
 
-            <div class="row">
+            <fieldset>
+
+                <section>
 
 
-                <div class="col-md-9">
+
                     <input id="xmlfile" name="xmlfile" type="file" accept=".xml" class="filestyle" data-buttonText="Select Project XML File" data-buttonName="btn btn-primary btn-sm" data-buttonBefore="true">
-                </div>
-                <div class="col-md-1"></div>
-                <div class="col-md-2">
-                    <button style="height: 32px" type="submit" class="btn btn-primary btn-block">
-                        Parse File
-                    </button>
-                </div>
-            </div>
 
+                </section>
+
+                <section>
+                    <button type="submit" class="btn btn-primary btn-block">
+                        Upload File
+                    </button>
+
+                </section>
+
+            </fieldset>
+
+            <fieldset>
+                <section>
+                    <div class="row" >
+                        <div class="col col-lg-12" id="uploading" style="display: none">
+                            <h1><i class="fa fa-cog fa-spin"></i> File is uploading...</h1>
+                        </div>
+                    </div>
+                </section>
+            </fieldset>
 
         {!! Form::close() !!}
 

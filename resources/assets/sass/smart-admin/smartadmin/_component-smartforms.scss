@@ -3,7 +3,7 @@
  */
 
 .smart-form {
-  *, *:after, *:before {
+	*,  *:after, *:before {
   	margin: 0;
 	  padding: 0;
   	box-sizing: content-box;
@@ -666,8 +666,8 @@ label {
  * error state
  */
 .smart-form .state-error input, .smart-form .state-error select, .smart-form .state-error textarea, .smart-form .radio.state-error i, .smart-form .checkbox.state-error i, .smart-form .toggle.state-error i {
-	background: #fff0f0;
-	border-color: #a90329;
+	background: #fff0f0 !important;
+	border-color: #a90329 !important;
 }
 
 .smart-form .toggle.state-error input:checked + i {

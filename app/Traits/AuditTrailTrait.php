@@ -8,8 +8,9 @@
 
 namespace tracker\Traits;
 
-
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use tracker\Models\User;
 
 trait AuditTrailTrait
@@ -34,6 +35,11 @@ trait AuditTrailTrait
         $additionalfields = array_merge($additionalfields, $this->getChanges($inserting) );
 
         $this->AuditTrail()->attach($userid, $additionalfields);
+    }
+
+    protected function DeleteAuditTrail()
+    {
+        DB::table('audit_trails')->where('subject_type', $this->subjecttype)->where('subject_id', $this->id)->delete();
     }
 
     protected function getChanges($inserting)

@@ -123,9 +123,9 @@
         <article class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
 
 
-            @include('Tasks.partials.list')
-
             @include('Actions.partials.list')
+
+            @include('Comments.partials.list')
 
         </article>
 
@@ -133,7 +133,6 @@
 
             @include('RisksAndIssues.partials.list')
 
-            @include('Comments.partials.list')
 
             @include('AuditTrail.partials.list')
 
@@ -146,8 +145,6 @@
 
 @section('scripts')
 
-    @include('Tasks.partials.timelinescript')
-
     @include('Comments.partials.ajaxscript')
 @endsection
 
@@ -156,8 +153,6 @@
     @include('RisksAndIssues.partials.listreadtyfunction')
 
     @include('Actions.partials.listreadtfunction')
-
-    @include('Tasks.partials.listreadtyfunction')
 
     @include('Comments.partials.listreadtfunction')
 

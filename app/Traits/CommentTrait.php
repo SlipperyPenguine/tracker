@@ -10,6 +10,7 @@ namespace tracker\Traits;
 
 
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use tracker\Models\User;
 
 trait CommentTrait
@@ -33,6 +34,11 @@ trait CommentTrait
         $additionalfields['comment'] = $comment;
 
         $this->Comments()->attach($userid, $additionalfields);
+    }
+
+    protected function DeleteComments()
+    {
+        DB::table('comments')->where('subject_type', $this->subjecttype)->where('subject_id', $this->id)->delete();
     }
 
 

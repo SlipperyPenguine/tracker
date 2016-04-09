@@ -9,6 +9,7 @@
 namespace tracker\Traits;
 
 
+use Illuminate\Support\Facades\DB;
 use tracker\Helpers\ObjectFinder;
 use tracker\Models\Action;
 
@@ -40,5 +41,10 @@ trait ActionTrait
     public function getActiveActions()
     {
         return $this->Actions()->Active()->get();
+    }
+
+    protected function DeleteActions()
+    {
+        DB::table('actions')->where('subject_type', $this->subjecttype)->where('subject_id', $this->id)->delete();
     }
 }

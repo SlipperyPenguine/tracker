@@ -40,7 +40,17 @@
                         <td class="text-nowrap">{{$dependency->NextReviewDate->format('d M Y')}}</td>
 
                         <td class="text-nowrap"><a href="{{ URL::asset('dependencies/') }}/{{$dependency['id']}}" class="btn btn-default btn-sm" rel="tooltip" data-placement="top" data-original-title="View"><i class="fa fa-folder"></i></a>
-                            <a href="{{action('DependencyController@edit', [$dependency->id])}}" class="btn btn-default btn-sm" rel="tooltip" data-placement="top" data-original-title="Edit"><i class="fa fa-pencil"></i></a></td>
+                            <a href="{{action('DependencyController@edit', [$dependency->id])}}" class="btn btn-default btn-sm" rel="tooltip" data-placement="top" data-original-title="Edit"><i class="fa fa-pencil"></i></a>
+                            @if( auth()->check() && auth()->user()->isAdmin() )
+                                <a class="btn btn-default btn-sm"
+                                   rel="tooltip" data-placement="top" data-original-title="Delete"
+                                   href="{{action('DependencyController@destroy', $dependency->id)}}"
+                                   data-delete=""
+                                   data-title="Delete Dependency"
+                                   data-message="Are you sure you want to delete this dependency?"
+                                   data-button-text="Confirm Delete"><i style="color: black" class="fa fa-trash-o"></i> </a>
+                            @endif
+                        </td>
 
                         <td>{{$dependency->description}}</td>
 

@@ -9,11 +9,14 @@ return '<div class="row">' +
 
 function formatSelection(node) {
 
-return node.text + ' &nbsp; <b>( ' + node.subject_type + ' )</b>';
+        return node.text;
 
 };
 
 $("#dependent_on_id").select2({
+
+placeholder: "Select an internal dependency",
+allowClear: true,
 templateResult: formatResult,
 templateSelection: formatSelection,
 escapeMarkup: function(m) {
@@ -58,6 +61,10 @@ var type = data[0]['subject_type']
 //console.log('type:' + type );
 
 $("#dependent_on_type").val(type);
+$("#freetextdependency").valid();
+$("#freetextdependency").val("");
+// $(this).valid();
+// $(this).next().children().children().addClass("valid");
 
 });
 
@@ -86,4 +93,9 @@ cache: true
 minimumInputLength: 1
 
 });
+
+//$("#owner").on("change", function(e) {
+//    $(this).valid();
+//    $(this).next().children().children().addClass("valid");
+//});
 

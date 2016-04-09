@@ -34,6 +34,11 @@
         // prevent default posting of form
         event.preventDefault();
 
+        //disable buttons to avoid double clicks
+
+        //show uploading spinner
+        $("#uploading").css("display","block")
+
         //var file = $("#xmlfile").files[0];
         var fd = new FormData();
         fd.append("fileToUpload", $('#xmlfile')[0].files[0]);

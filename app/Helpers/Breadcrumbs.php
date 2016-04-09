@@ -171,6 +171,10 @@ class Breadcrumbs
                 $meeting = Meeting::findOrFail($subjectid);
                 return $meeting->title;
                 break;
+            case "Action":
+                $action = Action::findOrFail($subjectid);
+                return $action->title;
+                break;
         }
     }
 }

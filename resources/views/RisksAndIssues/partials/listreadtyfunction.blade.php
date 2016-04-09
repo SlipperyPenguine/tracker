@@ -10,8 +10,8 @@ $('#dt_risks').dataTable({
 
 // Tabletools options:
 //   https://datatables.net/extensions/tabletools/button_options
-stateSave: true,
 
+stateSave: true,
 "createdRow": function ( row, data, index )
 {
 if (beforenow( data[5] )) {

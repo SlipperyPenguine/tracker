@@ -69,8 +69,6 @@
 
                 @include('Dependencies.partials.list')
 
-                @include('Tasks.partials.list')
-
             </article>
 
             <article class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
@@ -144,9 +142,6 @@
         var timeline = new vis.Timeline(container, items, options);
     </script>
 
-    @include('Tasks.partials.timelinescript')
-
-
     <script type="text/javascript">
         // DOM element where the Timeline will be attached
         var container = document.getElementById('milestonetimeline');
@@ -195,8 +190,6 @@
     @include('Members.partials.listreadtyfunction')
 
     @include('Dependencies.partials.listreadtyfunction')
-
-    @include('Tasks.partials.listreadtyfunction')
 
     @include('Meetings.partials.listreadtfunction')
 
