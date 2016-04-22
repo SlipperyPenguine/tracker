@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use tracker\Events\WorkStreamCreated;
 use tracker\Events\WorkStreamUpdated;
 use tracker\Traits\ActionTrait;
+use tracker\Traits\AssumptionTrait;
 use tracker\Traits\DependencyTrait;
 use tracker\Traits\LinkTrait;
 use tracker\Traits\MeetingTrait;
@@ -17,7 +18,7 @@ use tracker\Traits\TaskTrait;
 class WorkStream extends Model
 {
     public $subjecttype = 'WorkStream';
-    use TaskTrait, RagTrait, RiskTrait, MemberTrait, ActionTrait, DependencyTrait, MeetingTrait, LinkTrait;
+    use TaskTrait, RagTrait, RiskTrait, MemberTrait, ActionTrait, DependencyTrait, MeetingTrait, LinkTrait, AssumptionTrait;
 
     protected $dates = ['StartDate', 'EndDate'];
     protected $appends = array('ActiveProjectCount', 'ActiveRiskCount', 'ActiveIssueCount');

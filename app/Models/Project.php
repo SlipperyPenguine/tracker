@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use tracker\Events\ProjectCreated;
 use tracker\Events\ProjectUpdated;
 use tracker\Traits\ActionTrait;
+use tracker\Traits\AssumptionTrait;
 use tracker\Traits\ChangeRequestTrait;
 use tracker\Traits\CommentTrait;
 use tracker\Traits\DependencyTrait;
@@ -19,7 +20,7 @@ use tracker\Traits\TaskTrait;
 class Project extends Model
 {
     public $subjecttype = 'Project';
-    use TaskTrait, RagTrait, RiskTrait, MemberTrait, CommentTrait, ActionTrait, ChangeRequestTrait, DependencyTrait, MeetingTrait, LinkTrait;
+    use TaskTrait, RagTrait, RiskTrait, MemberTrait, CommentTrait, ActionTrait, ChangeRequestTrait, DependencyTrait, MeetingTrait, LinkTrait, AssumptionTrait;
 
 
     protected $dates = ['StartDate', 'EndDate'];
