@@ -66,6 +66,18 @@ class EventServiceProvider extends ServiceProvider
         'tracker\Events\MeetingUpdated' => [
 
         ],
+        'tracker\Events\DecisionCreated' => [
+
+        ],
+        'tracker\Events\DecisionUpdated' => [
+
+        ],
+        'tracker\Events\AssumptionCreated' => [
+            'tracker\Listeners\EmailOwnerOfNewAssumption',
+        ],
+        'tracker\Events\AssumptionUpdated' => [
+            'tracker\Listeners\EmailOwnerOfAssumptionUpdate',
+        ],
     ];
 
     /**

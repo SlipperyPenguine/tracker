@@ -65,7 +65,9 @@
     @endif
 
     <section id="raisedsection">
+        @if ( $meetings )
         <label class="label">Or</label>
+        @endif
         <label class="input"> <i class="icon-prepend fa fa-star"></i>
             {!! Form::text('raised', null, ['placeholder'=>"Action Originate from", 'id' => 'raised'] ) !!}
             <b class="tooltip tooltip-bottom-right">Enter where the action was raised when not related to a meeting</b> </label>

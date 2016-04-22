@@ -11,8 +11,10 @@ namespace tracker\Helpers;
 
 use Illuminate\Support\Facades\URL;
 use tracker\Models\Action;
+use tracker\Models\Assumption;
 use tracker\Models\ChangeRequest;
 use tracker\Models\Dependency;
+use tracker\Models\Link;
 use tracker\Models\Meeting;
 use tracker\Models\Program;
 use tracker\Models\Project;
@@ -128,6 +130,15 @@ class Breadcrumbs
                 $breadcrumbs[] = [$changerequest->title,  URL::asset('changerequests/') ."/$changerequest->id" , false];
                 return $breadcrumbs;
                 break;
+
+            case "Link":
+                $link = Link::findOrFail($subjectid);
+
+                $breadcrumbs = Breadcrumbs::getBreadCrumb($link->subject_type, $link->subject_id);
+                $breadcrumbs[] = ['Links',  URL::action('LinkController@index', [$link->subject_type, $link->subject_id]), false];
+                $breadcrumbs[] = [$link->title,  URL::asset('links/') ."/$link->id" , false];
+                return $breadcrumbs;
+                break;
         }
     }
 
@@ -174,6 +185,14 @@ class Breadcrumbs
             case "Action":
                 $action = Action::findOrFail($subjectid);
                 return $action->title;
+                break;
+            case "Link":
+                $link = Link::findOrFail($subjectid);
+                return $link->title;
+                break;
+            case "Assumption":
+                $assumption = Assumption::findOrFail($subjectid);
+                return $assumption->title;
                 break;
         }
     }

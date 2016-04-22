@@ -14,14 +14,37 @@ use tracker\Http\Requests;
 use tracker\Http\Controllers\Controller;
 use tracker\Models\Action;
 use tracker\Models\Meeting;
+use tracker\Repositories\ActionRepository;
+use tracker\Repositories\MeetingRepository;
 use tracker\Traits\MeetingTrait;
 
 class ActionController extends Controller
 {
+    /**
+     * @var ActionRepository
+     */
+    private $actionRepository;
+    /**
+     * @var MeetingRepository
+     */
+    private $meetingRepository;
+
+
+    /**
+     * ActionController constructor.
+     *
+     * @param ActionRepository  $actionRepository
+     * @param MeetingRepository $meetingRepository
+     */
+    public function __construct(ActionRepository $actionRepository, MeetingRepository $meetingRepository)
+    {
+        $this->actionRepository = $actionRepository;
+        $this->meetingRepository = $meetingRepository;
+    }
+
     public function indexall()
     {
-        $actions = Action::with('Actionee')->get();
-
+        $actions = $this->actionRepository->getAll();
         return view('Actions.indexall', compact('actions'));
     }
 
@@ -32,9 +55,9 @@ class ActionController extends Controller
 
         $actions = null;
         if($subjecttype=='Meeting')
-            $actions = Action::where('meeting_id', $subjectid)->get();
+            $actions = $this->actionRepository->getMeetingActions($subjectid);
         else
-            $actions = Action::where('subject_type', $subjecttype)->where('subject_id', $subjectid)->get();
+            $actions = $this->actionRepository->getBySubjectTypeAndID($subjecttype, $subjectid);
 
         return view('Actions.index', compact('subjectid', 'subjecttype', 'actions', 'title', 'breadcrumbs'));
 
@@ -44,8 +67,7 @@ class ActionController extends Controller
         $meetingid = -1;
         if($subjecttype=='Meeting')
         {
-            $meeting = Meeting::findOrFail($subjectid);
-            //$parent = ObjectFinder::GetObject($meeting->subject_type, $meeting->subject_id);
+            $meeting = $this->meetingRepository->getByID($subjectid);
             $subjecttype = $meeting->subject_type;
             $subjectid = $meeting->subject_id;
             $meetingid = $meeting->id;
@@ -58,16 +80,15 @@ class ActionController extends Controller
         $breadcrumbs = $this->getBaseBreadcrumb($subjecttype, $subjectid);
         $breadcrumbs[] = ['Create', '', false];
 
-        $meetings = $this->getMeetings($subjecttype, $subjectid);
-       //return $meetingid;
+        $meetings = $this->meetingRepository->getBySubjectTypeAndID($subjecttype, $subjectid);
 
         return view('Actions.create', compact('subjectid', 'subjecttype', 'subjectname', 'title', 'breadcrumbs', 'meetings', 'meetingid'));
 
     }
 
-    public function edit($actionid, Request $request)
+    public function edit($actionid)
     {
-        $action = Action::findOrFail($actionid);
+        $action = $this->actionRepository->getByID($actionid);
 
         $subjectid = $action->subject_id;
         $subjecttype = $action->subject_type;
@@ -79,10 +100,10 @@ class ActionController extends Controller
         $breadcrumbs[] = [$action->title, URL::action('ActionController@show', [$actionid]), false];
         $breadcrumbs[] = ['Edit', '', false];
 
-        $meetings = $this->getMeetings($subjecttype, $subjectid);
+        $meetings = $this->meetingRepository->getBySubjectTypeAndID($subjecttype, $subjectid);
+        //dd( $meetings);
 
         $meetingid = -1;
-
         if(isset($action->meeting_id))
             $meetingid = $action->meeting_id;
 
@@ -98,27 +119,23 @@ class ActionController extends Controller
      */
     public function store(Request $request)
     {
-        //return $request->all();
-
         $meetingid = null;
         if ( ( $request->has('meeting_id') ) && ($request->meeting_id > 0) )
             $meetingid = $request->meeting_id;
 
-        $action = new Action();
-
-        $action->subject_id = $request->subject_id;
-        $action->subject_type = $request->subject_type;
-        $action->subject_name = Breadcrumbs::getSubjectName($request->subject_type, $request->subject_id);
-        $action->status = $request->status;
-        $action->actionee = $request->actionee;
-        $action->title = $request->title;
-        $action->description = $request->description;
-        $action->raised = $request->raised;
-        $action->DueDate = Carbon::parse($request->DueDate)->toDateTimeString();
-        $action->meeting_id = $meetingid;
-        $action->created_by = Auth::id();
-
-        $action->save();
+        $this->actionRepository->RegisterNew([
+            'subject_id'        => $request->subject_id,
+            'subject_type'      => $request->subject_type,
+            'subject_name'      => Breadcrumbs::getSubjectName($request->subject_type, $request->subject_id),
+            'status'            => $request->status,
+            'title'             => $request->title,
+            'description'       => $request->description,
+            'actionee'          => $request->actionee,
+            'raised'            => $request->raised,
+            'DueDate'           => Carbon::parse($request->DueDate)->toDateTimeString(),
+            'meeting_id'        => $meetingid,
+            'created_by'        => Auth::id()
+        ]);
 
         flash()->success('Success', "New Action created successfully");
 
@@ -131,11 +148,11 @@ class ActionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id, Request $request)
+    public function show($id)
     {
         try
         {
-            $subject = Action::findOrFail($id);
+            $subject = $this->actionRepository->getByID($id);
         }
         catch(ModelNotFoundException $e)
         {
@@ -145,7 +162,7 @@ class ActionController extends Controller
         $subjectid = $subject->subject_id;
         $subjecttype = $subject->subject_type;
 
-        $title = "Edit Action $subject->title for $subject->subject_type ".Breadcrumbs::getSubjectName($subjecttype, $subjectid);
+        $title = "Action $subject->title for $subject->subject_type ".Breadcrumbs::getSubjectName($subjecttype, $subjectid);
 
         $breadcrumbs = $this->getBaseBreadcrumb($subjecttype, $subjectid);
         $breadcrumbs[] = [$subject->title, '', true];
@@ -163,23 +180,21 @@ class ActionController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //return $request->all();
-
         $meetingid = null;
         if ( ( $request->has('meeting_id') ) && ($request->meeting_id > 0) )
             $meetingid = $request->meeting_id;
 
-        $action = Action::findorFail($id);
+        $action = $this->actionRepository->getByID($id);
 
-        $action->status = $request->status;
-        $action->actionee = $request->actionee;
-        $action->title = $request->title;
-        $action->description = $request->description;
-        $action->raised = $request->raised;
-        $action->DueDate = Carbon::parse($request->DueDate)->toDateTimeString();
-        $action->meeting_id = $meetingid;
-
-        $action->save();
+        $this->actionRepository->saveChanges($action, [
+            'status'            => $request->status,
+            'title'             => $request->title,
+            'description'       => $request->description,
+            'actionee'          => $request->actionee,
+            'raised'            => $request->raised,
+            'DueDate'           => Carbon::parse($request->DueDate)->toDateTimeString(),
+            'meeting_id'        => $meetingid,
+        ]);
 
         flash()->success('Success', "Action updated successfully");
 
@@ -195,11 +210,8 @@ class ActionController extends Controller
      */
     public function destroy($id)
     {
-        $action = Action::findOrFail($id);
-
+        $action = $this->actionRepository->getByID($id);
         $action->delete();
-
-        //todo delete audit trail and comments
 
         flash()->success('Success', "Action deleted successfully");
 
@@ -215,29 +227,4 @@ class ActionController extends Controller
 
     }
 
-    /**
-     * @param $subjecttype
-     * @param $subjectid
-     *
-     * @return null
-     */
-    protected function getMeetings($subjecttype, $subjectid)
-    {
-        //check if the parent has the meetings trait
-        $parent = ObjectFinder::GetObject($subjecttype, $subjectid);
-
-        //$meetings = null;
-        $meetings = [];
-        if (in_array(MeetingTrait::class, class_uses($parent)))
-        {
-            //$meetings = $parent->Meetings->all();
-            $meetings = $parent->Meetings->lists('title', 'id');
-
-            //if (count($meetings) > 0)
-                $meetings[-1] = 'Select a meeting';
-            //else
-                //$meetings = null;
-        }
-        return $meetings;
-    }
 }

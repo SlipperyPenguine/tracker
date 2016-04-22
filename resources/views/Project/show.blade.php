@@ -82,6 +82,8 @@
 
                 @include('Meetings.partials.list')
 
+                @include('Links.partials.list')
+
                 @include('Comments.partials.list')
 
 
@@ -133,5 +135,6 @@
 
     @include('Meetings.partials.listreadtfunction')
 
+    @include('Links.partials.listreadtyfunction')
 
 @endsection

@@ -296,6 +296,8 @@
 
                 @include('Dependencies.partials.userlist')
 
+                @include('Assumptions.partials.userlist')
+
              </article>
 
             <article class="col-lg-6">
@@ -322,6 +324,8 @@
 
     @include('Dependencies.partials.userlistreadtfunction')
 
+    @include('Assumptions.partials.userlistreadtfunction')
+
 @endsection
 
 @section('scripts')
@@ -330,6 +334,27 @@
         $('#showactionclosed').click(function() {
 
             var table = $('#dt_actions').DataTable();
+
+            if (!$(this).is(':checked')) {
+                //show everything
+                var filteredData = table
+                        .column( 4 )
+                        .search('');
+            }
+            else
+            {
+                //only show open
+                var filteredData = table
+                        .column( 4 )
+                        .search('Open');
+            }
+
+            table.draw();
+        });
+
+        $('#showassumptionclosed').click(function() {
+
+            var table = $('#dt_assumptions').DataTable();
 
             if (!$(this).is(':checked')) {
                 //show everything

@@ -20,7 +20,7 @@
                 <table width="100%">
                     <tr>
                         <td>
-                            <H1 class="text-danger slideInRight fast animated"><strong>{{$subject['title']}} </strong> </H1>
+                            <H1 class="text-danger slideInRight fast animated"><strong>{{$title}} </strong> </H1>
                               <div class="">
                                 <H4><i class="fa fa-road"></i> {{$subject->status}}</H4>
                                 <table style="margin: 0px">

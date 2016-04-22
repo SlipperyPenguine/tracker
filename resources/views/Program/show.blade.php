@@ -61,6 +61,9 @@
 
                 @include('Dependencies.partials.list')
 
+                @include('Links.partials.list')
+
+                @include('Assumptions.partials.list')
 
             </article>
 
@@ -105,4 +108,7 @@
 
     @include('Meetings.partials.listreadtfunction')
 
+    @include('Links.partials.listreadtyfunction')
+
+    @include('Assumptions.partials.listreadtfunction')
 @endsection

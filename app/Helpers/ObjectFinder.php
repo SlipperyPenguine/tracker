@@ -10,8 +10,11 @@ namespace tracker\Helpers;
 
 
 use tracker\Models\Action;
+use tracker\Models\Assumption;
 use tracker\Models\ChangeRequest;
+use tracker\Models\Decision;
 use tracker\Models\Dependency;
+use tracker\Models\Link;
 use tracker\Models\Meeting;
 use tracker\Models\Program;
 use tracker\Models\Project;
@@ -56,6 +59,17 @@ class ObjectFinder
             case 'Meeting':
                 return Meeting::findorFail($subject_id);
                 break;
+            case 'Link':
+                return Link::findorFail($subject_id);
+                break;
+            case 'Assumption':
+                return Assumption::findorFail($subject_id);
+                break;
+            case 'Decision':
+                return Decision::findorFail($subject_id);
+                break;
+            default:
+                return null;
         }
     }
 }

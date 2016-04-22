@@ -17,6 +17,10 @@
 
             @include('Actions.partials.list')
 
+            @include('Links.partials.list')
+
+            @include('Assumptions.partials.list')
+
         </article>
 
         <article class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
@@ -47,6 +51,9 @@
 
     @include('Meetings.partials.attendeelistreadyfunction')
 
+    @include('Links.partials.listreadtyfunction')
+
+    @include('Assumptions.partials.listreadtfunction')
 
 @endsection
 

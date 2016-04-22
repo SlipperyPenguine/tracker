@@ -10,11 +10,12 @@ use tracker\Events\RiskUpdated;
 use tracker\Traits\ActionTrait;
 use tracker\Traits\AuditTrailTrait;
 use tracker\Traits\CommentTrait;
+use tracker\Traits\LinkTrait;
 
 class Risk extends Model
 {
     public $subjecttype = 'Risk';
-    use ActionTrait, AuditTrailTrait, CommentTrait;
+    use ActionTrait, AuditTrailTrait, CommentTrait, LinkTrait;
     protected $appends = array('CurrentRiskClassification');
 
     protected $dates = ['NextReviewDate'];

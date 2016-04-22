@@ -69,6 +69,8 @@
 
                 @include('Dependencies.partials.list')
 
+                @include('Links.partials.list')
+
             </article>
 
             <article class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
@@ -193,6 +195,7 @@
 
     @include('Meetings.partials.listreadtfunction')
 
+    @include('Links.partials.listreadtyfunction')
 
 @endsection
 

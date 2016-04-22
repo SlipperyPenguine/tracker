@@ -6,15 +6,17 @@ use Illuminate\Database\Eloquent\Model;
 use tracker\Events\MeetingCreated;
 use tracker\Events\MeetingUpdated;
 use tracker\Traits\ActionTrait;
+use tracker\Traits\AssumptionTrait;
 use tracker\Traits\AuditTrailTrait;
 use tracker\Traits\CommentTrait;
+use tracker\Traits\LinkTrait;
 
 class Meeting extends Model
 {
     protected $dates = ['start_date'];
 
     public $subjecttype = 'Meeting';
-    use ActionTrait,AuditTrailTrait, CommentTrait;
+    use ActionTrait,AuditTrailTrait, CommentTrait, LinkTrait, AssumptionTrait;
 
     public function Owner() {
         return $this->hasOne(User::class, 'id', 'owner');

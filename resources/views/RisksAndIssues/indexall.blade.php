@@ -11,7 +11,7 @@
         <a href="{{ URL::asset('/home') }}">Home</a>
     </li>
     <li class="active">
-        <a href="{{ URL::asset('risks') }}">Risks</a>
+        <a href="{{ URL::asset('risks') }}">Risks and Issues</a>
     </li>
 
 @endsection
@@ -77,6 +77,33 @@
 
                             <table id="dt_risks" class="table table-striped table-bordered table-hover" width="100%">
                             <thead>
+
+                            <tr>
+                                <th></th>
+                                <th></th>
+                                <th >
+                                    <input type="text" class="form-control" placeholder="Subject" id="subjectfilter" />
+                                </th>
+                                <th >
+                                    <input type="text" class="form-control" placeholder="Name" id="namefilter" />
+                                </th>
+                                <th></th>
+                                <th >
+                                    <input type="text" class="form-control" placeholder="Owner" id="ownerfilter" />
+                                </th>
+                                <th></th>
+                                <th>
+                                    <input type="text" class="form-control" placeholder="Title" id="titlefilter"/>
+                                </th>
+                                <th></th>
+                                <th>
+                                    <input type="text" class="form-control" placeholder="Comment" id="commentfilter"/>
+                                </th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                            </tr>
+
                             <tr>
                                 <th class="text-nowrap" data-class="expand">ID</th>
                                 <th>Status</th>
@@ -86,11 +113,8 @@
                                 <th data-hide="phone,tablet">Owner</th>
                                 <th data-hide="phone,tablet">score</th>
                                 <th>Title</th>
-                                <th data-hide="phone,tablet">Probability</th>
-                                <th data-hide="phone,tablet">Target</th>
-                                <th data-hide="phone,tablet">Impact</th>
-                                <th data-hide="phone,tablet">Target</th>
                                 <th data-hide="phone,tablet">Review</th>
+                                <th class="text-nowrap" data-hide="phone,tablet">Latest Comment</th>
                                 <th data-hide="phone,tablet"><i class="fa fa-bolt"></i> </th>
                                 <th data-hide="phone,tablet"><i class="fa fa-comments-o"></i> </th>
                                 <th></th>
@@ -104,14 +128,11 @@
                                         <td>{{$risk->subject_type}}</td>
                                         <td>{{$risk->subject_name}}</td>
                                         <td>@if($risk['is_an_issue'])<span class="label label-danger">Issue</span> @else <span class="label label-warning">Risk</span> @endif</td>
-                                        <td><img alt="image" height="30" class="img-circle" src="{{ URL::asset($risk->RiskOwner->avatar) }}" /> {{$risk->RiskOwner->name}}</td>
-                                        <td>{!! tracker\Helpers\HtmlFormating::FormatRiskClassification($risk->CurrentRiskClassificationScore,$risk->CurrentRiskClassification ) !!}</td>
+                                        <td class="text-nowrap"><img alt="image" height="30" class="img-circle" src="{{ URL::asset($risk->RiskOwner->avatar) }}" /> {{$risk->RiskOwner->name}}</td>
+                                        <td>{{$risk->CurrentRiskClassificationScore}}</td>
                                         <td>{{$risk->title}}</td>
-                                        <td>{!! tracker\Helpers\HtmlFormating::FormatRiskRating($risk->probability, true, $risk->previous_probability) !!}</td>
-                                        <td>{!! tracker\Helpers\HtmlFormating::FormatRiskRating($risk->target_probability) !!}</td>
-                                        <td>{!! tracker\Helpers\HtmlFormating::FormatRiskRating($risk->impact, true, $risk->previous_impact) !!}</td>
-                                        <td>{!! tracker\Helpers\HtmlFormating::FormatRiskRating($risk->target_impact) !!}</td>
                                         <td class="text-nowrap">{{$risk->NextReviewDate->format('d M Y')}}</td>
+                                        <td>@if($risk->Comments->count()>0) {{$risk->Comments->last()->pivot->comment}} @endif</td>
                                         <td>{{$risk->OpenActionCount}}</td>
                                         <td>{{$risk->Comments->count()}}</td>
                                         <td class="text-nowrap">
@@ -145,7 +166,7 @@
             };
 
 
-            $('#dt_risks').dataTable({
+            var table = $('#dt_risks').DataTable({
 
             // Tabletools options:
             //   https://datatables.net/extensions/tabletools/button_options
@@ -153,17 +174,22 @@
 
             "createdRow": function ( row, data, index )
             {
-            if (beforenow( data[12] )) {
-            $('td', row).eq(12).addClass('text-danger').css('font-weight', 'bold');
-            }
-            else if (next5days( data[12] )) {
-            $('td', row).eq(12).addClass('text-warning').css('font-weight', 'bold');
-            }
+                if (beforenow( data[8] )) {
+                    $('td', row).eq(8).addClass('text-danger').css('font-weight', 'bold');
+                }
+                else if (next5days( data[8] )) {
+                    $('td', row).eq(8).addClass('text-warning').css('font-weight', 'bold');
+                }
+
+                if (data[6] > 12)
+                    $('td', row).eq(6).addClass('text-danger').css('font-weight', 'bold');
+                else if (data[6] > 9)
+                    $('td', row).eq(6).addClass('text-warning').css('font-weight', 'bold');
             },
             "pageLength": 20,
             "order": [[ 0, "asc" ]],
             "columnDefs": [
-            {"targets": [15],"orderable": false},
+            {"targets": [12],"orderable": false},
             ],
             "sDom": "<'dt-toolbar'<'col-xs-12 col-sm-6'f><'col-sm-6 col-xs-6 hidden-xs'T>r>"+
             "t"+
@@ -198,7 +224,20 @@
             },
             });
 
-            var table = $('#dt_risks').DataTable();
+            // Apply the filter
+            $("#dt_risks thead th input[type=text]").on( 'keyup change', function () {
+
+            var colindex = $(this).parent().index();
+
+            var filteredData = table
+            .column( colindex )
+            .search(this.value);
+
+            table.draw();
+
+            } );
+
+            //var table = $('#dt_risks').DataTable();
 
             var filteredData = table
             .column( 1 )
@@ -206,7 +245,11 @@
 
             table.draw();
 
-
+            $('#subjectfilter').val(table.column(2).search());
+            $('#namefilter').val(table.column(3).search());
+            $('#ownerfilter').val(table.column(5).search());
+            $('#titlefilter').val(table.column(7).search());
+            $('#commentfilter').val(table.column(9).search());
 
 @endsection
 

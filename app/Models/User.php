@@ -147,6 +147,21 @@ class User extends Model implements AuthenticatableContract,
         return Action::where('actionee', $this->id)->where('status','Open')->where('DueDate', '<', date("Y-m-d H:i:s") )->count();
     }
 
+    public function Assumptions()
+    {
+        return Assumption::where('owner', $this->id)->get();
+    }
+
+    public function AssumptionCount()
+    {
+        return Assumption::where('owner', $this->id)->where('status','Open')->count();
+    }
+
+    public function OverdueAssumptionCount()
+    {
+        return Assumption::where('owner', $this->id)->where('status','Open')->where('DueDate', '<', date("Y-m-d H:i:s") )->count();
+    }
+
     public function RisksAndIssues()
     {
 

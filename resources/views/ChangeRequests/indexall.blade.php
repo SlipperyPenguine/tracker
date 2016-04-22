@@ -55,6 +55,31 @@
                             <table id="dt_changerequests" class="table table-striped table-bordered table-hover" width="100%">
                             <thead>
                             <tr>
+                                <th></th>
+                                <th>
+                                    <input type="text" class="form-control" placeholder="Reference" id="referencefilter" />
+                                </th>
+                                <th></th>
+                                <th>
+                                    <input type="text" class="form-control" placeholder="Subject" id="subjectfilter" />
+                                </th>
+                                <th >
+                                    <input type="text" class="form-control" placeholder="Name" id="namefilter" />
+                                </th>
+                                <th >
+                                    <input type="text" class="form-control" placeholder="Title" id="titlefilter"/>
+                                </th>
+                                <th >
+                                    <input type="text" class="form-control" placeholder="Contact" id="contactfilter" />
+                                </th>
+                                <th></th>
+                                <th>
+                                    <input type="text" class="form-control" placeholder="Comment" id="commentfilter"/>
+                                </th>
+                                <th colspan="5"></th>
+
+                            </tr>
+                            <tr>
                                 <th class="text-nowrap" data-class="expand">ID</th>
                                 <th>Ref</th>
                                 <th>Status</th>
@@ -63,6 +88,7 @@
                                 <th>Title</th>
                                 <th data-hide="phone,tablet">Contact</th>
                                 <th data-hide="phone,tablet">Due</th>
+                                <th class="text-nowrap" data-hide="phone,tablet">Latest Comment</th>
                                 <th data-hide="phone,tablet"><i class="fa fa-calendar"></i> </th>
                                 <th data-hide="phone,tablet"><i class="fa fa-warning"></i> </th>
                                 <th data-hide="phone,tablet"><i class="fa fa-bolt"></i> </th>
@@ -81,6 +107,7 @@
                                         <td>{{$changerequest->title}}</td>
                                         <td><img alt="image" height="30" class="img-circle" src="{{ URL::asset($changerequest->Contact->avatar) }}" /> {{$changerequest->Contact->name}}</td>
                                         <td class="text-nowrap">{{$changerequest->required_by->format('d M Y')}}</td>
+                                        <td>@if($changerequest->Comments->count()>0) {{$changerequest->Comments->last()->pivot->comment}} @endif</td>
                                         <td>{{$changerequest->Tasks->count()}}</td>
                                         <td>{{$changerequest->Risks->count()}}</td>
                                         <td>{{$changerequest->Actions->count()}}</td>
@@ -119,16 +146,8 @@
 
             var responsiveHelper = undefined;
 
-            var breakpointDefinition = {
-            tablet : 1024,
-            phone : 480
-            };
+            var table = $('#dt_changerequests').DataTable({
 
-
-            $('#dt_changerequests').dataTable({
-
-            // Tabletools options:
-            //   https://datatables.net/extensions/tabletools/button_options             stateSave: true,
             stateSave: true,
             "createdRow": function ( row, data, index )
             {
@@ -142,7 +161,7 @@
             "pageLength": 20,
             "order": [[ 1, "asc" ]],
             "columnDefs": [
-            {"targets": [10],"orderable": false},
+            {"targets": [13],"orderable": false},
             ],
             "sDom": "<'dt-toolbar'<'col-xs-12 col-sm-6'f><'col-sm-6 col-xs-6 hidden-xs'T>r>"+
             "t"+
@@ -169,7 +188,7 @@
             "preDrawCallback" : function() {
             // Initialize the responsive datatables helper once.
             if (!responsiveHelper) {
-            responsiveHelper = new ResponsiveDatatablesHelper($('#dt_changerequests'), breakpointDefinition);
+            responsiveHelper = new ResponsiveDatatablesHelper($('#dt_changerequests'), breakpointDefinition_tracker);
             }
             },
             "rowCallback" : function(nRow) {
@@ -177,14 +196,31 @@
             },
             });
 
+            // Apply the filter
+            $("#dt_changerequests thead th input[type=text]").on( 'keyup change', function () {
 
-            var table = $('#dt_changerequests').DataTable();
+            var colindex = $(this).parent().index();
+
+            var filteredData = table
+            .column( colindex )
+            .search(this.value);
+
+            table.draw();
+
+            } );
 
             var filteredData = table
             .column( 2 )
             .search('Open');
 
             table.draw();
+
+            $('#referencefilter').val(table.column(1).search());
+            $('#subjectfilter').val(table.column(3).search());
+            $('#namefilter').val(table.column(4).search());
+            $('#titlefilter').val(table.column(5).search());
+            $('#contactfilter').val(table.column(6).search());
+            $('#commentfilter').val(table.column(8).search());
 
 
 @endsection

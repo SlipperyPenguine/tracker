@@ -54,6 +54,10 @@
                 <a href="{{ URL::asset('dependencies') }}" title="Dependencies"><i class="fa fa-lg fa-fw fa-link"></i> <span class="menu-item-parent">Dependencies</span></a>
             </li>
 
+            <li @if(str_contains($controller,'AssumptionController') && str_contains($action,'indexall') )class="active" @endif>
+                <a href="{{ URL::asset('assumptions') }}" title="Assumptions"><i class="fa fa-lg fa-fw fa-map-marker"></i> <span class="menu-item-parent">Assumptions</span></a>
+            </li>
+
             @if(auth()->check() && auth()->user()->isAdmin())
                 <li @if(str_contains($controller,'UserController'))class="active" @endif>
                     <a href="#" title="Configuration"><i class="fa fa-lg fa-fw fa-wrench"></i> <span class="menu-item-parent">Configuration</span></a>

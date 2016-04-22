@@ -193,3 +193,50 @@ $(".smart-form select").on("change", function(e) {
 
 });
 
+function standardDateFieldSetup(fieldname)
+{
+    $(fieldname).datepicker({
+        todayBtn: "linked",
+        format: "dd MM yyyy",
+        keyboardNavigation: false,
+        forceParse: false,
+        calendarWeeks: true,
+        autoclose: true
+    });
+}
+
+function userSelect(fieldname)
+{
+    $(fieldname).select2({
+        ajax: {
+            url: APP_URL+"/api/getUsers",
+            dataType: 'json',
+            delay: 250,
+            data: function (params) {
+                return {
+                    q: params.term, // search term
+                    page: params.page
+                };
+            },
+            processResults: function (data) {
+// parse the results into the format expected by Select2.
+// since we are using custom formatting functions we do not need to
+// alter the remote JSON data
+                return {
+                    results: data
+                };
+            },
+            cache: true
+        },
+
+        minimumInputLength: 1
+
+    });
+}
+
+var breakpointDefinition_tracker = {
+    tablet : 1024,
+    phone : 480
+};
+
+

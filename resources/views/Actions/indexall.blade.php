@@ -54,6 +54,33 @@
 
                             <table id="dt_actions" class="table table-striped table-bordered table-hover" width="100%">
                             <thead>
+
+                            <tr>
+                                <th></th>
+                                <th></th>
+                                <th >
+                                    <input type="text" class="form-control" placeholder="Subject" id="subjectfilter" />
+                                </th>
+                                <th >
+                                    <input type="text" class="form-control" placeholder="Name" id="namefilter" />
+                                </th>
+                                <th >
+                                    <input type="text" class="form-control" placeholder="Title" id="titlefilter"/>
+                                </th>
+                                <th >
+                                    <input type="text" class="form-control" placeholder="Actionee" id="actioneefilter" />
+                                </th>
+                                <th></th>
+                                <th >
+                                    <input type="text" class="form-control" placeholder="Raised" id="raisedfilter" />
+                                </th>
+                                <th>
+                                    <input type="text" class="form-control" placeholder="Comment" id="commentfilter"/>
+                                </th>
+                                <th></th>
+                                <th></th>
+                            </tr>
+
                             <tr>
                                 <th class="text-nowrap" data-class="expand">ID</th>
                                 <th>Status</th>
@@ -63,6 +90,7 @@
                                 <th data-hide="phone,tablet">Actionee</th>
                                 <th data-hide="phone,tablet">Due</th>
                                 <th data-hide="phone,tablet">Raised</th>
+                                <th class="text-nowrap" data-hide="phone,tablet">Latest Comment</th>
                                 <th data-hide="phone,tablet"><i class="fa fa-comments-o"></i> </th>
                                 <th></th>
                             </tr>
@@ -78,6 +106,7 @@
                                         <td><img alt="image" height="30" class="img-circle" src="{{ URL::asset($action->Actionee->avatar) }}" /> {{$action->Actionee->name}}</td>
                                         <td class="text-nowrap">{{$action->DueDate->format('d M Y')}}</td>
                                         <td>@if(isset($action->meeting_id)) {{$action->Meeting->title}}  @else {{$action['raised']}} @endif</td>
+                                        <td>@if($action->Comments->count()>0) {{$action->Comments->last()->pivot->comment}} @endif</td>
                                         <td>{{$action->Comments->count()}}</td>
                                         <td class="text-nowrap">
                                             <a href="{{ URL::asset('actions/') }}/{{$action['id']}}" class="btn btn-default btn-sm" rel="tooltip" data-placement="top" data-original-title="View"><i class="fa fa-folder"></i></a>
@@ -113,13 +142,7 @@
 
             var responsiveHelper = undefined;
 
-            var breakpointDefinition = {
-            tablet : 1024,
-            phone : 480
-            };
-
-
-            $('#dt_actions').dataTable({
+            var table = $('#dt_actions').DataTable({
 
             // Tabletools options:
             //   https://datatables.net/extensions/tabletools/button_options
@@ -136,7 +159,7 @@
             "pageLength": 20,
             "order": [[ 6, "asc" ]],
             "columnDefs": [
-            {"targets": [9],"orderable": false},
+            {"targets": [10],"orderable": false},
             ],
             "sDom": "<'dt-toolbar'<'col-xs-12 col-sm-6'f><'col-sm-6 col-xs-6 hidden-xs'T>r>"+
             "t"+
@@ -163,7 +186,7 @@
             "preDrawCallback" : function() {
             // Initialize the responsive datatables helper once.
             if (!responsiveHelper) {
-            responsiveHelper = new ResponsiveDatatablesHelper($('#dt_actions'), breakpointDefinition);
+            responsiveHelper = new ResponsiveDatatablesHelper($('#dt_actions'), breakpointDefinition_tracker);
             }
             },
             "rowCallback" : function(nRow) {
@@ -171,15 +194,31 @@
             },
             });
 
+            // Apply the filter
+            $("#dt_actions thead th input[type=text]").on( 'keyup change', function () {
 
-            var table = $('#dt_actions').DataTable();
+            var colindex = $(this).parent().index();
 
             var filteredData = table
-            .column( 1 )
-            .search('Open');
+            .column( colindex )
+            .search(this.value);
 
             table.draw();
 
+            } );
+
+            //var table = $('#dt_actions').DataTable();
+
+            var filteredData = table.column(1).search('Open');
+
+            table.draw();
+
+            $('#subjectfilter').val(table.column(2).search());
+            $('#namefilter').val(table.column(3).search());
+            $('#titlefilter').val(table.column(4).search());
+            $('#actioneefilter').val(table.column(5).search());
+            $('#raisedfilter').val(table.column(7).search());
+            $('#commentfilter').val(table.column(8).search());
 
 @endsection
 

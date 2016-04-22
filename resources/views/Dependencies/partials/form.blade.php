@@ -64,7 +64,7 @@
     <section>
         <label class="textarea">
             {!! Form::textarea('description', null, ['rows'=>'5','placeholder'=>"Description"] ) !!}
-            <b class="tooltip tooltip-top-left">Describe the Change request here</b>
+            <b class="tooltip tooltip-top-left">Describe the Dependency here</b>
         </label>
     </section>
 </fieldset>

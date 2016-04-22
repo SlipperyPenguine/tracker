@@ -7,6 +7,7 @@ use tracker\Events\WorkStreamCreated;
 use tracker\Events\WorkStreamUpdated;
 use tracker\Traits\ActionTrait;
 use tracker\Traits\DependencyTrait;
+use tracker\Traits\LinkTrait;
 use tracker\Traits\MeetingTrait;
 use tracker\Traits\MemberTrait;
 use tracker\Traits\RagTrait;
@@ -16,7 +17,7 @@ use tracker\Traits\TaskTrait;
 class WorkStream extends Model
 {
     public $subjecttype = 'WorkStream';
-    use TaskTrait, RagTrait, RiskTrait, MemberTrait, ActionTrait, DependencyTrait, MeetingTrait;
+    use TaskTrait, RagTrait, RiskTrait, MemberTrait, ActionTrait, DependencyTrait, MeetingTrait, LinkTrait;
 
     protected $dates = ['StartDate', 'EndDate'];
     protected $appends = array('ActiveProjectCount', 'ActiveRiskCount', 'ActiveIssueCount');

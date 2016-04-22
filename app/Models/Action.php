@@ -15,7 +15,7 @@ class Action extends Model
     use AuditTrailTrait, CommentTrait;
 
     protected $dates = ['DueDate'];
-
+    protected $fillable = ['subject_id','subject_type','subject_name','status','title', 'description', 'actionee', 'raised', 'DueDate', 'meeting_id', 'created_by'  ];
     public function Actionee() {
 
         return $this->hasOne('tracker\Models\User', 'id', 'actionee');
@@ -54,6 +54,11 @@ class Action extends Model
 
     }
 
+    public function scopeForMeeting($query, $meeting_id)
+    {
+        return $query->where('meeting_id', $meeting_id);
+    }
+
     public static function boot()
     {
         parent::boot();
@@ -70,6 +75,11 @@ class Action extends Model
             $action->RecordAuditTrail(true);
 
             event(new ActionCreated($action));
+        });
+
+        static::deleting(function($action){
+            $action->DeleteAuditTrail();
+            $action->DeleteComments();
         });
     }
 }

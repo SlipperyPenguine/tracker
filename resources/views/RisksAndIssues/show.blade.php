@@ -102,6 +102,8 @@
 
             @include('Actions.partials.list')
 
+            @include('Links.partials.list')
+
             @include('Comments.partials.list')
 
         </article>
@@ -148,5 +150,6 @@
 
     @include('Comments.partials.listreadtfunction')
 
+    @include('Links.partials.listreadtyfunction')
 
 @endsection

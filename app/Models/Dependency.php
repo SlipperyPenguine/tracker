@@ -48,7 +48,6 @@ class Dependency extends Model
         });
 
             //todo Add the events
-            //todo delete audit trail and comments
         static::deleting(function($dependency){
             $dependency->DeleteAuditTrail();
             $dependency->DeleteComments();

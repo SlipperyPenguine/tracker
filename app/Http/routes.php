@@ -68,6 +68,16 @@ Route::post('actions', ['middleware'=>'auth', 'uses' =>  'ActionController@store
 Route::patch('actions/{id}', ['middleware'=>'auth', 'uses' => 'ActionController@update'] );
 Route::delete('actions/{id}', ['middleware'=>'auth', 'uses' =>  'ActionController@destroy'] );
 
+//Assumptions
+Route::get('assumptions/create/{subjecttype}/{subjectid}',['middleware'=>'auth', 'uses' => 'AssumptionController@create' ] );
+Route::get('assumptions/{id}/edit', ['middleware'=>'auth', 'uses' => 'AssumptionController@edit'] );
+Route::get('assumptions/index/{subjecttype}/{subjectid}', ['uses' => 'AssumptionController@index'] );
+Route::get('assumptions', ['uses' => 'AssumptionController@indexall'] );
+Route::get('assumptions/{id}', [ 'uses' => 'AssumptionController@show'] );
+Route::post('assumptions', ['middleware'=>'auth', 'uses' =>  'AssumptionController@store'] );
+Route::patch('assumptions/{id}', ['middleware'=>'auth', 'uses' => 'AssumptionController@update'] );
+Route::delete('assumptions/{id}', ['middleware'=>'auth', 'uses' =>  'AssumptionController@destroy'] );
+
 //Meetings
 Route::get('meetings/create/{subjecttype}/{subjectid}',['middleware'=>'auth', 'uses' => 'MeetingController@create' ] );
 Route::get('meetings/{id}/edit', ['middleware'=>'auth', 'uses' => 'MeetingController@edit'] );
@@ -124,6 +134,15 @@ Route::get('changerequests/{id}', [ 'uses' => 'ChangeRequestController@show'] );
 Route::post('changerequests', ['middleware'=>'auth', 'uses' =>  'ChangeRequestController@store'] );
 Route::patch('changerequests/{id}', ['middleware'=>'auth', 'uses' => 'ChangeRequestController@update'] );
 Route::delete('changerequests/{id}', ['middleware'=>'auth', 'uses' =>  'ChangeRequestController@destroy'] );
+
+//Links
+Route::get('links/create/{subjecttype}/{subjectid}',['middleware'=>'auth', 'uses' => 'LinkController@create' ] );
+Route::get('links/{id}/edit', ['middleware'=>'auth', 'uses' => 'LinkController@edit'] );
+Route::get('links/index/{subjecttype}/{subjectid}', ['uses' => 'LinkController@index'] );
+Route::get('links/{id}', [ 'uses' => 'LinkController@show'] );
+Route::post('links', ['middleware'=>'auth', 'uses' =>  'LinkController@store'] );
+Route::patch('links/{id}', ['middleware'=>'auth', 'uses' => 'LinkController@update'] );
+Route::delete('links/{id}', ['middleware'=>'auth', 'uses' =>  'LinkController@destroy'] );
 
 //API
 Route::get('api/getUsers', 'ApiController@getUsers');

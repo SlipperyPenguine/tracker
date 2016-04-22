@@ -6,13 +6,14 @@ use Illuminate\Database\Eloquent\Model;
 use tracker\Traits\ActionTrait;
 use tracker\Traits\AuditTrailTrait;
 use tracker\Traits\CommentTrait;
+use tracker\Traits\LinkTrait;
 use tracker\Traits\RiskTrait;
 use tracker\Traits\TaskTrait;
 
 class ChangeRequest extends Model
 {
     public $subjecttype = 'ChangeRequest';
-    use AuditTrailTrait, CommentTrait, TaskTrait, ActionTrait, RiskTrait;
+    use AuditTrailTrait, CommentTrait, TaskTrait, ActionTrait, RiskTrait, LinkTrait;
 
     protected $dates = ['submission_date', 'required_by', 'implementation_date'];
 
