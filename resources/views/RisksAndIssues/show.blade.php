@@ -77,6 +77,10 @@
                         <td>{!! tracker\Helpers\HtmlFormating::FormatRiskRating($subject->target_impact)  !!} {!! tracker\Helpers\HtmlFormating::GetImpactText($subject->target_impact) !!} </td>
                     </tr>
                     <tr class="itemattributerow">
+                        <td>Risk Score:</td>
+                        <td>{!! tracker\Helpers\HtmlFormating::FormatRiskClassification($subject->CurrentRiskClassificationScore, $subject->CurrentRiskClassification)  !!}  </td>
+                    </tr>
+                    <tr class="itemattributerow">
                         <td>Description:</td>
                         <td>{{$subject->description}}</td>
                     </tr>

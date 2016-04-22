@@ -35,7 +35,7 @@
             </li>
 
             <li @if(str_contains($controller,'RiskAndIssueController') && str_contains($action,'indexall') )class="active" @endif>
-                <a href="{{ URL::asset('risks') }}" title="Risks"><i class="fa fa-lg fa-fw fa-warning"></i> <span class="menu-item-parent">Risks</span></a>
+                <a href="{{ URL::asset('risks') }}" title="Risks"><i class="fa fa-lg fa-fw fa-warning"></i> <span class="menu-item-parent">Risks & Issues</span></a>
             </li>
 
             <li @if(str_contains($controller,'ActionController') && str_contains($action,'indexall') )class="active" @endif>

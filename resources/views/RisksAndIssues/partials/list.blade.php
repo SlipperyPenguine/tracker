@@ -18,8 +18,7 @@
                     <th class="text-nowrap" data-class="expand">Status</th>
                     <th>ID</th>
                     <th>Title</th>
-                    <th data-hide="phone,tablet">Imp</th>
-                    <th data-hide="phone,tablet">Sev</th>
+                    <th data-hide="phone,tablet">Score</th>
                     <th data-hide="phone,tablet">Review</th>
                     <th></th>
 
@@ -33,8 +32,7 @@
                         <td>@if($risk['is_an_issue'])<span class="label label-danger">Issue</span> @else <span class="label label-warning">Risk</span> @endif </td>
                         <td>{{$risk->id}}</td>
                         <td>{{$risk['title']}}</td>
-                        <td class="text-nowrap"> {!! tracker\Helpers\HtmlFormating::FormatRiskRating($risk->probability, true, $risk->previous_probability) !!}   </td>
-                        <td class="text-nowrap"> {!! tracker\Helpers\HtmlFormating::FormatRiskRating($risk->impact, true, $risk->previous_impact)  !!} </td>
+                        <td>{{$risk->CurrentRiskClassificationScore}}</td>
                         <td class="text-nowrap">{{$risk->NextReviewDate->format('d M Y')}}</td>
                         <td class="text-nowrap">
                             <a href="{{ URL::asset('risks/') }}/{{$risk['id']}}" class="btn btn-default btn-sm" rel="tooltip" data-placement="top" data-original-title="View"><i class="fa fa-folder"></i></a>

@@ -160,12 +160,6 @@
 
             var responsiveHelper = undefined;
 
-            var breakpointDefinition = {
-            tablet : 1024,
-            phone : 480
-            };
-
-
             var table = $('#dt_risks').DataTable({
 
             // Tabletools options:
@@ -216,7 +210,7 @@
             "preDrawCallback" : function() {
             // Initialize the responsive datatables helper once.
             if (!responsiveHelper) {
-            responsiveHelper = new ResponsiveDatatablesHelper($('#dt_risks'), breakpointDefinition);
+            responsiveHelper = new ResponsiveDatatablesHelper($('#dt_risks'), breakpointDefinition_tracker);
             }
             },
             "rowCallback" : function(nRow) {

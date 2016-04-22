@@ -36,11 +36,11 @@
                         <th class="text-nowrap" data-class="expand">Status</th>
                         <th>ID</th>
                         <th>Title</th>
-                        <th data-hide="phone,tablet">Imp</th>
-                        <th data-hide="phone,tablet">Sev</th>
+                        <th data-hide="phone,tablet">Score</th>
                         <th data-hide="phone,tablet">Review</th>
-                        <th></th>
                         <th data-hide="always">Description</th>
+                        <th></th>
+
                     </tr>
                     </thead>
                     <tbody>
@@ -51,14 +51,14 @@
                             <td>@if($risk['is_an_issue'])<span class="label label-danger">Issue</span> @else <span class="label label-warning">Risk</span> @endif </td>
                             <td>{{$risk->id}}</td>
                             <td>{{$risk['title']}}</td>
-                            <td class="text-nowrap"> {!! tracker\Helpers\HtmlFormating::FormatRiskRating($risk->probability, true, $risk->previous_probability) !!}   </td>
-                            <td class="text-nowrap"> {!! tracker\Helpers\HtmlFormating::FormatRiskRating($risk->impact, true, $risk->previous_impact)  !!} </td>
+                            <td>{{$risk->CurrentRiskClassificationScore}}</td>
                             <td class="text-nowrap">{{$risk->NextReviewDate->format('d M Y')}}</td>
+                            <td>{{$risk->description}}</td>
                             <td class="text-nowrap">
                                 <a href="{{ URL::asset('risks/') }}/{{$risk['id']}}" class="btn btn-default btn-sm" rel="tooltip" data-placement="top" data-original-title="View"><i class="fa fa-folder"></i></a>
                                 <a href="{{action('RiskAndIssueController@editRisk', [$risk->id])}}" class="btn btn-default btn-sm" rel="tooltip" data-placement="top" data-original-title="Edit"><i class="fa fa-pencil"></i></a>
                             </td>
-                            <td>{{$risk->description}}</td>
+
 
 
                         </tr>
@@ -92,12 +92,6 @@
 
     var responsiveHelper = undefined;
 
-    var breakpointDefinition = {
-    tablet : 1024,
-    phone : 480
-    };
-
-
     $('#dt_risks').dataTable({
 
     // Tabletools options:
@@ -106,15 +100,21 @@
 
     "createdRow": function ( row, data, index )
     {
-    if (beforenow( data[5] )) {
+    if (beforenow( data[4] )) {
     $('td', row).eq(4).addClass('text-danger').css('font-weight', 'bold');
     }
-    else if (next5days( data[5] )) {
+    else if (next5days( data[4] )) {
     $('td', row).eq(4).addClass('text-warning').css('font-weight', 'bold');
     }
+
+        if (data[3] > 12)
+        $('td', row).eq(3).addClass('text-danger').css('font-weight', 'bold');
+        else if (data[3] > 9)
+        $('td', row).eq(3).addClass('text-warning').css('font-weight', 'bold');
+
     },
     "pageLength": 20,
-    "order": [[ 5, "asc" ]],
+    "order": [[ 4, "asc" ]],
     "columnDefs": [
     {"targets": [6],"orderable": false},
     ],
@@ -143,7 +143,7 @@
     "preDrawCallback" : function() {
     // Initialize the responsive datatables helper once.
     if (!responsiveHelper) {
-    responsiveHelper = new ResponsiveDatatablesHelper($('#dt_risks'), breakpointDefinition);
+    responsiveHelper = new ResponsiveDatatablesHelper($('#dt_risks'), breakpointDefinition_tracker);
     }
     },
     "rowCallback" : function(nRow) {
