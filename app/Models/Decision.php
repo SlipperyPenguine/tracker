@@ -21,6 +21,11 @@ class Decision extends Model
 
     }
 
+    public function Owner() {
+
+        return $this->hasOne('tracker\Models\User', 'id', 'owner');
+
+    }
 
     public function Meeting() {
 

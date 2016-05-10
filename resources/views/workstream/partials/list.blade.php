@@ -74,7 +74,7 @@
 
                         </td>
                         <td class="text-nowrap">
-                            <a href="{{ URL::asset('programs/') }}/{{$subject['id']}}/workstreams/{{$workstream['id']}}" class="btn btn-default btn-sm" rel="tooltip" data-placement="top" data-original-title="View"><i class="fa fa-folder"></i></a>
+                            <a href="{{ URL::asset('programs/') }}/{{$subject['id']}}/workstreams/{{$workstream['id']}}" class="btn btn-default btn-sm" rel="tooltip" data-placement="top" data-original-title="View"><i class="fa fa-eye"></i></a>
                             <a href="#" class="btn btn-default btn-sm" rel="tooltip" data-placement="top" data-original-title="Edit"><i class="fa fa-pencil"></i></a>
                         </td>
                     </tr>

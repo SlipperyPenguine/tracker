@@ -5,6 +5,7 @@
 
 <fieldset>
     <section>
+        <label class="label">Action Title</label>
         <label class="input"> <i class="icon-prepend fa fa-star"></i>
             {!! Form::text('title', null, ['placeholder'=>"Action Title"] ) !!}
             <b class="tooltip tooltip-bottom-right">Enter a title for the action here</b> </label>
@@ -35,7 +36,7 @@
 </section>
 
     <section>
-
+        <label class="label">Due Date</label>
         <label class="input"> <i class="icon-prepend fa fa-calendar"></i>
             {!! Form::text('DueDate', isset($action) ? $action->DueDate->format('d F Y') : null, ['id'=>'DueDate', 'placeholder'=>"Due Date"] ) !!}
             <b class="tooltip tooltip-bottom-right">Due</b> </label>
@@ -46,6 +47,7 @@
 
 <fieldset>
     <section>
+        <label class="label">Description</label>
         <label class="textarea">
             {!! Form::textarea('description', null, ['rows'=>'5','placeholder'=>"Description"] ) !!}
             <b class="tooltip tooltip-top-left">Describe the action here</b>
@@ -58,7 +60,6 @@
 
         <section id="selectsection">
             <label class="label">Meeting Action Originated from</label>
-
             {!! Form::select('meeting_id',$meetings, $meetingid , ['class'=>"form-control", 'id' => 'meeting_id']) !!}
         </section>
 
@@ -71,6 +72,16 @@
         <label class="input"> <i class="icon-prepend fa fa-star"></i>
             {!! Form::text('raised', null, ['placeholder'=>"Action Originate from", 'id' => 'raised'] ) !!}
             <b class="tooltip tooltip-bottom-right">Enter where the action was raised when not related to a meeting</b> </label>
+    </section>
+</fieldset>
+
+<fieldset>
+    <section>
+        <label class="label">Comment</label>
+        <label class="textarea">
+            {!! Form::textarea('comment', null, ['rows'=>'5','placeholder'=>"Add a Comment"] ) !!}
+            <b class="tooltip tooltip-top-left">If you would like to include a comment add here</b>
+        </label>
     </section>
 </fieldset>
 

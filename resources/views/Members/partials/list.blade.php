@@ -5,13 +5,17 @@
         <span class="widget-icon"> <i class="fa fa-users"></i> </span>
         <h2>Members</h2>
 
+        <div class="widget-toolbar">
+            <a href="{{action('MemberController@createMember', [$subjecttype, $subject->id])}}" class="btn btn-primary btn-sm"><i class="fa fa-plus"></i> Add new Member</a>
+            <a href="{{action('MemberController@indexMember', [$subjecttype, $subject->id])}}" class="btn btn-default"><i class="fa fa-eye"></i> View All </a>
+        </div>
     </header>
 
     <!-- widget div-->
     <div>
 
         <!-- widget content -->
-        <div class="widget-body">
+        <div class="widget-body no-padding">
 
             <table id="dt_members" class="table table-striped table-bordered table-hover" width="100%">
                 <thead>
@@ -32,7 +36,7 @@
                         <td>{{$member->User->name}}</td>
                         <td>{{$member->role}}</td>
                         <td class="text-nowrap">
-                            <a href="{{ URL::asset('members/') }}/{{$member['id']}}" class="btn btn-default btn-sm" rel="tooltip" data-placement="top" data-original-title="View"><i class="fa fa-folder"></i></a>
+                            <a href="{{ URL::asset('members/') }}/{{$member['id']}}" class="btn btn-default btn-sm" rel="tooltip" data-placement="top" data-original-title="View"><i class="fa fa-eye"></i></a>
                             <a href="{{action('MemberController@editMember', [$member->id])}}" class="btn btn-default btn-sm" rel="tooltip" data-placement="top" data-original-title="Edit"><i class="fa fa-pencil"></i></a>
                         </td>
                     </tr>
@@ -41,15 +45,6 @@
 
                 </tbody>
             </table>
-
-            <div class="widget-footer">
-                <div class="pull-left">
-                    <a href="{{action('MemberController@createMember', [$subjecttype, $subject->id])}}" class="btn btn-primary btn-sm">Add new Member</a>
-
-                </div>
-                <a href="{{action('MemberController@indexMember', [$subjecttype, $subject->id])}}" class="btn btn-default"><i class="fa fa-folder"></i> View All </a>
-
-            </div>
 
         </div>
     </div>

@@ -40,7 +40,7 @@
     <div>
 
         <!-- widget content -->
-        <div class="widget-body">
+        <div class="widget-body no-padding">
 
             <table id="dt_userrisks" class="table table-striped table-bordered table-hover" width="100%">
                 <thead>
@@ -74,7 +74,7 @@
                         <td class="text-nowrap">{{$risk->NextReviewDate->format('d M Y')}}</td>
                          <td>{{$risk->description}}</td>
                         <td class="text-nowrap">
-                            <a href="{{ URL::asset('risks/') }}/{{$risk['id']}}" class="btn btn-default btn-sm" rel="tooltip" data-placement="top" data-original-title="View"><i class="fa fa-folder"></i></a>
+                            <a href="{{ URL::asset('risks/') }}/{{$risk['id']}}" class="btn btn-default btn-sm" rel="tooltip" data-placement="top" data-original-title="View"><i class="fa fa-eye"></i></a>
                             <a  href="{{action('RiskAndIssueController@editRisk', [$risk->id])}}" class="btn btn-default btn-sm" rel="tooltip" data-placement="top" data-original-title="Edit"><i class="fa fa-pencil"></i></a>
                         </td>
 

@@ -10,7 +10,7 @@
     <div>
 
         <!-- widget content -->
-        <div class="widget-body">
+        <div class="widget-body no-padding">
 
             <table class="table table-hover no-margins">
                 <thead>

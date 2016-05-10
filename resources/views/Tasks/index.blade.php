@@ -20,13 +20,16 @@
                     <span class="widget-icon"> <i class="fa fa-calendar"></i> </span>
                     <h2>Tasks & Milestones</h2>
 
+                    <div class="widget-toolbar">
+                        <a href="{{action('TaskController@createTask', [$subjecttype, $subjectid])}}" class="btn btn-primary btn-sm"><i class="fa fa-plus"></i> Add new Task</a>
+                    </div>
                 </header>
 
                 <!-- widget div-->
                 <div>
 
                     <!-- widget content -->
-                    <div class="widget-body">
+                    <div class="widget-body no-padding">
 
                         <div id="tasktimeline"></div>
                         <br/>
@@ -55,7 +58,7 @@
                                     <td class="text-nowrap">@if($task->milestone==0){{$task->EndDate->format('d M Y')}}@endif</td>
                                     <td>{{$task->description}}</td>
                                     <td>
-                                        <a href="{{ URL::asset('tasks/') }}/{{$task['id']}}" class="btn btn-default btn-sm" rel="tooltip" data-placement="top" data-original-title="View"><i class="fa fa-folder"></i></a>
+                                        <a href="{{ URL::asset('tasks/') }}/{{$task['id']}}" class="btn btn-default btn-sm" rel="tooltip" data-placement="top" data-original-title="View"><i class="fa fa-eye"></i></a>
                                         <a href="{{action('TaskController@editTask', [$task->id])}}" class="btn btn-default btn-sm" rel="tooltip" data-placement="top" data-original-title="Edit"><i class="fa fa-pencil"></i></a>
                                     </td>
 
@@ -65,12 +68,6 @@
 
                             </tbody>
                         </table>
-
-                        <div class="widget-footer">
-                            <div class="pull-left">
-                                <a href="{{action('TaskController@createTask', [$subjecttype, $subjectid])}}" class="btn btn-primary btn-sm">Add new Task</a>
-                            </div>
-                        </div>
 
                     </div>
                 </div>

@@ -4,13 +4,17 @@
         <span class="widget-icon"> <i class="fa fa-warning"></i> </span>
         <h2>Risks & Issues</h2>
 
+        <div class="widget-toolbar">
+            <a href="{{action('RiskAndIssueController@createRisk', [$subject->subjecttype, $subject->id])}}" class="btn btn-primary btn-sm"><i class="fa fa-plus"></i> Add new Risk or Issue</a>
+            <a href="{{action('RiskAndIssueController@index', [$subject->subjecttype, $subject->id])}}" class="btn btn-default"><i class="fa fa-eye"></i> View All </a>
+        </div>
     </header>
 
     <!-- widget div-->
     <div>
 
         <!-- widget content -->
-        <div class="widget-body">
+        <div class="widget-body no-padding">
 
             <table id="dt_risks" class="table table-striped table-bordered table-hover" width="100%">
                 <thead>
@@ -35,7 +39,7 @@
                         <td>{{$risk->CurrentRiskClassificationScore}}</td>
                         <td class="text-nowrap">{{$risk->NextReviewDate->format('d M Y')}}</td>
                         <td class="text-nowrap">
-                            <a href="{{ URL::asset('risks/') }}/{{$risk['id']}}" class="btn btn-default btn-sm" rel="tooltip" data-placement="top" data-original-title="View"><i class="fa fa-folder"></i></a>
+                            <a href="{{ URL::asset('risks/') }}/{{$risk['id']}}" class="btn btn-default btn-sm" rel="tooltip" data-placement="top" data-original-title="View"><i class="fa fa-eye"></i></a>
                             <a href="{{action('RiskAndIssueController@editRisk', [$risk->id])}}" class="btn btn-default btn-sm" rel="tooltip" data-placement="top" data-original-title="Edit"><i class="fa fa-pencil"></i></a>
                         </td>
 
@@ -46,15 +50,6 @@
 
                 </tbody>
             </table>
-
-            <div class="widget-footer">
-                <div class="pull-left">
-                    <a href="{{action('RiskAndIssueController@createRisk', [$subject->subjecttype, $subject->id])}}" class="btn btn-primary btn-sm">Add new Risk or Issue</a>
-
-                </div>
-                <a href="{{action('RiskAndIssueController@index', [$subject->subjecttype, $subject->id])}}" class="btn btn-default"><i class="fa fa-folder"></i> View All </a>
-
-            </div>
 
         </div>
     </div>

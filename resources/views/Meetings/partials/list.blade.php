@@ -4,13 +4,17 @@
         <span class="widget-icon"> <i class="fa fa-calendar"></i> </span>
         <h2>Meetings</h2>
 
+        <div class="widget-toolbar">
+            <a href="{{action('MeetingController@create', [$subject->subjecttype, $subject->id])}}" class="btn btn-primary btn-sm"><i class="fa fa-plus"></i> Add new Meeting</a>
+            <a href="{{action('MeetingController@index', [$subject->subjecttype, $subject->id])}}" class="btn btn-default"><i class="fa fa-eye"></i> View All </a>
+        </div>
     </header>
 
     <!-- widget div-->
     <div>
 
         <!-- widget content -->
-        <div class="widget-body">
+        <div class="widget-body no-padding">
 
             <table id="dt_meetings" class="table table-striped table-bordered table-hover" width="100%">
                 <thead>
@@ -42,7 +46,7 @@
 
                         <td>{{$meeting['description']}}</td>
                         <td class="text-nowrap">
-                            <a href="{{ URL::asset('meetings/') }}/{{$meeting['id']}}" class="btn btn-default btn-sm" rel="tooltip" data-placement="top" data-original-title="View"><i class="fa fa-folder"></i></a>
+                            <a href="{{ URL::asset('meetings/') }}/{{$meeting['id']}}" class="btn btn-default btn-sm" rel="tooltip" data-placement="top" data-original-title="View"><i class="fa fa-eye"></i></a>
                             <a href="{{action('MeetingController@edit', [$meeting->id])}}" class="btn btn-default btn-sm" rel="tooltip" data-placement="top" data-original-title="Edit"><i class="fa fa-pencil"></i></a>
                             @if( auth()->check() && auth()->user()->isAdmin() )
                                 <a class="btn btn-default btn-sm"
@@ -62,15 +66,6 @@
 
                 </tbody>
             </table>
-
-            <div class="widget-footer">
-                <div class="pull-left">
-                    <a href="{{action('MeetingController@create', [$subject->subjecttype, $subject->id])}}" class="btn btn-primary btn-sm">Add new Meeting</a>
-
-                    </div>
-                    <a href="{{action('MeetingController@index', [$subject->subjecttype, $subject->id])}}" class="btn btn-default"><i class="fa fa-folder"></i> View All </a>
-
-            </div>
 
         </div>
     </div>

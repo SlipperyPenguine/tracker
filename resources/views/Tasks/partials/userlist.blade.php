@@ -20,7 +20,7 @@
     <div>
 
         <!-- widget content -->
-        <div class="widget-body">
+        <div class="widget-body no-padding">
 
             <table id="dt_usertasks" class="table table-striped table-bordered table-hover" width="100%">
                 <thead>
@@ -50,7 +50,7 @@
                         <td class="text-nowrap">@if($task->milestone==0){{$task->EndDate->format('d M Y')}}@endif</td>
                         <td>{{$task->description}}</td>
                         <td class="text-nowrap">
-                            <a href="{{ URL::asset('tasks/') }}/{{$task['id']}}" class="btn btn-default btn-sm" rel="tooltip" data-placement="top" data-original-title="View"><i class="fa fa-folder"></i></a>
+                            <a href="{{ URL::asset('tasks/') }}/{{$task['id']}}" class="btn btn-default btn-sm" rel="tooltip" data-placement="top" data-original-title="View"><i class="fa fa-eye"></i></a>
                             <a href="{{action('TaskController@editTask', [$task->id])}}" class="btn btn-default btn-sm" rel="tooltip" data-placement="top" data-original-title="Edit"><i class="fa fa-pencil"></i></a>
                         </td>
 

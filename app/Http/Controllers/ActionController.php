@@ -119,11 +119,12 @@ class ActionController extends Controller
      */
     public function store(Request $request)
     {
+        //return $request->all();
         $meetingid = null;
         if ( ( $request->has('meeting_id') ) && ($request->meeting_id > 0) )
             $meetingid = $request->meeting_id;
 
-        $this->actionRepository->RegisterNew([
+        $action = $this->actionRepository->RegisterNew([
             'subject_id'        => $request->subject_id,
             'subject_type'      => $request->subject_type,
             'subject_name'      => Breadcrumbs::getSubjectName($request->subject_type, $request->subject_id),
@@ -136,6 +137,11 @@ class ActionController extends Controller
             'meeting_id'        => $meetingid,
             'created_by'        => Auth::id()
         ]);
+
+        if($request->has('comment') && (strlen($request->comment)>0))
+        {
+            $action->RecordNewComment($request->comment);
+        }
 
         flash()->success('Success', "New Action created successfully");
 
@@ -195,6 +201,11 @@ class ActionController extends Controller
             'DueDate'           => Carbon::parse($request->DueDate)->toDateTimeString(),
             'meeting_id'        => $meetingid,
         ]);
+
+        if($request->has('comment') && (strlen($request->comment)>0))
+        {
+            $action->RecordNewComment($request->comment);
+        }
 
         flash()->success('Success', "Action updated successfully");
 

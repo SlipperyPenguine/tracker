@@ -24,6 +24,10 @@
                     <span class="widget-icon"> <i class="fa fa-calendar"></i> </span>
                     <h2>Tasks & Milestones</h2>
 
+                    <div class="widget-toolbar">
+                        <a href="{{action('TaskController@createTask', [$subjecttype, $subjectid])}}" class="btn btn-primary btn-sm"><i class="fa fa-plus"></i> Add new Task</a>
+                        <a href="{{action('ProjectController@MicrosoftProjectUpload', [$subjectid])}}" class="btn btn-info btn-sm">Import MS Project File</a>
+                    </div>
                 </header>
 
                 <!-- widget div-->
@@ -35,14 +39,6 @@
                         <div class="custom-scroll table-responsive" style="height:600px; overflow-y: scroll;">
 
                             <div id="gantt_here" style='width:100%; height:100%;'></div>
-                        </div>
-
-                        <div class="widget-footer">
-                            <div class="pull-left">
-                                <a href="{{action('TaskController@createTask', [$subjecttype, $subjectid])}}" class="btn btn-primary btn-sm">Add new Task</a>
-                            </div>
-                            <a href="{{action('ProjectController@MicrosoftProjectUpload', [$subjectid])}}" class="btn btn-info btn-sm">Import MS Project File</a>
-
                         </div>
 
                     </div>

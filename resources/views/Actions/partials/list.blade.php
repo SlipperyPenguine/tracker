@@ -3,6 +3,10 @@
     <header>
         <span class="widget-icon"> <i class="fa fa-bolt"></i> </span>
         <h2>Actions</h2>
+        <div class="widget-toolbar">
+            <a href="{{action('ActionController@create', [$subject->subjecttype, $subject->id])}}" class="btn btn-primary btn-xs"><i class="fa fa-plus"></i> Add new Action</a>
+            <a href="{{action('ActionController@index', [$subject->subjecttype, $subject->id])}}" class="btn btn-default btn-xs"><i class="fa fa-eye"></i> View All </a>
+        </div>
 
     </header>
 
@@ -10,7 +14,7 @@
     <div>
 
         <!-- widget content -->
-        <div class="widget-body">
+        <div class="widget-body no-padding">
 
             <table id="dt_actions" class="table table-striped table-bordered table-hover" width="100%">
                 <thead>
@@ -41,7 +45,7 @@
                         <td>{{$action['description']}}</td>
                         <td>@if(isset($action->meeting_id)) {{$action->Meeting->title}}  @else {{$action['raised']}} @endif</td>
                         <td class="text-nowrap">
-                            <a href="{{ URL::asset('actions/') }}/{{$action['id']}}" class="btn btn-default btn-sm" rel="tooltip" data-placement="top" data-original-title="View"><i class="fa fa-folder"></i></a>
+                            <a href="{{ URL::asset('actions/') }}/{{$action['id']}}" class="btn btn-default btn-sm" rel="tooltip" data-placement="top" data-original-title="View"><i class="fa fa-eye"></i></a>
                             <a href="{{action('ActionController@edit', [$action->id])}}" class="btn btn-default btn-sm" rel="tooltip" data-placement="top" data-original-title="Edit"><i class="fa fa-pencil"></i></a>
                             @if( auth()->check() && auth()->user()->isAdmin() )
                                 <a class="btn btn-default btn-sm"
@@ -61,15 +65,6 @@
 
                 </tbody>
             </table>
-
-            <div class="widget-footer">
-                <div class="pull-left">
-                    <a href="{{action('ActionController@create', [$subject->subjecttype, $subject->id])}}" class="btn btn-primary btn-sm">Add new Action</a>
-
-                    </div>
-                    <a href="{{action('ActionController@index', [$subject->subjecttype, $subject->id])}}" class="btn btn-default"><i class="fa fa-folder"></i> View All </a>
-
-            </div>
 
         </div>
     </div>

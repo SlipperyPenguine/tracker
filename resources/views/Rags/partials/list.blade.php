@@ -4,13 +4,17 @@
         <span class="widget-icon"> <i class="fa fa-tachometer"></i> </span>
         <h2>RAGs</h2>
 
+        <div class="widget-toolbar">
+            <a href="{{action('RagController@create', [$subject->subjecttype, $subject->id])}}" class="btn btn-primary btn-sm"><i class="fa fa-plus"></i> Add new RAG</a>
+            <a href="{{action('RagController@index', [$subject->subjecttype, $subject->id])}}" class="btn btn-default"><i class="fa fa-eye"></i> View All </a>
+        </div>
     </header>
 
     <!-- widget div-->
     <div>
 
         <!-- widget content -->
-        <div class="widget-body">
+        <div class="widget-body no-padding">
 
             <table id="dt_rags" class="table table-striped table-bordered table-hover" width="100%">
                 <thead>
@@ -31,7 +35,7 @@
                             {!! $formater::FormatRAG($rag->value) !!}
                         </td>
                         <td>
-                            <a href="{{ URL::asset('rags/') }}/{{$rag['id']}}" class="btn btn-default btn-sm" rel="tooltip" data-placement="top" data-original-title="View"><i class="fa fa-folder"></i></a>
+                            <a href="{{ URL::asset('rags/') }}/{{$rag['id']}}" class="btn btn-default btn-sm" rel="tooltip" data-placement="top" data-original-title="View"><i class="fa fa-eye"></i></a>
                             <a href="{{action('RagController@edit', [$rag->id])}}" class="btn btn-default btn-sm" rel="tooltip" data-placement="top" data-original-title="Edit"><i class="fa fa-pencil"></i></a>
                         </td>
                     </tr>
@@ -40,15 +44,6 @@
 
                 </tbody>
             </table>
-
-            <div class="widget-footer">
-                <div class="pull-left">
-                    <a href="{{action('RagController@create', [$subject->subjecttype, $subject->id])}}" class="btn btn-primary btn-sm">Add new RAG</a>
-
-                </div>
-                <a href="{{action('RagController@index', [$subject->subjecttype, $subject->id])}}" class="btn btn-default"><i class="fa fa-folder"></i> View All </a>
-
-            </div>
 
         </div>
     </div>

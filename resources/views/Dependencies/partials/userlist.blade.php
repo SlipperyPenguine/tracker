@@ -20,7 +20,7 @@
     <div>
 
         <!-- widget content -->
-        <div class="widget-body">
+        <div class="widget-body no-padding">
 
             <table id="dt_dependencies" class="table table-striped table-bordered table-hover" width="100%">
                 <thead>
@@ -52,7 +52,7 @@
                         <td>{{$dependency['dependent_on_name']}}</td>
                         <td>{{$dependency['description']}}</td>
                         <td class="text-nowrap">
-                            <a href="{{ URL::asset('dependencies/') }}/{{$dependency['id']}}" class="btn btn-default btn-sm" rel="tooltip" data-placement="top" data-original-title="View"><i class="fa fa-folder"></i></a>
+                            <a href="{{ URL::asset('dependencies/') }}/{{$dependency['id']}}" class="btn btn-default btn-sm" rel="tooltip" data-placement="top" data-original-title="View"><i class="fa fa-eye"></i></a>
                             <a href="{{action('DependencyController@edit', [$dependency->id])}}" class="btn btn-default btn-sm" rel="tooltip" data-placement="top" data-original-title="Edit"><i class="fa fa-pencil"></i></a>
                             @if( auth()->check() && auth()->user()->isAdmin() )
                                 <a class="btn btn-default btn-sm"
