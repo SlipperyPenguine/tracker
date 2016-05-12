@@ -48,7 +48,7 @@
                 </section>
 
                 <section>
-                    <button type="submit" class="btn btn-primary btn-block">
+                    <button type="submit" class="btn btn-primary btn-lg btn-block">
                         Upload File
                     </button>
 
@@ -60,19 +60,41 @@
                 <section>
                     <div class="row" >
                         <div class="col col-lg-12" id="uploading" style="display: none">
-                            <h1><i class="fa fa-cog fa-spin"></i> File is uploading...</h1>
+                            <p>
+                                <span id="progresstext" class="pull-right">0%</span>
+                                <h3 id="fileloading"><i class="fa fa-cog fa-spin"></i> File is uploading...</h3>
+
+                            </p>
+                            <div class="progress">
+                                <div id="uploadprogressbar" class="progress-bar bg-color-green" role="progressbar" style="width: 0%"></div>
+                            </div>
+
                         </div>
                     </div>
+
                 </section>
             </fieldset>
 
         {!! Form::close() !!}
 
+            <section>
+
+            <label>Extended Attributes</label>
+
+            {!! Form::select('extendedAttributes', [], null ,['class'=>"form-control", 'id'=>"extendedAttributes"] ) !!}
+
+            </section>
+
+            <section>
+            <button id="btnParseFile" type="button" class="btn btn-primary btn-lg btn-block">
+                Parse File
+            </button>
+            </section>
         </div>
 
-                <div class="row" id="ajaxresponse">
+            <div class="row" id="ajaxresponse">
 
-                </div>
+            </div>
 
 
     </section>

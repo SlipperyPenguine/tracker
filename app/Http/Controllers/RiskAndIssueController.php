@@ -171,6 +171,11 @@ class RiskAndIssueController extends Controller
 
         $risk->save();
 
+        if($request->has('comment') && (strlen($request->comment)>0))
+        {
+            $risk->RecordNewComment($request->comment);
+        }
+
         $type = 'RISK';
 
         if ( $risk->is_an_issue==1)
@@ -248,8 +253,12 @@ class RiskAndIssueController extends Controller
         $risk->response_strategy =  $request->response_strategy;
         $risk->response_notes =  $request->response_notes;
 
-
         $risk->save();
+
+        if($request->has('comment') && (strlen($request->comment)>0))
+        {
+            $risk->RecordNewComment($request->comment);
+        }
 
         $type = 'RISK';
 

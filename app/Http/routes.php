@@ -147,6 +147,8 @@ Route::delete('links/{id}', ['middleware'=>'auth', 'uses' =>  'LinkController@de
 //API
 Route::get('api/getUsers', 'ApiController@getUsers');
 Route::get('api/getDependentLookup', 'ApiController@getDependentLookup');
+Route::get('api/project/getExtendedAttributes', 'ApiController@getProjectExtendedAttributes');
+Route::get('api/project/AjaxParseFile', 'ProjectController@AjaxParseFile');
 Route::post('api/setbodyclass', 'ApiController@setBodyClass');
 
 //Debug

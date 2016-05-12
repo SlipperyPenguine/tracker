@@ -181,13 +181,63 @@ class ProjectController extends Controller
             return "No file selected to upload";
 
         }
+        $filename = $this->storeTheProjectXmlFile($request);
+        return 'done';
 
-        return $this->MSProjectUpload->ParseFile($request->input('projectid'), $request->file('fileToUpload'));
+        $extendedAttributes = $this->MSProjectUpload->GetExtendedAttributes($filename);
+
+        $output = "";
+        $output .= "<table>";
+        foreach($extendedAttributes  as $key => $extendedAttribute)
+        {
+            $output .= "<tr>";
+
+            $output .= "<td>";
+            $output .= $key;
+            $output .= "</td>";
+
+            $output .= "<td>";
+            $output .= $extendedAttribute;
+            $output .= "</td>";
+
+            $output .= "</tr>";
+        }
+        $output .= "</table>";
+
+        return $output;
+
+
+
+        //return $this->MSProjectUpload->ParseFile($request->input('projectid'), $request->file('fileToUpload'));
+    }
+
+    public function AjaxParseFile(Request $request)
+    {
+        $path = public_path() . "\\projectfiles";
+        $projectid = $request->projectid;
+        $flagid = $request->flagid;
+        $filename = "$path\\$projectid.xml";
+
+        return $this->MSProjectUpload->ParseFile($projectid, $flagid, $filename);
     }
 
     public function StoreMicrosoftProjectUpload( $projectid)
     {
         return $this->MSProjectUpload->ProcessTheParsedFile($projectid);
+    }
+
+    /**
+     * @param Request $request
+     */
+    private function storeTheProjectXmlFile(Request $request)
+    {
+        //store the file
+        $path = public_path() . "/projectfiles";
+        $projectid = $request->input('projectid');
+        $filename = "$projectid.xml";
+        $request->file('fileToUpload')->move($path, $filename);
+
+        return $path.'/'.$filename;
     }
 
 }

@@ -1,18 +1,5 @@
 <script type="text/javascript">
 
-    function GetExtendedAttributes()
-    {
-        $.ajax({
-                    url: "{{ action('ApiController@getProjectExtendedAttributes', ['projectid'=>$project->id]) }}"
-                })
-                .done(function( data ) {
-                    $("#extendedAttributes").select2({
-                        data: data
-                    })
-                });
-
-    }
-
     function DisplayTree()
     {
         // PAGE RELATED SCRIPTS
@@ -59,54 +46,18 @@
 
         $.ajax({
             url: "{{ action('ProjectController@AjaxFileUpload') }}",
-            xhr: function() { // custom xhr (is the best)
-
-                var xhr = new XMLHttpRequest();
-                var total = 0;
-
-                // Get the total size of files
-                $.each(document.getElementById('xmlfile').files, function(i, file) {
-                    total += file.size;
-                });
-
-                // Called when upload progress changes. xhr2
-                xhr.upload.addEventListener("progress", function(evt) {
-                    // show progress like example
-                    var loaded = (evt.loaded / total).toFixed(2)*100; // percent
-
-                    //$('#uploading').text('Uploading... ' + loaded + '%' );
-                    $('#uploadprogressbar').width(loaded + '%');
-                    $('#progresstext').html(loaded + '%');
-                }, false);
-
-                return xhr;
-            },
             type: "POST",
             data: fd,
             processData: false,
             contentType: false,
             success: function(response) {
-                $('#fileloading').html('<i class="fa fa-lg fa-check"></i> File Uploaded Successfully');
-                $('#progresstext').hide();
-                //$("div#ajaxresponse").html(response);
-                GetExtendedAttributes();
-                //DisplayTree();
+                $("div#ajaxresponse").html(response);
+                DisplayTree();
             },
             error: function(jqXHR, textStatus, errorMessage) {
                 console.log(errorMessage); // Optional
             }
         });
-
-    });
-
-    $("#btnParseFile").click(function() {
-        $.ajax({
-                    url: "{{url('api/project/AjaxParseFile')}}?projectid={{$project->id}}&flagid="+ $('#extendedAttributes').val()
-                })
-                .done(function( data ) {
-                    $("div#ajaxresponse").html(data);
-                    DisplayTree();
-                });
 
     });
 

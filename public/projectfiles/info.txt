@@ -1,0 +1,3 @@
+MS project files stored here
+
+Format is <project id>.xml

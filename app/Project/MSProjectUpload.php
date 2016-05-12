@@ -11,13 +11,17 @@ namespace tracker\Project;
 
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Log;
 use RecursiveArrayIterator;
 use RecursiveIteratorIterator;
+use SimpleXMLElement;
 use tracker\Helpers\Breadcrumbs;
 use tracker\Models\Program;
 use tracker\Models\Project;
 use tracker\Models\Task;
 use tracker\Models\WorkStream;
+use XMLReader;
 
 class MSProjectUpload
 {
@@ -40,10 +44,11 @@ class MSProjectUpload
 
     }
 
-    public function ParseFile($projectid, $file)
+    public function ParseFile($projectid, $flagid, $filename)
     {
-        //get the file, convert to an array
-        $arrayofimportedtasks = $this->ProcessImportedProjectFile($file);
+
+        //convert to an array
+        $arrayofimportedtasks = $this->ProcessImportedProjectFile($filename, $flagid);
 
         //get collection of tasks currently imported for this project
         $dbtasks = Task::where('subject_type', 'Project')
@@ -144,21 +149,60 @@ class MSProjectUpload
 
     }
 
-    private function ProcessImportedProjectFile($file)
+    public function GetExtendedAttributes($filename)
     {
-        $xml = simplexml_load_file($file->getRealPath());
+        $z = new XMLReader;
+        $z->open($filename);
+
+        $extendedAttributes = array();
+
+        //$doc = new DOMDocument;
+
+// move to the first <ExtendedAttribute /> node
+        while ($z->read() && $z->name !== 'ExtendedAttribute');
+
+// now that we're at the right depth, hop to the next <ExtendedAttribute/> until the end of the tree
+        while ($z->name === 'ExtendedAttribute')
+        {
+            // either one should work
+            $node = new SimpleXMLElement($z->readOuterXML());
+            //$node = simplexml_import_dom($doc->importNode($z->expand(), true));
+
+            // now you can use $node without going insane about parsing
+            //$extendedAttributes[] = json_encode( $node);
+            //$extendedAttributes[(int)$node->FieldID] =  $node->FieldName;
+            $extendedAttributes[] = ['id'=> (int)$node->FieldID, 'text'=> (string)$node->FieldName];
+            //var_dump($node->element_1);
+
+            // go to next <ExtendedAttribute />
+            $z->next('ExtendedAttribute');
+        }
+
+        return $extendedAttributes;
+    }
+
+    private function ProcessImportedProjectFile($filename, $flagid)
+    {
+        $xml = simplexml_load_file($filename);
         $json = json_encode($xml);
         $array = json_decode($json, TRUE);
 
         //put the tasks into a collection
         $collect = collect($array['Tasks']['Task']);
 
+        //dd($collect);
+
         //select the tasks with the flag set
-        $flag1tasks = $collect->where('ExtendedAttribute.Value', '1');
+        //$flag1tasks = $collect->where('ExtendedAttribute.Value', '1');
+        $flag1tasks = $collect->where('ExtendedAttribute.FieldID', $flagid);
 
-        if ($flag1tasks->count() == 0)
-            $flag1tasks = $collect->where('ExtendedAttribute.0.Value', '1');
+        if ($flag1tasks->count() == 0) {
+            //$flag1tasks = $collect->where('ExtendedAttribute.0.Value', '1');
+            $flag1tasks = $collect->where('ExtendedAttribute.0.FieldID', $flagid);
+        }
 
+
+        //dd($flag1tasks);
         //build the heirarchy of tasks needed
         $newarrayforfun = array();
 
@@ -181,10 +225,17 @@ class MSProjectUpload
                 $task['Finish'] = $targettask['Finish'];
                 $task['Milestone'] = $targettask['Milestone'];
                 $task['PercentComplete'] = $targettask['PercentComplete'];
-                if (isset($targettask['ExtendedAttribute']))
+/*                if (isset($targettask['ExtendedAttribute']))
                     $task['flag1'] = 1;
                 else
-                    $task['flag1'] = 0;
+                    $task['flag1'] = 0;*/
+
+                $flattened = array_flatten($targettask);
+                $task['flag1'] = array_search($flagid, $flattened) ? 1 : 0;
+
+
+
+                //$task['flag1'] = ($targettask->where('ExtendedAttribute.FieldID', $flagid)->count() > 0 );
                 $taskitem[] = $task;
 
                 $pop = array_pop($outlinearray);
@@ -196,6 +247,7 @@ class MSProjectUpload
             $newarrayforfun[] = $taskitem;
         }
 
+        //dd($newarrayforfun);
         return $newarrayforfun;
 
     }

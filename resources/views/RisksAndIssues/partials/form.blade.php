@@ -132,6 +132,16 @@
     </section>
 </fieldset>
 
+<fieldset>
+    <section>
+        <label class="label">Comment</label>
+        <label class="textarea">
+            {!! Form::textarea('comment', null, ['rows'=>'5','placeholder'=>"Add a Comment"] ) !!}
+            <b class="tooltip tooltip-top-left">If you would like to include a comment add here</b>
+        </label>
+    </section>
+</fieldset>
+
 <footer>
     <button type="submit" class="btn btn-block btn-primary">
         Submit Form
