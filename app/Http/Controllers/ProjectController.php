@@ -213,10 +213,10 @@ class ProjectController extends Controller
 
     public function AjaxParseFile(Request $request)
     {
-        $path = public_path() . "\\projectfiles";
+        $path = public_path() . "/projectfiles";
         $projectid = $request->projectid;
         $flagid = $request->flagid;
-        $filename = "$path\\$projectid.xml";
+        $filename = "$path/$projectid.xml";
 
         return $this->MSProjectUpload->ParseFile($projectid, $flagid, $filename);
     }
