@@ -30,7 +30,7 @@
                 </thead>
                 <tbody>
 
-                @foreach($subject->Risks as $risk)
+                @foreach($subject->Risks()->Open()->get() as $risk)
 
                     <tr>
                         <td>@if($risk['is_an_issue'])<span class="label label-danger">Issue</span> @else <span class="label label-warning">Risk</span> @endif </td>

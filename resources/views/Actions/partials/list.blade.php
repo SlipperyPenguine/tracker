@@ -32,7 +32,7 @@
                 </thead>
                 <tbody>
 
-                @foreach($subject->Actions as $action)
+                @foreach($subject->Actions()->Active()->get() as $action)
 
                     <tr>
                         <td class="tooltip-demo text-nowrap">
