@@ -152,6 +152,30 @@
         var timeline = new vis.Timeline(container, items, groups, options);
     </script>
 
+    <script>
+        $('#showprojectclosed').click(function() {
+
+            var table = $('#dt_projects').DataTable();
+
+            if (!$(this).is(':checked')) {
+                //show everything
+                var filteredData = table
+                        .column( 3 )
+                        .search('');
+            }
+            else
+            {
+                //only show open
+                var filteredData = table
+                        .column( 3 )
+                        .search('(Pre(.*))|(Post(.*))', true, false, false);
+        }
+
+            table.draw();
+        });
+
+    </script>
+
 @endsection
 
 

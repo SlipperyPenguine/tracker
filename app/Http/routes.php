@@ -30,6 +30,7 @@ Route::get('programs/{ProgramID}/workstreams/{WorkstreamID}/projects/{id}/edit',
 Route::get('programs/{ProgramID}/workstreams/{WorkstreamID}/projects/{id}',['uses' => 'ProjectController@show' ] );
 Route::post('projects', ['middleware'=>'auth', 'uses' =>  'ProjectController@store'] );
 Route::patch('projects/{id}', ['middleware'=>'auth', 'uses' => 'ProjectController@update'] );
+Route::get('projects/index/{subjecttype}/{subjectid}', ['uses' => 'ProjectController@index'] );
 Route::post('AjaxFileUpload', [ 'uses' =>  'ProjectController@AjaxFileUpload'] );
 
 Route::get('projects/{id}/projectupload',['as'=>'MicrosoftProjectUpload' ,'middleware'=>'auth', 'uses' => 'ProjectController@MicrosoftProjectUpload' ] );

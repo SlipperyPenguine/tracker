@@ -38,3 +38,11 @@ $('#dt_projects').dataTable(
         responsiveHelper_dt_projects.createExpandIcon(nRow);
     },
 });
+
+var table = $('#dt_projects').DataTable();
+
+var filteredData = table
+.column( 3 )
+.search('(Pre(.*))|(Post(.*))', true, false, false);
+
+table.draw();

@@ -34,7 +34,7 @@ class ProjectController extends Controller
      */
     public function index()
     {
-        //
+        return 'not implemented yet';
     }
 
     protected function getWorkstream($id){

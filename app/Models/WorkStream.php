@@ -35,7 +35,6 @@ class WorkStream extends Model
 
     }
 
-
     public function Projects() {
         return $this->hasMany('tracker\Models\Project', 'work_stream_id', 'id');
     }

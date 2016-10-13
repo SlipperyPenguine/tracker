@@ -44,7 +44,7 @@
 
              @include('Dependencies.partials.list')
 
-                @include('ChangeRequests.partials.list')
+                {{--@include('ChangeRequests.partials.list')--}}
 
                 @include('Tasks.partials.list')
 
@@ -99,7 +99,7 @@
 
     @include('Tasks.partials.listreadtyfunction')
 
-    @include('ChangeRequests.partials.listreadtyfunction')
+    {{--@include('ChangeRequests.partials.listreadtyfunction')--}}
 
     @include('Comments.partials.listreadtfunction')
 

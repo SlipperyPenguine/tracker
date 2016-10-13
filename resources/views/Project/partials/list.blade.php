@@ -4,6 +4,21 @@
         <span class="widget-icon"> <i class="fa fa-tasks"></i> </span>
         <h2>Projects</h2>
 
+        <div class="widget-toolbar">
+            <a href="{{action('ProjectController@create', ['WorkStream', $subject->id])}}" class="btn btn-primary btn-sm"><i class="fa fa-plus"></i> Add new Project</a>
+            {{--<a href="{{action('ProjectController@index', ['WorkStream', $subject->id])}}" class="btn btn-default"><i class="fa fa-eye"></i> View All </a>--}}
+        </div>
+
+        <div class="widget-toolbar" id="switch-1">
+            <span class="onoffswitch-title"><i class="fa fa-filter"></i> Active Only</span>
+            <span class="onoffswitch">
+											<input type="checkbox" name="showprojectclosed" class="onoffswitch-checkbox" id="showprojectclosed" checked>
+											<label class="onoffswitch-label" for="showprojectclosed">
+                                                <span class="onoffswitch-inner" data-swchon-text="Yes" data-swchoff-text="No"></span>
+                                                <span class="onoffswitch-switch"></span> </label>
+											</span>
+        </div>
+
     </header>
 
     <!-- widget div-->
@@ -64,7 +79,7 @@
 
                         </td>
 
-                        <td><i class="fa fa-check text-navy"></i> {{$project['StatusText']}} </td>
+                        <td>{{$project['StatusText']}}</td>
 
                         <td class="text-nowrap">{{$project->StartDate->format('d M Y')}}</td>
 
@@ -83,14 +98,6 @@
 
                 </tbody>
             </table>
-
-            <div class="widget-footer">
-                <div class="pull-left">
-                    <a href="{{action('ProjectController@create', ['WorkStream', $subject->id])}}" class="btn btn-primary btn-sm"><i class="fa fa-plus"></i> Add new Project</a>
-
-                </div>
-
-            </div>
 
         </div>
     </div>
