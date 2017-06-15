@@ -1,8 +1,8 @@
 <?php
 
 //Home Page - will redirect to user dashboard if they are logged in
-Route::get('/', 'PagesController@home');
-Route::get('home', ['as' => 'home', 'uses' => 'PagesController@home' ]);
+Route::get('/', ['middleware'=>'auth', 'uses' =>'PagesController@home']);
+Route::get('home', ['middleware'=>'auth', 'as' => 'home', 'uses' => 'PagesController@home' ]);
 
 //Authentication
 //Route::controllers(['auth'=>'Auth\AuthController', 'password'=>'Auth\PasswordController']);
@@ -15,23 +15,23 @@ Route::get('home', ['as' => 'home', 'uses' => 'PagesController@home' ]);
 //});
 
 //Programs
-Route::get('programs', 'ProgramController@index');
-Route::get('programs/{ProgramID}', 'ProgramController@show');
-Route::get('programs/{ProgramID}/edit', 'ProgramController@edit');
+Route::get('programs', ['middleware'=>'auth', 'uses' => 'ProgramController@index' ]);
+Route::get('programs/{ProgramID}', [ 'middleware'=>'auth', 'uses' => 'ProgramController@show' ]);
+Route::get('programs/{ProgramID}/edit', ['middleware'=>'auth', 'uses' => 'ProgramController@edit']);
 
 //Work Streams
-Route::get('programs/{ProgramID}/workstreams/{WorkstreamID}', 'WorkstreamController@show');
+Route::get('programs/{ProgramID}/workstreams/{WorkstreamID}', ['middleware'=>'auth', 'uses' => 'WorkstreamController@show']);
 Route::get('programs/{ProgramID}/workstreams/{WorkstreamID}/risksandissues/create',['middleware'=>'auth', 'uses' => 'RiskAndIssueController@createWorkstreamRiskOrIssue' ] );
 Route::get('programs/{ProgramID}/workstreams/{WorkstreamID}/risksandissues/{id}/edit', ['middleware'=>'auth', 'uses' => 'RiskAndIssueController@editWorkstreamRiskOrIssue'] );
 
 //Projects
 Route::get('programs/{ProgramID}/workstreams/{WorkstreamID}/projects/create',['middleware'=>'auth', 'uses' => 'ProjectController@create' ] );
 Route::get('programs/{ProgramID}/workstreams/{WorkstreamID}/projects/{id}/edit',['middleware'=>'auth', 'uses' => 'ProjectController@edit' ] );
-Route::get('programs/{ProgramID}/workstreams/{WorkstreamID}/projects/{id}',['uses' => 'ProjectController@show' ] );
+Route::get('programs/{ProgramID}/workstreams/{WorkstreamID}/projects/{id}',['middleware'=>'auth', 'uses' => 'ProjectController@show' ] );
 Route::post('projects', ['middleware'=>'auth', 'uses' =>  'ProjectController@store'] );
 Route::patch('projects/{id}', ['middleware'=>'auth', 'uses' => 'ProjectController@update'] );
-Route::get('projects/index/{subjecttype}/{subjectid}', ['uses' => 'ProjectController@index'] );
-Route::post('AjaxFileUpload', [ 'uses' =>  'ProjectController@AjaxFileUpload'] );
+Route::get('projects/index/{subjecttype}/{subjectid}', ['middleware'=>'auth', 'uses' => 'ProjectController@index'] );
+Route::post('AjaxFileUpload', [ 'middleware'=>'auth', 'uses' =>  'ProjectController@AjaxFileUpload'] );
 
 Route::get('projects/{id}/projectupload',['as'=>'MicrosoftProjectUpload' ,'middleware'=>'auth', 'uses' => 'ProjectController@MicrosoftProjectUpload' ] );
 Route::post('projects/{id}/projectupload',['middleware'=>'auth', 'uses' => 'ProjectController@StoreMicrosoftProjectUpload' ] );
@@ -42,14 +42,14 @@ Route::post('risksandissues', ['middleware'=>'auth', 'uses' =>  'RiskAndIssueCon
 Route::patch('risksandissues/{id}', ['middleware'=>'auth', 'uses' => 'RiskAndIssueController@update'] );
 Route::get('risks/create/{subjecttype}/{subjectid}',['middleware'=>'auth', 'uses' => 'RiskAndIssueController@createRisk' ] );
 Route::get('risks/{id}/edit', ['middleware'=>'auth', 'uses' => 'RiskAndIssueController@editRisk'] );
-Route::get('risks', ['uses' => 'RiskAndIssueController@indexall'] );
-Route::get('risks/{id}', ['uses' => 'RiskAndIssueController@show'] );
-Route::get('risks/index/{subjecttype}/{subjectid}', ['uses' => 'RiskAndIssueController@index'] );
+Route::get('risks', ['middleware'=>'auth', 'uses' => 'RiskAndIssueController@indexall'] );
+Route::get('risks/{id}', ['middleware'=>'auth', 'uses' => 'RiskAndIssueController@show'] );
+Route::get('risks/index/{subjecttype}/{subjectid}', ['middleware'=>'auth', 'uses' => 'RiskAndIssueController@index'] );
 
 //comments
 Route::post('comments', ['middleware'=>'auth', 'uses' =>  'CommentController@store'] );
 Route::delete('comments/{id}', ['middleware'=>'auth', 'uses' =>  'CommentController@destroy'] );
-Route::post('AjaxComments', [ 'uses' =>  'CommentController@AjaxStore'] );
+Route::post('AjaxComments', [ 'middleware'=>'auth', 'uses' =>  'CommentController@AjaxStore'] );
 
 //users
 Route::get('users', 'UserController@index');
@@ -62,9 +62,9 @@ Route::patch('users/{id}', ['middleware'=>'auth', 'uses' => 'UserController@upda
 //Actions
 Route::get('actions/create/{subjecttype}/{subjectid}',['middleware'=>'auth', 'uses' => 'ActionController@create' ] );
 Route::get('actions/{id}/edit', ['middleware'=>'auth', 'uses' => 'ActionController@edit'] );
-Route::get('actions/index/{subjecttype}/{subjectid}', ['uses' => 'ActionController@index'] );
-Route::get('actions', ['uses' => 'ActionController@indexall'] );
-Route::get('actions/{id}', [ 'uses' => 'ActionController@show'] );
+Route::get('actions/index/{subjecttype}/{subjectid}', ['middleware'=>'auth', 'uses' => 'ActionController@index'] );
+Route::get('actions', ['middleware'=>'auth', 'uses' => 'ActionController@indexall'] );
+Route::get('actions/{id}', [ 'middleware'=>'auth', 'uses' => 'ActionController@show'] );
 Route::post('actions', ['middleware'=>'auth', 'uses' =>  'ActionController@store'] );
 Route::patch('actions/{id}', ['middleware'=>'auth', 'uses' => 'ActionController@update'] );
 Route::delete('actions/{id}', ['middleware'=>'auth', 'uses' =>  'ActionController@destroy'] );
@@ -72,19 +72,29 @@ Route::delete('actions/{id}', ['middleware'=>'auth', 'uses' =>  'ActionControlle
 //Assumptions
 Route::get('assumptions/create/{subjecttype}/{subjectid}',['middleware'=>'auth', 'uses' => 'AssumptionController@create' ] );
 Route::get('assumptions/{id}/edit', ['middleware'=>'auth', 'uses' => 'AssumptionController@edit'] );
-Route::get('assumptions/index/{subjecttype}/{subjectid}', ['uses' => 'AssumptionController@index'] );
-Route::get('assumptions', ['uses' => 'AssumptionController@indexall'] );
-Route::get('assumptions/{id}', [ 'uses' => 'AssumptionController@show'] );
+Route::get('assumptions/index/{subjecttype}/{subjectid}', ['middleware'=>'auth', 'uses' => 'AssumptionController@index'] );
+Route::get('assumptions', ['middleware'=>'auth', 'uses' => 'AssumptionController@indexall'] );
+Route::get('assumptions/{id}', [ 'middleware'=>'auth', 'uses' => 'AssumptionController@show'] );
 Route::post('assumptions', ['middleware'=>'auth', 'uses' =>  'AssumptionController@store'] );
 Route::patch('assumptions/{id}', ['middleware'=>'auth', 'uses' => 'AssumptionController@update'] );
 Route::delete('assumptions/{id}', ['middleware'=>'auth', 'uses' =>  'AssumptionController@destroy'] );
 
+//Decisions
+Route::get('decisions/create/{subjecttype}/{subjectid}',['middleware'=>'auth', 'uses' => 'DecisionController@create' ] );
+Route::get('decisions/{id}/edit', ['middleware'=>'auth', 'uses' => 'DecisionController@edit'] );
+Route::get('decisions/index/{subjecttype}/{subjectid}', ['middleware'=>'auth', 'uses' => 'DecisionController@index'] );
+Route::get('decisions', ['middleware'=>'auth', 'uses' => 'DecisionController@indexall'] );
+Route::get('decisions/{id}', ['middleware'=>'auth',  'uses' => 'DecisionController@show'] );
+Route::post('decisions', ['middleware'=>'auth', 'uses' =>  'DecisionController@store'] );
+Route::patch('decisions/{id}', ['middleware'=>'auth', 'uses' => 'DecisionController@update'] );
+Route::delete('decisions/{id}', ['middleware'=>'auth', 'uses' =>  'DecisionController@destroy'] );
+
 //Meetings
 Route::get('meetings/create/{subjecttype}/{subjectid}',['middleware'=>'auth', 'uses' => 'MeetingController@create' ] );
 Route::get('meetings/{id}/edit', ['middleware'=>'auth', 'uses' => 'MeetingController@edit'] );
-Route::get('meetings/index/{subjecttype}/{subjectid}', ['uses' => 'MeetingController@index'] );
-Route::get('meetings', ['uses' => 'MeetingController@indexall'] );
-Route::get('meetings/{id}', [ 'uses' => 'MeetingController@show'] );
+Route::get('meetings/index/{subjecttype}/{subjectid}', ['middleware'=>'auth', 'uses' => 'MeetingController@index'] );
+Route::get('meetings', ['middleware'=>'auth', 'uses' => 'MeetingController@indexall'] );
+Route::get('meetings/{id}', [ 'middleware'=>'auth', 'uses' => 'MeetingController@show'] );
 Route::post('meetings', ['middleware'=>'auth', 'uses' =>  'MeetingController@store'] );
 Route::patch('meetings/{id}', ['middleware'=>'auth', 'uses' => 'MeetingController@update'] );
 Route::delete('meetings/{id}', ['middleware'=>'auth', 'uses' =>  'MeetingController@destroy'] );
@@ -92,36 +102,36 @@ Route::delete('meetings/{id}', ['middleware'=>'auth', 'uses' =>  'MeetingControl
 //Members
 Route::get('members/create/{subjecttype}/{subjectid}',['middleware'=>'auth', 'uses' => 'MemberController@createMember' ] );
 Route::get('members/{id}/edit', ['middleware'=>'auth', 'uses' => 'MemberController@editMember'] );
-Route::get('members/index/{subjecttype}/{subjectid}', ['uses' => 'MemberController@indexMember'] );
-Route::get('members/{id}', [ 'uses' => 'MemberController@show'] );
+Route::get('members/index/{subjecttype}/{subjectid}', ['middleware'=>'auth', 'uses' => 'MemberController@indexMember'] );
+Route::get('members/{id}', [ 'middleware'=>'auth', 'uses' => 'MemberController@show'] );
 Route::post('members', ['middleware'=>'auth', 'uses' =>  'MemberController@store'] );
 Route::patch('members/{id}', ['middleware'=>'auth', 'uses' => 'MemberController@update'] );
 
 //RAGs
 Route::get('rags/create/{subjecttype}/{subjectid}',['middleware'=>'auth', 'uses' => 'RagController@create' ] );
 Route::get('rags/{id}/edit', ['middleware'=>'auth', 'uses' => 'RagController@edit'] );
-Route::get('rags/index/{subjecttype}/{subjectid}', ['uses' => 'RagController@index'] );
-Route::get('rags/{id}', [ 'uses' => 'RagController@show'] );
+Route::get('rags/index/{subjecttype}/{subjectid}', ['middleware'=>'auth', 'uses' => 'RagController@index'] );
+Route::get('rags/{id}', [ 'middleware'=>'auth', 'uses' => 'RagController@show'] );
 Route::post('rags', ['middleware'=>'auth', 'uses' =>  'RagController@store'] );
 Route::patch('rags/{id}', ['middleware'=>'auth', 'uses' => 'RagController@update'] );
 
 //Tasks
 Route::post('tasks', ['middleware'=>'auth', 'uses' =>  'TaskController@store'] );
 Route::patch('tasks/{id}', ['middleware'=>'auth', 'uses' => 'TaskController@update'] );
-Route::get('programs/{ProgramID}/workstreams/{WorkstreamID}/tasks',[ 'uses' => 'TaskController@indexWorkstreamTask' ] );
-Route::get('programs/{ProgramID}/workstreams/{WorkstreamID}/projects/{ProjectID}/tasks',[ 'uses' => 'TaskController@indexProjectTask' ] );
+Route::get('programs/{ProgramID}/workstreams/{WorkstreamID}/tasks',[ 'middleware'=>'auth', 'uses' => 'TaskController@indexWorkstreamTask' ] );
+Route::get('programs/{ProgramID}/workstreams/{WorkstreamID}/projects/{ProjectID}/tasks',[ 'middleware'=>'auth', 'uses' => 'TaskController@indexProjectTask' ] );
 Route::get('tasks/create/{subjecttype}/{subjectid}',['middleware'=>'auth', 'uses' => 'TaskController@createTask' ] );
 Route::get('tasks/{id}/edit', ['middleware'=>'auth', 'uses' => 'TaskController@editTask'] );
-Route::get('tasks', ['uses' => 'TaskController@indexall'] );
-Route::get('tasks/index/{subjecttype}/{subjectid}', ['uses' => 'TaskController@indexTask'] );
-Route::get('tasks/{id}', ['uses' => 'TaskController@show'] );
+Route::get('tasks', ['middleware'=>'auth', 'uses' => 'TaskController@indexall'] );
+Route::get('tasks/index/{subjecttype}/{subjectid}', ['middleware'=>'auth', 'uses' => 'TaskController@indexTask'] );
+Route::get('tasks/{id}', ['middleware'=>'auth', 'uses' => 'TaskController@show'] );
 
 //Dependencies
 Route::get('dependencies/create/{subjecttype}/{subjectid}',['middleware'=>'auth', 'uses' => 'DependencyController@create' ] );
 Route::get('dependencies/{id}/edit', ['middleware'=>'auth', 'uses' => 'DependencyController@edit'] );
-Route::get('dependencies/index/{subjecttype}/{subjectid}', ['uses' => 'DependencyController@index'] );
-Route::get('dependencies/{id}', [ 'uses' => 'DependencyController@show'] );
-Route::get('dependencies', [ 'uses' => 'DependencyController@indexall'] );
+Route::get('dependencies/index/{subjecttype}/{subjectid}', ['middleware'=>'auth', 'uses' => 'DependencyController@index'] );
+Route::get('dependencies/{id}', [ 'middleware'=>'auth', 'uses' => 'DependencyController@show'] );
+Route::get('dependencies', [ 'middleware'=>'auth', 'uses' => 'DependencyController@indexall'] );
 Route::post('dependencies', ['middleware'=>'auth', 'uses' =>  'DependencyController@store'] );
 Route::patch('dependencies/{id}', ['middleware'=>'auth', 'uses' => 'DependencyController@update'] );
 Route::delete('dependencies/{id}', ['middleware'=>'auth', 'uses' =>  'DependencyController@destroy'] );
